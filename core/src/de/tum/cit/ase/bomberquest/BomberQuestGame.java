@@ -17,11 +17,14 @@ import games.spooky.gdx.nativefilechooser.NativeFileChooser;
  */
 public class BomberQuestGame extends Game {
 
+    public static final int V_WIDTH = 400;
+    public static final int V_HEIGHT = 208;
+
     /**
      * Sprite Batch for rendering game elements.
      * This eats a lot of memory, so we only want one of these.
      */
-    private SpriteBatch spriteBatch;
+    public SpriteBatch spriteBatch;
 
     /** The game's UI skin. This is used to style the game's UI elements. */
     private Skin skin;

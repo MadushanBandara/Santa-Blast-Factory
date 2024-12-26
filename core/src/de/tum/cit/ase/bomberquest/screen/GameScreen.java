@@ -7,7 +7,10 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import de.tum.cit.ase.bomberquest.BomberQuestGame;
 import de.tum.cit.ase.bomberquest.map.Flowers;
 import de.tum.cit.ase.bomberquest.texture.Drawable;
@@ -18,6 +21,7 @@ import de.tum.cit.ase.bomberquest.map.GameMap;
  * It handles the game logic and rendering of the game elements.
  */
 public class GameScreen implements Screen {
+
     
     /**
      * The size of a grid cell in pixels.
@@ -34,10 +38,12 @@ public class GameScreen implements Screen {
     public static final int SCALE = 4;
 
     private final BomberQuestGame game;
-    private final SpriteBatch spriteBatch;
+    //private final SpriteBatch spriteBatch;
     private final GameMap map;
     private final Hud hud;
     private final OrthographicCamera mapCamera;
+    private Viewport viewport;
+    private Stage stage;
 
     /**
      * Constructor for GameScreen. Sets up the camera and font.
@@ -46,12 +52,12 @@ public class GameScreen implements Screen {
      */
     public GameScreen(BomberQuestGame game) {
         this.game = game;
-        this.spriteBatch = game.getSpriteBatch();
         this.map = game.getMap();
-        this.hud = new Hud(spriteBatch, game.getSkin().getFont("font"));
+        this.hud = new Hud(game.spriteBatch);
         // Create and configure the camera for the game view
         this.mapCamera = new OrthographicCamera();
         this.mapCamera.setToOrtho(false);
+        this.viewport = new FitViewport(BomberQuestGame.V_WIDTH,BomberQuestGame.V_HEIGHT,mapCamera);
     }
     
     /**
@@ -60,6 +66,9 @@ public class GameScreen implements Screen {
      */
     @Override
     public void render(float deltaTime) {
+
+        // Adapt the screen based on a device
+        game.spriteBatch.setProjectionMatrix(mapCamera.combined);
         // Check for escape key press to go back to the menu
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             game.goToMenu();
@@ -81,7 +90,12 @@ public class GameScreen implements Screen {
         renderMap();
         
         // Render the HUD on the screen
+        game.spriteBatch.setProjectionMatrix(hud.stage.getCamera().combined);
+        hud.update(deltaTime);
+        hud.stage.draw();
         hud.render();
+
+
     }
     
     /**
@@ -97,21 +111,21 @@ public class GameScreen implements Screen {
     
     private void renderMap() {
         // This configures the spriteBatch to use the camera's perspective when rendering
-        spriteBatch.setProjectionMatrix(mapCamera.combined);
+        game.spriteBatch.setProjectionMatrix(mapCamera.combined);
         
         // Start drawing
-        spriteBatch.begin();
+        game.spriteBatch.begin();
         
         // Render everything in the map here, in order from lowest to highest (later things appear on top)
         // You may want to add a method to GameMap to return all the drawables in the correct order
         for (Flowers flowers : map.getFlowers()) {
-            draw(spriteBatch, flowers);
+            draw(game.spriteBatch, flowers);
         }
-        draw(spriteBatch, map.getChest());
-        draw(spriteBatch, map.getPlayer());
+        draw(game.spriteBatch, map.getChest());
+        draw(game.spriteBatch, map.getPlayer());
         
         // Finish drawing, i.e. send the drawn items to the graphics card
-        spriteBatch.end();
+        game.spriteBatch.end();
     }
     
     /**
@@ -140,6 +154,7 @@ public class GameScreen implements Screen {
     @Override
     public void resize(int width, int height) {
         mapCamera.setToOrtho(false);
+        viewport.update(width, height);
         hud.resize(width, height);
     }
 
