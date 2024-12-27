@@ -13,4 +13,5 @@ public class Textures {
 
     public static final TextureRegion CHEST = SpriteSheet.BASIC_TILES.at(5, 5);
     
+    
 }
