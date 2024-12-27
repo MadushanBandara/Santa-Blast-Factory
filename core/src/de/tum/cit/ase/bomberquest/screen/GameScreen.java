@@ -7,12 +7,14 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import de.tum.cit.ase.bomberquest.BomberQuestGame;
 import de.tum.cit.ase.bomberquest.map.Flowers;
+import de.tum.cit.ase.bomberquest.map.Player;
 import de.tum.cit.ase.bomberquest.texture.Drawable;
 import de.tum.cit.ase.bomberquest.map.GameMap;
 
@@ -35,7 +37,7 @@ public class GameScreen implements Screen {
      * The scale of the game.
      * This is used to make everything in the game look bigger or smaller.
      */
-    public static final int SCALE = 4;
+    public static final float SCALE = 2f;
 
     private final BomberQuestGame game;
     //private final SpriteBatch spriteBatch;
@@ -44,6 +46,7 @@ public class GameScreen implements Screen {
     private final OrthographicCamera mapCamera;
     private Viewport viewport;
     private Stage stage;
+    private World world;
 
     /**
      * Constructor for GameScreen. Sets up the camera and font.
@@ -56,8 +59,14 @@ public class GameScreen implements Screen {
         this.hud = new Hud(game.spriteBatch);
         // Create and configure the camera for the game view
         this.mapCamera = new OrthographicCamera();
-        this.mapCamera.setToOrtho(false);
-        this.viewport = new FitViewport(BomberQuestGame.V_WIDTH,BomberQuestGame.V_HEIGHT,mapCamera);
+        this.mapCamera.setToOrtho(false, BomberQuestGame.V_WIDTH / SCALE, BomberQuestGame.V_HEIGHT / SCALE);
+
+        // The virtual world size should match the target resolution (before scaling)
+        float worldWidth = BomberQuestGame.V_WIDTH / SCALE ;
+        float worldHeight = BomberQuestGame.V_HEIGHT / SCALE;
+
+        // Initialize FitViewport with the game world size and camera
+        viewport = new FitViewport(worldWidth, worldHeight, mapCamera);
     }
     
     /**
@@ -79,6 +88,10 @@ public class GameScreen implements Screen {
         
         // Cap frame time to 250ms to prevent spiral of death
         float frameTime = Math.min(deltaTime, 0.250f);
+
+        // Render the player movements
+        keyHandler(); // Handle inputs
+
         
         // Update the map state
         map.tick(frameTime);
@@ -90,12 +103,29 @@ public class GameScreen implements Screen {
         renderMap();
         
         // Render the HUD on the screen
-        game.spriteBatch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.update(deltaTime);
-        hud.stage.draw();
-        hud.render();
+        renderHud();
 
+        // Render flowers
+    }
 
+    private void keyHandler() {
+        Player player = map.getPlayer(); // Access the player from the map
+
+        player.stopMovement();
+
+        if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            player.moveUp();
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            player.moveDown();
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            player.moveLeft();
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            player.moveRight();
+        }
     }
     
     /**
@@ -103,10 +133,15 @@ public class GameScreen implements Screen {
      * Currently, this just centers the camera at the origin.
      */
     private void updateCamera() {
-        mapCamera.setToOrtho(false);
-        mapCamera.position.x = 3.5f * TILE_SIZE_PX * SCALE;
-        mapCamera.position.y = 3.5f * TILE_SIZE_PX * SCALE;
-        mapCamera.update(); // This is necessary to apply the changes
+        //mapCamera.setToOrtho(false);
+        mapCamera.position.set(mapCamera.viewportWidth / 2, mapCamera.viewportHeight / 2, 0);
+        mapCamera.update();
+    }
+
+    private void renderHud() {
+        game.spriteBatch.setProjectionMatrix(hud.stage.getCamera().combined);
+        hud.stage.draw();
+        hud.render();
     }
     
     private void renderMap() {
@@ -136,13 +171,19 @@ public class GameScreen implements Screen {
      */
     private static void draw(SpriteBatch spriteBatch, Drawable drawable) {
         TextureRegion texture = drawable.getCurrentAppearance();
-        // Drawable coordinates are in tiles, so we need to scale them to pixels
+
+        // Tile position (scaled by TILE_SIZE_PX and SCALE)
         float x = drawable.getX() * TILE_SIZE_PX * SCALE;
         float y = drawable.getY() * TILE_SIZE_PX * SCALE;
-        // Additionally scale everything by the game scale
+
+        // Scale the texture size by SCALE factor
         float width = texture.getRegionWidth() * SCALE;
         float height = texture.getRegionHeight() * SCALE;
+
+        // Draw the object (flower, player, chest, etc.)
         spriteBatch.draw(texture, x, y, width, height);
+
+
     }
     
     /**
@@ -153,8 +194,8 @@ public class GameScreen implements Screen {
      */
     @Override
     public void resize(int width, int height) {
-        mapCamera.setToOrtho(false);
-        viewport.update(width, height);
+        mapCamera.setToOrtho(false, BomberQuestGame.V_WIDTH/SCALE , BomberQuestGame.V_HEIGHT/SCALE);
+        viewport.update(width, height, true);
         hud.resize(width, height);
     }
 

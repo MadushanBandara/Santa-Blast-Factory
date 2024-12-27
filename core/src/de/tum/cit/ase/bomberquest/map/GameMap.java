@@ -48,16 +48,24 @@ public class GameMap {
     private final Chest chest;
     
     private final Flowers[][] flowers;
+
+    private static final int TILE_SIZE = 32;
     
-    public GameMap(BomberQuestGame game) {
+    public GameMap(BomberQuestGame game , float screenWidth, float screenHeight, float scale) {
         this.game = game;
         this.world = new World(Vector2.Zero, true);
+
+        // Determine grid dimensions based on the viewport size
+        int gridWidth = (int) Math.ceil(screenWidth / (TILE_SIZE * scale));
+        int gridHeight = (int) Math.ceil(screenHeight / (TILE_SIZE * scale));
+
         // Create a player with initial position (1, 3)
         this.player = new Player(this.world, 1, 3);
         // Create a chest in the middle of the map
         this.chest = new Chest(world, 3, 3);
         // Create flowers in a 7x7 grid
-        this.flowers = new Flowers[7][7];
+        this.flowers = new Flowers[40][15];
+
         for (int i = 0; i < flowers.length; i++) {
             for (int j = 0; j < flowers[i].length; j++) {
                 this.flowers[i][j] = new Flowers(i, j);
@@ -102,4 +110,10 @@ public class GameMap {
     public List<Flowers> getFlowers() {
         return Arrays.stream(flowers).flatMap(Arrays::stream).toList();
     }
+
+    /** Gets the tile size. */
+    public static int getTileSize() {
+        return TILE_SIZE;
+    }
+
 }
