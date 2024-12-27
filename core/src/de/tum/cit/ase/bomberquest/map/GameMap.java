@@ -5,8 +5,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import de.tum.cit.ase.bomberquest.BomberQuestGame;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Represents the game map.
@@ -48,6 +50,9 @@ public class GameMap {
     private final Chest chest;
     
     private final Flowers[][] flowers;
+    private final List<Enemy> enemies;
+    // random number of enemies
+    private static final Random random= new Random();
     
     public GameMap(BomberQuestGame game) {
         this.game = game;
@@ -63,7 +68,32 @@ public class GameMap {
                 this.flowers[i][j] = new Flowers(i, j);
             }
         }
+        this.enemies=new ArrayList<>();
+        GenerateEnemies();
+
     }
+
+    //generate random number of enemies
+    public void GenerateEnemies(){
+        int numberOfEnemies = random.nextInt(5) + 3; // Random number of enemies (3-7)
+
+        for (int i = 0; i < numberOfEnemies; i++) {
+            int x, y;
+
+            // Find a valid position for the enemy
+            //do {//
+                x = random.nextInt(7); // Random position within the 7x7 grid
+                y = random.nextInt(7);
+                /*
+            } while (1+);*/
+
+            // Add a new enemy at the valid position
+            enemies.add(new Enemy(this.world, x, y, random.nextBoolean()));
+        }
+    }
+
+
+
     
     /**
      * Updates the game state. This is called once per frame.
@@ -72,6 +102,10 @@ public class GameMap {
      */
     public void tick(float frameTime) {
         this.player.tick(frameTime);
+        // Update all enemies
+        for (Enemy enemy : enemies) {
+            enemy.update();
+        }
         doPhysicsStep(frameTime);
     }
     
@@ -101,5 +135,9 @@ public class GameMap {
     /** Returns the flowers on the map. */
     public List<Flowers> getFlowers() {
         return Arrays.stream(flowers).flatMap(Arrays::stream).toList();
+    }
+
+    public List<Enemy> getEnemies() {
+        return enemies;
     }
 }

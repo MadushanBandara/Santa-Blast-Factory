@@ -15,11 +15,11 @@ import de.tum.cit.ase.bomberquest.texture.Drawable;
 public class Player implements Drawable {
     
     /** Total time elapsed since the game started. We use this for calculating the player movement and animating it. */
+
     private float elapsedTime;
-    
+
     /** The Box2D hitbox of the player, used for position and collision detection. */
     private final Body hitbox;
-    
     public Player(World world, float x, float y) {
         this.hitbox = createHitbox(world, x, y);
     }

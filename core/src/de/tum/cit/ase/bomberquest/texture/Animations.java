@@ -19,5 +19,17 @@ public class Animations {
             SpriteSheet.CHARACTER.at(1, 3),
             SpriteSheet.CHARACTER.at(1, 4)
     );
-    
+
+    /**
+     * The animation for the enemies random walking.
+     */
+    public static final Animation<TextureRegion> ENEMY_WALK_DOWN = new Animation<>(0.1f,
+            SpriteSheet.ENEMIES.at(5, 1),
+            SpriteSheet.ENEMIES.at(5, 2),
+            SpriteSheet.ENEMIES.at(5, 3)
+    );
+
+
+
+
 }
