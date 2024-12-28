@@ -5,6 +5,7 @@ import com.badlogic.gdx.physics.box2d.*;
 import de.tum.cit.ase.bomberquest.texture.Drawable;
 import de.tum.cit.ase.bomberquest.texture.Textures;
 
+
 /**
  * A chest is a static object with a hitbox, so the player cannot walk through it.
  */

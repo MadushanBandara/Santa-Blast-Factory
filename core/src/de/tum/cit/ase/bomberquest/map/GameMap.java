@@ -1,17 +1,12 @@
 package de.tum.cit.ase.bomberquest.map;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import de.tum.cit.ase.bomberquest.Actors.Player;
 import de.tum.cit.ase.bomberquest.BomberQuestGame;
 
 import java.util.Arrays;
 import java.util.List;
-
-import static de.tum.cit.ase.bomberquest.screen.GameScreen.SCALE;
 
 /**
  * Represents the game map.
@@ -53,30 +48,21 @@ public class GameMap {
     private final Chest chest;
     
     private final Flowers[][] flowers;
-
-    private static final int TILE_SIZE = 32;
     
-    public GameMap(BomberQuestGame game , float screenWidth, float screenHeight, float scale) {
+    public GameMap(BomberQuestGame game) {
         this.game = game;
         this.world = new World(Vector2.Zero, true);
-
-        // Determine grid dimensions based on the viewport size
-        int gridWidth = (int) Math.ceil(screenWidth / (TILE_SIZE * scale));
-        int gridHeight = (int) Math.ceil(screenHeight / (TILE_SIZE * scale));
-
         // Create a player with initial position (1, 3)
         this.player = new Player(this.world, 1, 3);
         // Create a chest in the middle of the map
         this.chest = new Chest(world, 3, 3);
         // Create flowers in a 7x7 grid
-        this.flowers = new Flowers[40][15];
-
+        this.flowers = new Flowers[7][7];
         for (int i = 0; i < flowers.length; i++) {
             for (int j = 0; j < flowers[i].length; j++) {
                 this.flowers[i][j] = new Flowers(i, j);
             }
         }
-
     }
     
     /**
@@ -116,13 +102,4 @@ public class GameMap {
     public List<Flowers> getFlowers() {
         return Arrays.stream(flowers).flatMap(Arrays::stream).toList();
     }
-
-    /** Returns the border tiles as a list. */
-
-
-    /** Gets the tile size. */
-    public static int getTileSize() {
-        return TILE_SIZE;
-    }
-
 }

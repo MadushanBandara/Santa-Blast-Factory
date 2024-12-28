@@ -13,7 +13,7 @@ import com.badlogic.gdx.audio.Music;
  */
 public enum MusicTrack {
     
-    BACKGROUND("background.mp3", 0.2f);
+    BACKGROUND("DecktheHalls.mp3", 0.2f);
     
     /** The music file owned by this variant. */
     private final Music music;
