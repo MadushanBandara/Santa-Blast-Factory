@@ -21,7 +21,7 @@ public class Flowers implements Drawable {
     
     @Override
     public TextureRegion getCurrentAppearance() {
-        return Textures.FLOWERS;
+        return Textures.BAK_TILE;
     }
     
     @Override

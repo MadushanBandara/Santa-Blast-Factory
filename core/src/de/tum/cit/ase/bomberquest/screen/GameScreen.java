@@ -14,7 +14,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import de.tum.cit.ase.bomberquest.BomberQuestGame;
 import de.tum.cit.ase.bomberquest.map.Flowers;
-import de.tum.cit.ase.bomberquest.map.Player;
+import de.tum.cit.ase.bomberquest.Actors.Player;
 import de.tum.cit.ase.bomberquest.texture.Drawable;
 import de.tum.cit.ase.bomberquest.map.GameMap;
 
@@ -92,7 +92,6 @@ public class GameScreen implements Screen {
         // Render the player movements
         keyHandler(); // Handle inputs
 
-        
         // Update the map state
         map.tick(frameTime);
         
@@ -106,7 +105,6 @@ public class GameScreen implements Screen {
         hud.update(deltaTime);
         renderHud();
 
-        // Render flowers
     }
 
     private void keyHandler() {
@@ -156,6 +154,8 @@ public class GameScreen implements Screen {
         for (Flowers flowers : map.getFlowers()) {
             draw(game.spriteBatch, flowers);
         }
+
+
         draw(game.spriteBatch, map.getChest());
         draw(game.spriteBatch, map.getPlayer());
         

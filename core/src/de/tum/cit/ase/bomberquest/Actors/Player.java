@@ -1,4 +1,4 @@
-package de.tum.cit.ase.bomberquest.map;
+package de.tum.cit.ase.bomberquest.Actors;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -21,9 +21,25 @@ public class Player implements Drawable {
     
     /** The Box2D hitbox of the player, used for position and collision detection. */
     private final Body hitbox;
+
+    /** Player's life status. */
+    private boolean isAlive;
+
+    /** Whether the player can drop a bomb. */
+    private boolean canDropBomb;
+
+    /** Number of enemies defeated. */
+    private int enemiesDefeated;
+
+    /** Whether the exit is unlocked. */
+    private boolean isExitUnlocked;
     
     public Player(World world, float x, float y) {
         this.hitbox = createHitbox(world, x, y);
+        this.isAlive = true;
+        this.canDropBomb = true; // Starts with the ability to drop one bomb
+        this.enemiesDefeated = 0;
+        this.isExitUnlocked = false;
     }
     
     /**
@@ -66,6 +82,23 @@ public class Player implements Drawable {
          */
     public void tick(float frameTime) {
         this.elapsedTime += frameTime;
+
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            moveUp();
+        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            moveDown();
+        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            moveLeft();
+        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            moveRight();
+        } else {
+            stopMovement();
+        }
+
+        if (!isAlive) {
+            stopMovement();
+        }
+
         // Make the player move in a circle with radius 2 tiles
         // You can change this to make the player move differently, e.g. in response to user input.
         // See Gdx.input.isKeyPressed() for keyboard input
@@ -76,8 +109,18 @@ public class Player implements Drawable {
     
     @Override
     public TextureRegion getCurrentAppearance() {
-        // Get the frame of the walk down animation that corresponds to the current time.
-        return Animations.CHARACTER_WALK_DOWN.getKeyFrame(this.elapsedTime, true);
+        switch (currentDirection) {
+            case UP:
+                return Animations.CHARACTER_WALK_UP.getKeyFrame(elapsedTime, true);
+            case DOWN:
+                return Animations.CHARACTER_WALK_DOWN.getKeyFrame(elapsedTime, true);
+            case LEFT:
+                return Animations.CHARACTER_WALK_LEFT.getKeyFrame(elapsedTime, true);
+            case RIGHT:
+                return Animations.CHARACTER_WALK_RIGHT.getKeyFrame(elapsedTime, true);
+            default: // IDLE
+                return Animations.CHARACTER_IDLE.getKeyFrame(elapsedTime,true);
+        }
 
     }
     
@@ -93,23 +136,35 @@ public class Player implements Drawable {
         return hitbox.getPosition().y;
     }
 
+    private enum Direction {
+        UP, DOWN, LEFT, RIGHT, IDLE
+    }
+
+    private Direction currentDirection = Direction.IDLE;
+
+
     public void moveUp() {
-        hitbox.setLinearVelocity(0, 3f); // Move upwards
+        hitbox.setLinearVelocity(0, 3f);
+        currentDirection = Direction.UP;// Move upwards
     }
 
     public void moveDown() {
-        hitbox.setLinearVelocity(0, -3f); // Move downwards
+        hitbox.setLinearVelocity(0, -3f);
+        currentDirection = Direction.DOWN;// Move downwards
     }
 
     public void moveLeft() {
-        hitbox.setLinearVelocity(-3f, 0); // Move left
+        hitbox.setLinearVelocity(-3f, 0);
+        currentDirection = Direction.LEFT;// Move left
     }
 
     public void moveRight() {
-        hitbox.setLinearVelocity(3f, 0); // Move right
+        hitbox.setLinearVelocity(3f, 0);
+        currentDirection = Direction.RIGHT;// Move right
     }
 
     public void stopMovement() {
-        hitbox.setLinearVelocity(0, 0); // Stop any movement when no keys are pressed
+        hitbox.setLinearVelocity(0, 0);
+        currentDirection = Direction.IDLE;// Stop any movement when no keys are pressed
     }
 }

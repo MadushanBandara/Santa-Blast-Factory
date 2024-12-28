@@ -1,12 +1,17 @@
 package de.tum.cit.ase.bomberquest.map;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import de.tum.cit.ase.bomberquest.Actors.Player;
 import de.tum.cit.ase.bomberquest.BomberQuestGame;
 
 import java.util.Arrays;
 import java.util.List;
+
+import static de.tum.cit.ase.bomberquest.screen.GameScreen.SCALE;
 
 /**
  * Represents the game map.
@@ -71,6 +76,7 @@ public class GameMap {
                 this.flowers[i][j] = new Flowers(i, j);
             }
         }
+
     }
     
     /**
@@ -110,6 +116,9 @@ public class GameMap {
     public List<Flowers> getFlowers() {
         return Arrays.stream(flowers).flatMap(Arrays::stream).toList();
     }
+
+    /** Returns the border tiles as a list. */
+
 
     /** Gets the tile size. */
     public static int getTileSize() {

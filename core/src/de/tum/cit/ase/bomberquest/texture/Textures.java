@@ -12,5 +12,15 @@ public class Textures {
     public static final TextureRegion FLOWERS = SpriteSheet.BASIC_TILES.at(2, 5);
 
     public static final TextureRegion CHEST = SpriteSheet.BASIC_TILES.at(5, 5);
+
+    public static final TextureRegion BAK_TILE = SpriteSheet.BASIC_TILES.at(2,5);
+
+    public static final TextureRegion BREAK_TILE = SpriteSheet.BASIC_TILES.at(1,3);
+
+    public static final TextureRegion UN_BREAK_TILE = SpriteSheet.BASIC_TILES.at(1,7);
+
+
+
+
     
 }
