@@ -23,7 +23,7 @@ public class Animations {
     /**
      * The animation for the enemies random walking.
      */
-    public static final Animation<TextureRegion> ENEMY_WALK_DOWN = new Animation<>(0.1f,
+    public static final Animation<TextureRegion> ENEMY_WALK_DOWN = new Animation<>(20f,
             SpriteSheet.ENEMIES.at(5, 1),
             SpriteSheet.ENEMIES.at(5, 2),
             SpriteSheet.ENEMIES.at(5, 3)

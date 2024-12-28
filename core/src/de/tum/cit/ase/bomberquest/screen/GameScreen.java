@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import de.tum.cit.ase.bomberquest.BomberQuestGame;
 import de.tum.cit.ase.bomberquest.map.Enemy;
 import de.tum.cit.ase.bomberquest.map.Flowers;
+import de.tum.cit.ase.bomberquest.map.IndestructibleWalls;
 import de.tum.cit.ase.bomberquest.texture.Drawable;
 import de.tum.cit.ase.bomberquest.map.GameMap;
 
@@ -107,6 +108,9 @@ public class GameScreen implements Screen {
         // You may want to add a method to GameMap to return all the drawables in the correct order
         for (Flowers flowers : map.getFlowers()) {
             draw(spriteBatch, flowers);
+        }
+        for (IndestructibleWalls indestructibleWalls : map.getIndestructibleWalls()) {
+            draw(spriteBatch, indestructibleWalls );
         }
         for (Enemy enemy : map.getEnemies()) {
             draw(spriteBatch, enemy);

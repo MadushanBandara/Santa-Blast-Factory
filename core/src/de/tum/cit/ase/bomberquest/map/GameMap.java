@@ -51,6 +51,11 @@ public class GameMap {
     
     private final Flowers[][] flowers;
     private final List<Enemy> enemies;
+    private final List<IndestructibleWalls>  indestructibleWalls;
+    //these will be modified and used later
+    private final int mapWidth=7;
+    private final int mapHeight=7;
+
     // random number of enemies
     private static final Random random= new Random();
     
@@ -63,13 +68,16 @@ public class GameMap {
         this.chest = new Chest(world, 3, 3);
         // Create flowers in a 7x7 grid
         this.flowers = new Flowers[7][7];
+        this.indestructibleWalls=new ArrayList<>();
         for (int i = 0; i < flowers.length; i++) {
             for (int j = 0; j < flowers[i].length; j++) {
                 this.flowers[i][j] = new Flowers(i, j);
             }
         }
+
         this.enemies=new ArrayList<>();
         GenerateEnemies();
+        mapedges();
 
     }
 
@@ -104,7 +112,7 @@ public class GameMap {
         this.player.tick(frameTime);
         // Update all enemies
         for (Enemy enemy : enemies) {
-            enemy.update();
+            enemy.update(1);
         }
         doPhysicsStep(frameTime);
     }
@@ -121,7 +129,19 @@ public class GameMap {
             this.physicsTime -= TIME_STEP;
         }
     }
-    
+
+
+    public void mapedges(){
+        for (int i=0; i<mapWidth; i++){
+            for(int j=0; j<mapHeight; j++){
+                if(i==0 || i==mapWidth-1 || j==0 || j==mapHeight-1){
+                    indestructibleWalls.add(new IndestructibleWalls(i,j));
+                }
+            }
+
+        }
+
+    }
     /** Returns the player on the map. */
     public Player getPlayer() {
         return player;
@@ -139,5 +159,9 @@ public class GameMap {
 
     public List<Enemy> getEnemies() {
         return enemies;
+    }
+
+    public List<IndestructibleWalls> getIndestructibleWalls() {
+        return indestructibleWalls;
     }
 }

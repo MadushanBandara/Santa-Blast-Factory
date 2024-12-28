@@ -95,6 +95,7 @@ public class Enemy implements Drawable {
      * @param vertical If true, restricts movement to UP and DOWN; otherwise, LEFT and RIGHT.
      * @return A random direction based on the vertical flag.
      */
+
     private Move randomDirection(boolean vertical) {
         int pick = (int) (Math.random() * 2); // Randomly pick 0 or 1
         if (vertical) {
@@ -104,8 +105,12 @@ public class Enemy implements Drawable {
         }
     }
 
+
+
+
     /*Updates the enemy's position based on its current direction.
             */
+    /*
     public void update() {
         // Move the enemy based on its current direction
         switch (currentDirection) {
@@ -128,6 +133,32 @@ public class Enemy implements Drawable {
             changeDirection();
         }
     }
+    */
+    public void update(float deltaTime) {
+        elapsedTime += deltaTime; // Update animation time
+
+        // Set velocity based on current direction
+        switch (currentDirection) {
+            case UP:
+                hitbox.setLinearVelocity(0, 1); // Move up
+                break;
+            case DOWN:
+                hitbox.setLinearVelocity(0, -1); // Move down
+                break;
+            case LEFT:
+                hitbox.setLinearVelocity(-1, 0); // Move left
+                break;
+            case RIGHT:
+                hitbox.setLinearVelocity(1, 0); // Move right
+                break;
+        }
+
+        // Randomly change direction with a small chance
+        if (Math.random() < 0.01) {
+            changeDirection();
+        }
+    }
+
     @Override
     public TextureRegion getCurrentAppearance() {
         // Get the frame of the walk down animation that corresponds to the current time.
