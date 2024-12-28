@@ -17,6 +17,10 @@ import games.spooky.gdx.nativefilechooser.NativeFileChooser;
  */
 public class BomberQuestGame extends Game {
 
+    public static final float V_WIDTH = 1920; // Width of the screen
+    public static final float V_HEIGHT = 1080; // Height of the screen
+    private static final float SCALE = 2f; // Scale factor for rendering
+
     /**
      * Sprite Batch for rendering game elements.
      * This eats a lot of memory, so we only want one of these.
@@ -57,11 +61,17 @@ public class BomberQuestGame extends Game {
      */
     @Override
     public void create() {
-        this.spriteBatch = new SpriteBatch(); // Create SpriteBatch for rendering
-        this.skin = new Skin(Gdx.files.internal("skin/craftacular/craftacular-ui.json")); // Load UI skin
-        this.map = new GameMap(this); // Create a new game map (you should change this to load the map from a file instead)
-        MusicTrack.BACKGROUND.play(); // Play some background music
-        goToMenu(); // Navigate to the menu screen
+        this.spriteBatch = new SpriteBatch();
+        this.skin = new Skin(Gdx.files.internal("skin/craftacular/craftacular-ui.json"));
+
+        // Pass required dimensions and scale to the GameMap constructor
+        this.map = new GameMap(this, V_WIDTH, V_HEIGHT, SCALE);
+
+        // Play background music
+        MusicTrack.BACKGROUND.play();
+
+        // Navigate to the menu screen
+        goToMenu();
     }
 
     /**

@@ -8,41 +8,30 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import de.tum.cit.ase.bomberquest.BomberQuestGame;
-import de.tum.cit.ase.bomberquest.map.Enemy;
-import de.tum.cit.ase.bomberquest.map.Flowers;
-import de.tum.cit.ase.bomberquest.map.IndestructibleWalls;
+import de.tum.cit.ase.bomberquest.map.*;
 import de.tum.cit.ase.bomberquest.texture.Drawable;
-import de.tum.cit.ase.bomberquest.map.GameMap;
 
 /**
  * The GameScreen class is responsible for rendering the gameplay screen.
  * It handles the game logic and rendering of the game elements.
  */
 public class GameScreen implements Screen {
-    
-    /**
-     * The size of a grid cell in pixels.
-     * This allows us to think of coordinates in terms of square grid tiles
-     * (e.g. x=1, y=1 is the bottom left corner of the map)
-     * rather than absolute pixel coordinates.
-     */
-    public static final int TILE_SIZE_PX = 16;
-    
-    /**
-     * The scale of the game.
-     * This is used to make everything in the game look bigger or smaller.
-     */
-    public static final int SCALE = 4;
+
+    public static final int TILE_SIZE_PX = 16; // Size of a grid cell in pixels
+    public static final float SCALE = 2f; // Scale of the game
 
     private final BomberQuestGame game;
     private final SpriteBatch spriteBatch;
     private final GameMap map;
     private final Hud hud;
     private final OrthographicCamera mapCamera;
+    private final Viewport viewport;
 
     /**
-     * Constructor for GameScreen. Sets up the camera and font.
+     * Constructor for GameScreen. Sets up the camera and HUD.
      *
      * @param game The main game class, used to access global resources and methods.
      */
@@ -50,128 +39,112 @@ public class GameScreen implements Screen {
         this.game = game;
         this.spriteBatch = game.getSpriteBatch();
         this.map = game.getMap();
+
+        // Initialize HUD
         this.hud = new Hud(spriteBatch, game.getSkin().getFont("font"));
-        // Create and configure the camera for the game view
+
+        // Initialize camera and viewport
         this.mapCamera = new OrthographicCamera();
-        this.mapCamera.setToOrtho(false);
+        this.mapCamera.setToOrtho(false, BomberQuestGame.V_WIDTH / SCALE, BomberQuestGame.V_HEIGHT / SCALE);
+        this.viewport = new FitViewport(BomberQuestGame.V_WIDTH / SCALE, BomberQuestGame.V_HEIGHT / SCALE, mapCamera);
     }
-    
+
     /**
-     * The render method is called every frame to render the game.
+     * Renders the gameplay screen every frame.
+     *
      * @param deltaTime The time in seconds since the last render.
      */
     @Override
     public void render(float deltaTime) {
-        // Check for escape key press to go back to the menu
+        // Check for escape key to go back to the menu
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             game.goToMenu();
         }
-        
-        // Clear the previous frame from the screen, or else the picture smears
+
+        // Clear the screen
         ScreenUtils.clear(Color.BLACK);
-        
-        // Cap frame time to 250ms to prevent spiral of death
+
+        // Cap frame time to prevent spirals of death
         float frameTime = Math.min(deltaTime, 0.250f);
-        
-        // Update the map state
+
+        // Update the map state and camera
         map.tick(frameTime);
-        
-        // Update the camera
         updateCamera();
-        
-        // Render the map on the screen
+
+        // Render the map and HUD
         renderMap();
-        
-        // Render the HUD on the screen
         hud.render();
     }
-    
+
     /**
-     * Updates the camera to match the current state of the game.
-     * Currently, this just centers the camera at the origin.
+     * Updates the camera to center on the map or adjust to the player's position.
      */
     private void updateCamera() {
-        mapCamera.setToOrtho(false);
-        mapCamera.position.x = 3.5f * TILE_SIZE_PX * SCALE;
-        mapCamera.position.y = 3.5f * TILE_SIZE_PX * SCALE;
-        mapCamera.update(); // This is necessary to apply the changes
+        mapCamera.position.set(mapCamera.viewportWidth / 2, mapCamera.viewportHeight / 2, 0);
+        mapCamera.update();
     }
-    
+
+    /**
+     * Renders the game map, including all entities.
+     */
     private void renderMap() {
-        // This configures the spriteBatch to use the camera's perspective when rendering
         spriteBatch.setProjectionMatrix(mapCamera.combined);
-        
-        // Start drawing
         spriteBatch.begin();
-        
-        // Render everything in the map here, in order from lowest to highest (later things appear on top)
-        // You may want to add a method to GameMap to return all the drawables in the correct order
+
+        // Render all map elements
+
         for (Flowers flowers : map.getFlowers()) {
             draw(spriteBatch, flowers);
         }
-        for (IndestructibleWalls indestructibleWalls : map.getIndestructibleWalls()) {
-            draw(spriteBatch, indestructibleWalls );
+
+        for (IndestructibleWalls wall : map.getIndestructibleWalls()) {
+            draw(spriteBatch, wall);
         }
+
         for (Enemy enemy : map.getEnemies()) {
             draw(spriteBatch, enemy);
         }
 
         draw(spriteBatch, map.getChest());
         draw(spriteBatch, map.getPlayer());
-        
-        // Finish drawing, i.e. send the drawn items to the graphics card
+
         spriteBatch.end();
     }
-    
+
     /**
-     * Draws this object on the screen.
-     * The texture will be scaled by the game scale and the tile size.
-     * This should only be called between spriteBatch.begin() and spriteBatch.end(), e.g. in the renderMap() method.
+     * Draws a drawable object on the screen.
+     *
      * @param spriteBatch The SpriteBatch to draw with.
+     * @param drawable    The object to be drawn.
      */
     private static void draw(SpriteBatch spriteBatch, Drawable drawable) {
         TextureRegion texture = drawable.getCurrentAppearance();
-        // Drawable coordinates are in tiles, so we need to scale them to pixels
+
+        // Scale coordinates and texture size
         float x = drawable.getX() * TILE_SIZE_PX * SCALE;
         float y = drawable.getY() * TILE_SIZE_PX * SCALE;
-        // Additionally scale everything by the game scale
         float width = texture.getRegionWidth() * SCALE;
         float height = texture.getRegionHeight() * SCALE;
+
         spriteBatch.draw(texture, x, y, width, height);
     }
-    
+
     /**
      * Called when the window is resized.
-     * This is where the camera is updated to match the new window size.
-     * @param width The new window width.
+     *
+     * @param width  The new window width.
      * @param height The new window height.
      */
     @Override
     public void resize(int width, int height) {
-        mapCamera.setToOrtho(false);
+        viewport.update(width, height, true);
         hud.resize(width, height);
     }
 
     // Unused methods from the Screen interface
-    @Override
-    public void pause() {
-    }
-
-    @Override
-    public void resume() {
-    }
-
-    @Override
-    public void show() {
-
-    }
-
-    @Override
-    public void hide() {
-    }
-
-    @Override
-    public void dispose() {
-    }
-
+    @Override public void pause() {}
+    @Override public void resume() {}
+    @Override public void show() {}
+    @Override public void hide() {}
+    @Override public void dispose() {}
 }
