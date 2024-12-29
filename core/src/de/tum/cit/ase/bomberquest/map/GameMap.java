@@ -106,7 +106,7 @@ public class GameMap {
         for (int i = 0; i < mapWidth; i++) { // Horizontal edges (top and bottom)
             for (int j = 0; j < mapHeight; j++) { // Vertical edges (left and right)
                 if (i == 0 || i == mapWidth-1|| j == 0 || j == mapHeight-1 ) {
-                    indestructibleWalls.add(new IndestructibleWalls(i, j));
+                    indestructibleWalls.add(new IndestructibleWalls(world, i, j));
                 }
             }
         }
