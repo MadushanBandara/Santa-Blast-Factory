@@ -1,6 +1,5 @@
 package de.tum.cit.ase.bomberquest.screen;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -47,7 +46,8 @@ public class Hud {
         //this.spriteBatch = spriteBatch;
         //this.font = font;
         this.camera = new OrthographicCamera();
-        this.viewport = new FitViewport(800,480,new OrthographicCamera());
+        this.viewport = new FitViewport(BomberQuestGame.V_WIDTH/BomberQuestGame.SCALE,
+                BomberQuestGame.V_HEIGHT/BomberQuestGame.SCALE,new OrthographicCamera());
         this.stage = new Stage(viewport,spriteBatch);
 
 

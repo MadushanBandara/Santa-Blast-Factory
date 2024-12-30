@@ -38,7 +38,7 @@ public class Chest implements Drawable {
         // Static bodies never move, but static bodies can collide with them.
         bodyDef.type = BodyDef.BodyType.StaticBody;
         // Set the initial position of the body.
-        bodyDef.position.set(this.x, this.y);
+        //bodyDef.position.set(this.x, this.y);
         // Create the body in the world using the body definition.
         Body body = world.createBody(bodyDef);
         // Now we need to give the body a shape so the physics engine knows how to collide with it.

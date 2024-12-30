@@ -19,7 +19,7 @@ public class BomberQuestGame extends Game {
 
     public static final float V_WIDTH = 1920;  // Example width
     public static final float V_HEIGHT = 1080; // Example height
-    private static final float SCALE = 4f;     // Example scale
+    public static final float SCALE = 4f;     // Example scale
 
     /**
      * Sprite Batch for rendering game elements.
@@ -65,9 +65,7 @@ public class BomberQuestGame extends Game {
         this.skin = new Skin(Gdx.files.internal("skin/craftacular/craftacular-ui.json")); // Load UI skin
 
 
-
-
-        this.map = new GameMap(this,V_WIDTH, V_HEIGHT, SCALE); // Use constants from BomberQuestGame
+        this.map = new GameMap(this , "maps/map-1.properties"); // Use constants from BomberQuestGame
         // Create a new game map (you should change this to load the map from a file instead)
 
 
