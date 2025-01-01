@@ -47,4 +47,8 @@ public class Animations {
             SpriteSheet.CHARACTER.at(1,3)
     );
 
+    public static final Animation<TextureRegion> BOMB =new Animation<>(0.1f,
+            SpriteSheet.BASIC_TILES.at(8,5)
+    );
+
 }

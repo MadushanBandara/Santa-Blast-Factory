@@ -2,13 +2,16 @@ package de.tum.cit.ase.bomberquest.Actors;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.CircleShape;
-import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.utils.Array;
 import de.tum.cit.ase.bomberquest.texture.Animations;
 import de.tum.cit.ase.bomberquest.texture.Drawable;
+
+import java.util.ArrayList;
+
+import static com.badlogic.gdx.math.Interpolation.circle;
 
 /**
  * Represents the player character in the game.
@@ -25,6 +28,8 @@ public class Player implements Drawable {
     /** Player's life status. */
     private boolean isAlive;
 
+    private ArrayList<Bomb> bombs;
+
     /** Whether the player can drop a bomb. */
     private boolean canDropBomb;
 
@@ -37,6 +42,7 @@ public class Player implements Drawable {
     public Player(World world, float x, float y) {
         this.hitbox = createHitbox(world, x, y);
         this.isAlive = true;
+        bombs = new ArrayList<>();
         this.canDropBomb = true; // Starts with the ability to drop one bomb
         this.enemiesDefeated = 0;
         this.isExitUnlocked = false;
@@ -56,7 +62,7 @@ public class Player implements Drawable {
         // Dynamic bodies are affected by forces and collisions.
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         // Set the initial position of the body.
-        bodyDef.position.set(1,13 );
+        bodyDef.position.set(10,3 );
         // Create the body in the world using the body definition.
         Body body = world.createBody(bodyDef);
         // Now we need to give the body a shape so the physics engine knows how to collide with it.
@@ -98,6 +104,18 @@ public class Player implements Drawable {
         if (!isAlive) {
             stopMovement();
         }
+
+        // Handle key press for bomb drop
+        handleKeyPress();
+
+        // Update all bombs
+        for (Bomb bomb : bombs) {
+            bomb.tick(frameTime);
+        }
+
+        // Remove expired bombs
+        bombs.removeIf(Bomb::isExpired);
+
 
         // Make the player move in a circle with radius 2 tiles
         // You can change this to make the player move differently, e.g. in response to user input.
@@ -144,12 +162,12 @@ public class Player implements Drawable {
 
 
     public void moveUp() {
-        hitbox.setLinearVelocity(0, 3f);
+        hitbox.setLinearVelocity(0, 4f);
         currentDirection = Direction.UP;// Move upwards
     }
 
     public void moveDown() {
-        hitbox.setLinearVelocity(0, -3f);
+        hitbox.setLinearVelocity(0, -4f);
         currentDirection = Direction.DOWN;// Move downwards
     }
 
@@ -167,4 +185,34 @@ public class Player implements Drawable {
         hitbox.setLinearVelocity(0, 0);
         currentDirection = Direction.IDLE;// Stop any movement when no keys are pressed
     }
+
+    // Method to handle key presses (you already have this in the tick method)
+    public void handleKeyPress() {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER) && canDropBomb) {
+            dropBomb();
+        }
+    }
+
+    private void dropBomb() {
+        // Create a new bomb at the player's position
+        Bomb bomb = new Bomb(getX(), getY());
+        bombs.add(bomb);
+
+        // Set canDropBomb to false until the bomb is dropped and exploded
+        canDropBomb = true;
+    }
+
+    public void render(SpriteBatch spriteBatch) {
+        // Render the player as before
+        // Render all bombs
+        for (Bomb bomb : bombs) {
+            spriteBatch.draw(bomb.getCurrentAppearance(), bomb.getX(), bomb.getY());
+        }
+    }
+
+    public ArrayList<Bomb> getBombs() {
+        return bombs;
+    }
+
+
 }

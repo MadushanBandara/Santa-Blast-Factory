@@ -12,7 +12,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import de.tum.cit.ase.bomberquest.Actors.Bomb;
 import de.tum.cit.ase.bomberquest.BomberQuestGame;
+import de.tum.cit.ase.bomberquest.Handlers.KeyHandler;
 import de.tum.cit.ase.bomberquest.map.Flowers;
 import de.tum.cit.ase.bomberquest.Actors.Player;
 import de.tum.cit.ase.bomberquest.map.Tile;
@@ -31,6 +33,15 @@ import static javax.management.Query.or;
  * It handles the game logic and rendering of the game elements.
  */
 public class GameScreen implements Screen {
+
+    // Screen dimensions
+    int screenWidth = Gdx.graphics.getWidth();
+    int screenHeight = Gdx.graphics.getHeight();
+
+    // Dynamic scale factor
+    float newScaleX = (float) screenWidth / (21 * TILE_SIZE_PX);
+    float newScaleY = (float) screenHeight / (21 * TILE_SIZE_PX);
+    float newScale = Math.min(newScaleX, newScaleY);  // Maintain aspect ratio
 
 
     /**
@@ -56,6 +67,7 @@ public class GameScreen implements Screen {
     private Viewport viewport;
     private Stage stage;
     private World world;
+    private KeyHandler keyHandler;
 
 
 
@@ -68,6 +80,8 @@ public class GameScreen implements Screen {
         this.game = game;
         this.map = game.getMap();
         this.hud = new Hud(game.spriteBatch);
+
+        this.keyHandler = new KeyHandler(map);
 
         // Get map dimensions and calculate the world size
         float worldWidth = map.getWidth() * TILE_SIZE_PX * SCALE;
@@ -107,7 +121,8 @@ public class GameScreen implements Screen {
 
 
         // Render the player movements
-        keyHandler(); // Handle inputs
+        keyHandler.keyHandler();
+
 
         // Update the map state
         map.tick(frameTime);
@@ -115,33 +130,17 @@ public class GameScreen implements Screen {
         // Update the camera
         updateCamera();
 
+
         // Render the map on the screen
         renderMap();
 
+
         // Render the HUD on the screen
         hud.update(deltaTime);
-        renderHud();
+        hud.render();
 
     }
 
-    private void keyHandler() {
-        Player player = map.getPlayer(); // Access the player from the map
-
-        player.stopMovement();
-
-        if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            player.moveUp();
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            player.moveDown();
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            player.moveLeft();
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            player.moveRight();
-        }
-    }
 
     private void renderTiles(SpriteBatch spriteBatch) {
 
@@ -157,6 +156,20 @@ public class GameScreen implements Screen {
         }
     }
 
+    private void renderBombs() {
+        game.spriteBatch.begin();
+        for (Bomb bomb : map.getPlayer().getBombs()) {
+            // Draw each bomb at its position (scaled)
+            float x = bomb.getX() * TILE_SIZE_PX * SCALE; // Apply SCALE here
+            float y = bomb.getY() * TILE_SIZE_PX * SCALE;
+            float width = bomb.getCurrentAppearance().getRegionWidth() * SCALE;
+            float height = bomb.getCurrentAppearance().getRegionHeight() * SCALE;
+
+            game.spriteBatch.draw(bomb.getCurrentAppearance(), x, y, width, height);
+        }
+        game.spriteBatch.end();
+    }
+
     /**
      * Updates the camera to match the current state of the game.
      * Currently, this just centers the camera at the origin.
@@ -167,11 +180,6 @@ public class GameScreen implements Screen {
         mapCamera.update();
     }
 
-    private void renderHud() {
-        game.spriteBatch.setProjectionMatrix(hud.stage.getCamera().combined);
-        hud.stage.draw();
-        hud.render();
-    }
 
     private void renderMap() {
         // This configures the spriteBatch to use the camera's perspective when rendering
@@ -184,12 +192,15 @@ public class GameScreen implements Screen {
 
         // Render everything in the map here, in order from lowest to highest (later things appear on top)
         // You may want to add a method to GameMap to return all the drawables in the correct order
-       //for (Flowers flowers : map.getFlowers()) {
-           //draw(game.spriteBatch, flowers);
-       //}
 
+        draw(game.spriteBatch, map.getChest());
 
-        //draw(game.spriteBatch, map.getChest());
+        Player player = map.getPlayer();
+        if (player != null) {
+            for (Bomb bomb : map.getPlayer().getBombs()) {
+                draw(game.spriteBatch, bomb);
+            }
+        }
         draw(game.spriteBatch, map.getPlayer());
 
         // Finish drawing, i.e. send the drawn items to the graphics card

@@ -1,5 +1,6 @@
 package de.tum.cit.ase.bomberquest.screen;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -89,6 +90,13 @@ public class Hud {
 
     public void render() {
 
+        // Apply the HUD viewport
+        stage.getViewport().apply();
+
+        // Update and draw the stage (HUD elements)
+        stage.act(Gdx.graphics.getDeltaTime());
+        stage.draw();
+
         // Render from the camera's perspective
         //spriteBatch.setProjectionMatrix(camera.combined);
         // Start drawing
@@ -124,7 +132,7 @@ public class Hud {
      * @param height The new height of the screen.
      */
     public void resize(int width, int height) {
-        camera.setToOrtho(false, width, height);
+        viewport.update(width, height);
     }
 
 

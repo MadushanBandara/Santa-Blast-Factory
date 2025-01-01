@@ -12,13 +12,17 @@ public class Textures {
 
     public static final TextureRegion FLOWERS = SpriteSheet.BASIC_TILES.at(2, 5);
 
-    public static final TextureRegion CHEST = SpriteSheet.BASIC_TILES.at(5, 5);
+    public static final TextureRegion ENTRANCE = SpriteSheet.BASIC_TILES.at(7, 3);
 
     public static final TextureRegion BAK_TILE = SpriteSheet.BASIC_TILES.at(9,1);
 
     public static final TextureRegion BREAK_TILE = SpriteSheet.BASIC_TILES.at(1,3);
 
     public static final TextureRegion UN_BREAK_TILE = SpriteSheet.BASIC_TILES.at(1,7);
+
+    public static final TextureRegion SPECIAL = SpriteSheet.BASIC_TILES.at(5,7);
+
+    public static final TextureRegion CHEST = SpriteSheet.BASIC_TILES.at(9,7);
 
 
 
@@ -36,11 +40,11 @@ public class Textures {
             case Tile.EMPTY:
                 return BAK_TILE;
             case Tile.ENTRANCE:
-                return BAK_TILE;
+                return ENTRANCE;
             case Tile.SPECIAL:
-                return BAK_TILE; // Replace with actual special tile texture
+                return SPECIAL; // Replace with actual special tile texture
             case Tile.POWERUP:
-                return BAK_TILE; // Replace with actual power-up texture
+                return CHEST; // Replace with actual power-up texture
             default:
                 return BAK_TILE; // Default texture for unknown tile types
         }
