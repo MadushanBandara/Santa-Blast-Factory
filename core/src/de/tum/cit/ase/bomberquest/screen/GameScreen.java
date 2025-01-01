@@ -7,43 +7,20 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
-import de.tum.cit.ase.bomberquest.Actors.Bomb;
 import de.tum.cit.ase.bomberquest.BomberQuestGame;
-import de.tum.cit.ase.bomberquest.Handlers.KeyHandler;
+import de.tum.cit.ase.bomberquest.map.Enemy;
 import de.tum.cit.ase.bomberquest.map.Flowers;
-import de.tum.cit.ase.bomberquest.Actors.Player;
-import de.tum.cit.ase.bomberquest.map.Tile;
+import de.tum.cit.ase.bomberquest.map.IndestructibleWalls;
 import de.tum.cit.ase.bomberquest.texture.Drawable;
 import de.tum.cit.ase.bomberquest.map.GameMap;
-import de.tum.cit.ase.bomberquest.texture.Textures;
-
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Properties;
-
-import static javax.management.Query.or;
 
 /**
  * The GameScreen class is responsible for rendering the gameplay screen.
  * It handles the game logic and rendering of the game elements.
  */
 public class GameScreen implements Screen {
-
-    // Screen dimensions
-    int screenWidth = Gdx.graphics.getWidth();
-    int screenHeight = Gdx.graphics.getHeight();
-
-    // Dynamic scale factor
-    float newScaleX = (float) screenWidth / (21 * TILE_SIZE_PX);
-    float newScaleY = (float) screenHeight / (21 * TILE_SIZE_PX);
-    float newScale = Math.min(newScaleX, newScaleY);  // Maintain aspect ratio
-
-
+    
     /**
      * The size of a grid cell in pixels.
      * This allows us to think of coordinates in terms of square grid tiles
@@ -51,25 +28,18 @@ public class GameScreen implements Screen {
      * rather than absolute pixel coordinates.
      */
     public static final int TILE_SIZE_PX = 16;
-
-
+    
     /**
      * The scale of the game.
      * This is used to make everything in the game look bigger or smaller.
      */
-    public static final float SCALE = 2f;
+    public static final int SCALE = 4;
 
     private final BomberQuestGame game;
-    //private final SpriteBatch spriteBatch;
+    private final SpriteBatch spriteBatch;
     private final GameMap map;
     private final Hud hud;
     private final OrthographicCamera mapCamera;
-    private Viewport viewport;
-    private Stage stage;
-    private World world;
-    private KeyHandler keyHandler;
-
-
 
     /**
      * Constructor for GameScreen. Sets up the camera and font.
@@ -98,7 +68,7 @@ public class GameScreen implements Screen {
         // Initialize FitViewport with the dynamic map size
         viewport = new FitViewport(worldWidth, worldHeight, mapCamera);
     }
-
+    
     /**
      * The render method is called every frame to render the game.
      * @param deltaTime The time in seconds since the last render.
@@ -169,7 +139,7 @@ public class GameScreen implements Screen {
         }
         game.spriteBatch.end();
     }
-
+    
     /**
      * Updates the camera to match the current state of the game.
      * Currently, this just centers the camera at the origin.
@@ -200,6 +170,10 @@ public class GameScreen implements Screen {
             for (Bomb bomb : map.getPlayer().getBombs()) {
                 draw(game.spriteBatch, bomb);
             }
+        }
+
+        for (Enemy enemy : map.getEnemies()) {
+            draw(spriteBatch, enemy);
         }
         draw(game.spriteBatch, map.getPlayer());
 
@@ -242,7 +216,6 @@ public class GameScreen implements Screen {
         mapCamera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
         hud.resize(width, height);
     }
-
 
     // Unused methods from the Screen interface
     @Override

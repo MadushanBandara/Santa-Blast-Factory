@@ -1,16 +1,9 @@
 package de.tum.cit.ase.bomberquest.screen;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
-import de.tum.cit.ase.bomberquest.BomberQuestGame;
 
 /**
  * A Heads-Up Display (HUD) that displays information on the screen.
@@ -42,7 +35,7 @@ public class Hud {
 
     private Label enamyLabel;
     private Label numberOfEnamyLabel;
-    
+
     public Hud(SpriteBatch spriteBatch ) {
         //this.spriteBatch = spriteBatch;
         //this.font = font;
@@ -86,8 +79,6 @@ public class Hud {
      * Renders the HUD on the screen.
      * This uses a different OrthographicCamera so that the HUD is always fixed on the screen.
      */
-
-
     public void render() {
 
         // Apply the HUD viewport

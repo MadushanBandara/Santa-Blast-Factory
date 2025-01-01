@@ -72,6 +72,7 @@ public class BomberQuestGame extends Game {
         MusicTrack.BACKGROUND.play(); // Play some background music
         goToMenu(); // Navigate to the menu screen
     }
+
     /**
      * Switches to the menu screen.
      */
