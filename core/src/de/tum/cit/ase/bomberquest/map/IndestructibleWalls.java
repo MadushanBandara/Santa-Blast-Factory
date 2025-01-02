@@ -10,7 +10,7 @@ import de.tum.cit.ase.bomberquest.texture.Drawable;
 
 
 public class IndestructibleWalls implements Drawable {
-
+    private static final int TILE_SIZE = 16;
     private final int x;
     private final int y;
 

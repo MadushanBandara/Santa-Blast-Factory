@@ -67,6 +67,8 @@ public class Animations {
     );
 
 
-
+    public static final Animation<TextureRegion> BOMB = new Animation<>(0.1f,
+            SpriteSheet.BASIC_TILES.at(8, 5)
+    );
 
 }

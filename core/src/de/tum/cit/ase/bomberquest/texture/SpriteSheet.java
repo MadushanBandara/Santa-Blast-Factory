@@ -17,8 +17,16 @@ public enum SpriteSheet {
 
     /** The character spritesheet, which has a grid size of 16x32. */
     CHARACTER("character.png", 16, 32),
+    /** The enemies spritesheet the grinch. */
+    ENEMIES("mobs.png", 16, 16),
+    /** The bombs spritesheet, gifts as bombs */
+    HOUSE("house2.png", 80, 48),
+    BOMB("christmasobjects.png", 272, 112),
+    TREE("basictiles.png",16,16),
     /** The basic tiles spritesheet, which has a grid size of 16x16. */
-    BASIC_TILES("basictiles.png", 16, 16);
+    BASIC_TILES("basictiles.png", 16, 16)
+
+    ;
 
     private final Texture spritesheet;
     private final int width;

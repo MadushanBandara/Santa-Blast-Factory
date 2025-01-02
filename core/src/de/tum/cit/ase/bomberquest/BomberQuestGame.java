@@ -17,31 +17,18 @@ import games.spooky.gdx.nativefilechooser.NativeFileChooser;
  */
 public class BomberQuestGame extends Game {
 
-    public static final float V_WIDTH = 1920;  // Example width
+    public static final float V_WIDTH = 1920; // Example width
     public static final float V_HEIGHT = 1080; // Example height
-    public static final float SCALE = 4f;     // Example scale
+    public static final float SCALE = 4f; // Example scale
 
-    /**
-     * Sprite Batch for rendering game elements.
-     * This eats a lot of memory, so we only want one of these.
-     */
+    // Global resources
     public SpriteBatch spriteBatch;
-
-    /** The game's UI skin. This is used to style the game's UI elements. */
     private Skin skin;
-    
-    /**
-     * The file chooser for loading map files from the user's computer.
-     * This will give you access to a {@link com.badlogic.gdx.files.FileHandle} object,
-     * which you can use to read the contents of the map file as a String, and then parse it into a {@link GameMap}.
-     */
+
+    // File chooser for loading map files
     private final NativeFileChooser fileChooser;
-    
-    /**
-     * The map. This is where all the game objects are stored.
-     * This is owned by {@link BomberQuestGame} and not by {@link GameScreen}
-     * because the map should not be destroyed if we temporarily switch to another screen.
-     */
+
+    // The map
     private GameMap map;
 
     /**
@@ -55,21 +42,14 @@ public class BomberQuestGame extends Game {
 
     /**
      * Called when the game is created. Initializes the SpriteBatch and Skin.
-     * During the class constructor, libGDX is not fully initialized yet.
-     * Therefore this method serves as a second constructor for the game,
-     * and we can use libGDX resources here.
      */
     @Override
     public void create() {
         this.spriteBatch = new SpriteBatch(); // Create SpriteBatch for rendering
         this.skin = new Skin(Gdx.files.internal("skin/craftacular/craftacular-ui.json")); // Load UI skin
+        this.map = new GameMap(this, "maps/map-1.properties"); // Initialize game map
 
-
-        this.map = new GameMap(this , "maps/map-1.properties"); // Use constants from BomberQuestGame
-        // Create a new game map (you should change this to load the map from a file instead)
-
-
-        MusicTrack.BACKGROUND.play(); // Play some background music
+        MusicTrack.BACKGROUND.play(); // Play background music
         goToMenu(); // Navigate to the menu screen
     }
 
@@ -77,14 +57,14 @@ public class BomberQuestGame extends Game {
      * Switches to the menu screen.
      */
     public void goToMenu() {
-        this.setScreen(new MenuScreen(this)); // Set the current screen to MenuScreen
+        this.setScreen(new MenuScreen(this));
     }
 
     /**
      * Switches to the game screen.
      */
     public void goToGame() {
-        this.setScreen(new GameScreen(this)); // Set the current screen to GameScreen
+        this.setScreen(new GameScreen(this));
     }
 
     /** Returns the skin for UI elements. */
@@ -96,14 +76,15 @@ public class BomberQuestGame extends Game {
     public SpriteBatch getSpriteBatch() {
         return spriteBatch;
     }
-    
+
     /** Returns the current map, if there is one. */
     public GameMap getMap() {
         return map;
     }
-    
+
     /**
      * Switches to the given screen and disposes of the previous screen.
+     *
      * @param screen the new screen
      */
     @Override
@@ -118,9 +99,9 @@ public class BomberQuestGame extends Game {
     /** Cleans up resources when the game is disposed. */
     @Override
     public void dispose() {
-        getScreen().hide(); // Hide the current screen
-        getScreen().dispose(); // Dispose the current screen
-        spriteBatch.dispose(); // Dispose the spriteBatch
-        skin.dispose(); // Dispose the skin
+        getScreen().hide();
+        getScreen().dispose();
+        spriteBatch.dispose();
+        skin.dispose();
     }
 }
