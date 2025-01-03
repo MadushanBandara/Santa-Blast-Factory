@@ -75,6 +75,10 @@ public class GameScreen implements Screen {
 
     private void updateCamera() {
         // Update the camera position based on the player (or center the map)
+        mapCamera.zoom = 1.15f; // Increase the zoom level to fit more of the map
+        mapCamera.position.set(mapCamera.viewportWidth / 2,
+                mapCamera.viewportHeight/2 ,
+                0);
         mapCamera.update();
     }
 

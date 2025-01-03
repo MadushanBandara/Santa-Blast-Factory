@@ -65,13 +65,15 @@ public class Hud {
         enamyLabel = new Label(String.format("%2d", enemy), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         numberOfEnamyLabel = new Label("Enemies: ", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
-        table.add(christmasStartLabel).expandX().padTop(10);
-        table.add(amountOfBomberLabel).expandX().padTop(10);
-        table.add(numberOfEnamyLabel).expandX().padTop(10);
-        table.row();
+        table.add(christmasStartLabel).expandX().padBottom(0);
         table.add(countDownLabel).expandX();
+        table.add(amountOfBomberLabel).expandX().padBottom(0);
         table.add(bomberLabel).expandX();
+        table.add(numberOfEnamyLabel).expandX().padBottom(0);
         table.add(enamyLabel).expandX();
+
+
+
 
         stage.addActor(table);
     }
