@@ -68,7 +68,8 @@ public class Animations {
 
 
     public static final Animation<TextureRegion> BOMB = new Animation<>(0.1f,
-            SpriteSheet.BOMB.at(4, 1)
+            SpriteSheet.BOMB.at(4, 3),
+            SpriteSheet.BOMB.at(4, 3)
     );
 
 }

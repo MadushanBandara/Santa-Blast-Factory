@@ -11,11 +11,10 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import de.tum.cit.ase.bomberquest.BomberQuestGame;
-import de.tum.cit.ase.bomberquest.map.Enemy;
-import de.tum.cit.ase.bomberquest.map.Flowers;
-import de.tum.cit.ase.bomberquest.map.GameMap;
-import de.tum.cit.ase.bomberquest.map.IndestructibleWalls;
+import de.tum.cit.ase.bomberquest.map.*;
 import de.tum.cit.ase.bomberquest.texture.Drawable;
+import de.tum.cit.ase.bomberquest.Actors.Bomb;
+import de.tum.cit.ase.bomberquest.map.GameMap;
 
 public class GameScreen implements Screen {
 
@@ -79,6 +78,18 @@ public class GameScreen implements Screen {
         mapCamera.update();
     }
 
+    private void renderBombs() {
+        game.getSpriteBatch().begin();
+        for (Bomb bomb : map.getPlayer().getBombs()) {
+            float x = bomb.getX() * TILE_SIZE_PX * SCALE;
+            float y = bomb.getY() * TILE_SIZE_PX * SCALE;
+            float width = bomb.getCurrentAppearance().getRegionWidth() * SCALE;
+            float height = bomb.getCurrentAppearance().getRegionHeight() * SCALE;
+
+            game.getSpriteBatch().draw(bomb.getCurrentAppearance(), x, y, width, height);
+        }
+        game.getSpriteBatch().end();
+    }
     private void renderMap() {
         for (Flowers flowers : map.getFlowers()) {
             draw(spriteBatch, flowers);
@@ -96,6 +107,9 @@ public class GameScreen implements Screen {
 
         draw(spriteBatch, map.getPlayer());
         draw(spriteBatch, map.getChest());
+        for (Bomb bomb : map.getPlayer().getBombs()) {
+            draw(game.getSpriteBatch(), bomb);
+        }
 
     }
 
