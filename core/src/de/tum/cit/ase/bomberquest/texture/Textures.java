@@ -12,18 +12,18 @@ public class Textures {
 
     public static final TextureRegion FLOWERS = SpriteSheet.BASIC_TILES.at(3, 7);
 
-    public static final TextureRegion ENTRANCE = SpriteSheet.BASIC_TILES.at(7, 3);
+    public static final TextureRegion ENTRANCE = SpriteSheet.BASIC_TILES.at(4, 8);
 
-    public static final TextureRegion BAK_TILE = SpriteSheet.BASIC_TILES.at(9,1);
+    public static final TextureRegion BAK_TILE = SpriteSheet.BASIC_TILES.at(3,7);
 
-    public static final TextureRegion BREAK_TILE = SpriteSheet.BASIC_TILES.at(1,3);
+    public static final TextureRegion BREAK_TILE = SpriteSheet.WALLS.at(4,4);
 
-    public static final TextureRegion UN_BREAK_TILE = SpriteSheet.HOUSE.at(1,1);
+    public static final TextureRegion UN_BREAK_TILE = SpriteSheet.WALLS.at(4,5);
 
     public static final TextureRegion SPECIAL = SpriteSheet.TREE.at(4,7);
 
-    public static final TextureRegion CHEST = SpriteSheet.BASIC_TILES.at(9,7);
-    public static final TextureRegion INDESTRUCTIBLEWALLS = SpriteSheet.BASIC_TILES.at(1, 1);
+    public static final TextureRegion CHEST = SpriteSheet.BASIC_TILES.at(5,5);
+    public static final TextureRegion INDESTRUCTIBLEWALLS = SpriteSheet.WALLS.at(4, 5);
 
 
 

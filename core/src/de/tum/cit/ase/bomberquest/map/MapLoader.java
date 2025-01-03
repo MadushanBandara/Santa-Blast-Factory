@@ -1,5 +1,7 @@
 package de.tum.cit.ase.bomberquest.map;
 
+import com.badlogic.gdx.physics.box2d.World;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -8,7 +10,9 @@ import java.util.List;
 
 public class MapLoader {
 
-    public static List<Tile> loadMap(String filePath) {
+    private static World world;
+
+    public static List<Tile> loadMap(World world, String filePath) {
         List<Tile> tiles = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -22,7 +26,7 @@ public class MapLoader {
                 int x = Integer.parseInt(coordinates[0]);
                 int y = Integer.parseInt(coordinates[1]);
                 int type = Integer.parseInt(parts[1]);
-                tiles.add(new Tile(x, y, type));
+                tiles.add(new Tile(world, x, y, type));
             }
         } catch (IOException e) {
             e.printStackTrace();

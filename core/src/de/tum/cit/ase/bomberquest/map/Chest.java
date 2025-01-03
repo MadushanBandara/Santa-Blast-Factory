@@ -56,7 +56,7 @@ public class Chest implements Drawable {
     
     @Override
     public TextureRegion getCurrentAppearance() {
-        return Textures.UN_BREAK_TILE;
+        return Textures.CHEST;
     }
     
     @Override

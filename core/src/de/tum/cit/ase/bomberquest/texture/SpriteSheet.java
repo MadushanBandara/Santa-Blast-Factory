@@ -20,11 +20,13 @@ public enum SpriteSheet {
     /** The enemies spritesheet the grinch. */
     ENEMIES("mobs.png", 16, 16),
     /** The bombs spritesheet, gifts as bombs */
-    HOUSE("house2.png", 80, 48),
-    BOMB("christmasobjects.png", 272, 112),
+    HOUSE("house2.png", 16, 16),
+    BOMB("original-bomberman.png", 16, 16),
+    WALLS("original-bomberman.png", 16, 16),
     TREE("basictiles.png",16,16),
     /** The basic tiles spritesheet, which has a grid size of 16x16. */
     BASIC_TILES("basictiles.png", 16, 16)
+
 
     ;
 

@@ -47,7 +47,7 @@ public class BomberQuestGame extends Game {
     public void create() {
         this.spriteBatch = new SpriteBatch(); // Create SpriteBatch for rendering
         this.skin = new Skin(Gdx.files.internal("skin/craftacular/craftacular-ui.json")); // Load UI skin
-        this.map = new GameMap(this, "maps/map-1.properties"); // Initialize game map
+        this.map = new GameMap(this, "maps/map-2.properties"); // Initialize game map
 
         MusicTrack.BACKGROUND.play(); // Play background music
         goToMenu(); // Navigate to the menu screen

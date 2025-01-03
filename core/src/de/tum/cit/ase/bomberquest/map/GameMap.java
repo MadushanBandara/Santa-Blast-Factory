@@ -3,8 +3,16 @@ package de.tum.cit.ase.bomberquest.map;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import de.tum.cit.ase.bomberquest.BomberQuestGame;
 import de.tum.cit.ase.bomberquest.Actors.Player;
+import de.tum.cit.ase.bomberquest.BomberQuestGame;
+import java.util.Arrays;
+import java.util.List;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
+import de.tum.cit.ase.bomberquest.Actors.Player;
+import de.tum.cit.ase.bomberquest.Actors.Bomb;
+import de.tum.cit.ase.bomberquest.BomberQuestGame;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,7 +55,7 @@ public class GameMap {
         this.game = game;
         this.world = new World(Vector2.Zero, true);
         // Load map tiles
-        this.tiles = MapLoader.loadMap(mapFilePath);
+        this.tiles = MapLoader.loadMap(this.world, mapFilePath);
         // Set map dimensions
 
         // Determine grid dimensions based on viewport size and scale
@@ -55,14 +63,14 @@ public class GameMap {
         //this.mapHeight = (int) Math.ceil(height / scale); // Calculate map height
 
         // Initialize map objects
-        this.player = new Player(this.world, 20, 12); // Player starts at (1, 3)
-        this.chest = new Chest(world, 20, 13); // Chest is placed at (3, 3)
+        this.player = new Player(this.world, 7, 7); // Player starts at (1, 3)
+        this.chest = new Chest(world, 3, 3); // Chest is placed at (3, 3)
 
-        this.flowers = new Flowers[mapWidth][mapHeight];
+
         this.enemies = new ArrayList<>();
         this.indestructibleWalls = new ArrayList<>();
 
-
+        this.flowers = new Flowers[mapWidth][mapHeight];
         initializeFlowers();
         generateEnemies();
         addMapEdges();// Uses mapWidth and mapHeight
@@ -181,12 +189,18 @@ public class GameMap {
 
     /** Returns the width of the map. */
     public int getWidth() {
-        return tiles.stream().mapToInt(Tile::getX).max().orElse(0) + 1;
+        return tiles.stream()
+                .mapToInt(tile -> (int) tile.getX()) // Cast float to int
+                .max()
+                .orElse(0) + 1;
     }
 
     /** Returns the height of the map. */
     public int getHeight() {
-        return tiles.stream().mapToInt(Tile::getY).max().orElse(0) + 1;
+        return tiles.stream()
+                .mapToInt(tile -> (int) tile.getY()) // Cast float to int
+                .max()
+                .orElse(0) + 1;
     }
     public List<Tile> getTiles() {
         return tiles; // Assuming `tiles` is a list of `Tile` objects in `GameMap`

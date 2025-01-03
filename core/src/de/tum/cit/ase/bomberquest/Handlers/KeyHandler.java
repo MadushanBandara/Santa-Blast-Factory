@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import de.tum.cit.ase.bomberquest.Actors.Player;
 import de.tum.cit.ase.bomberquest.map.GameMap;
+import de.tum.cit.ase.bomberquest.Actors.Bomb;
 
 public class KeyHandler {
 
