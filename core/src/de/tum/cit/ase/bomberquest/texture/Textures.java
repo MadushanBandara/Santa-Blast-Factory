@@ -10,11 +10,11 @@ import de.tum.cit.ase.bomberquest.map.Tile;
  */
 public class Textures {
 
-    public static final TextureRegion FLOWERS = SpriteSheet.BASIC_TILES.at(3, 7);
+    public static final TextureRegion FLOWERS = SpriteSheet.BASIC_TILES.at(2, 4);
 
     public static final TextureRegion ENTRANCE = SpriteSheet.BASIC_TILES.at(4, 8);
 
-    public static final TextureRegion BAK_TILE = SpriteSheet.BASIC_TILES.at(3,7);
+    public static final TextureRegion BAK_TILE = SpriteSheet.BASIC_TILES.at(2,4);
 
     public static final TextureRegion BREAK_TILE = SpriteSheet.WALLS.at(4,4);
 
