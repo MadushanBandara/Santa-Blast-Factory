@@ -93,10 +93,10 @@ public class GameScreen implements Screen {
                 game.getSpriteBatch().draw(bomb.getCurrentAppearance(), x, y, width, height);
         }
             else{
-                float explosionWidth = 80;
-                float explosionHeight = 80;
-                float offsetX = (explosionWidth - 16) / 2f;
-                float offsetY = (explosionHeight - 16) / 2f;
+                float explosionWidth = (TILE_SIZE_PX * SCALE)*3;
+                float explosionHeight = (TILE_SIZE_PX * SCALE)*3;
+                float offsetX = (explosionWidth - TILE_SIZE_PX * SCALE) / 2f;
+                float offsetY = (explosionHeight - TILE_SIZE_PX * SCALE) / 2f;
                 float x = (bomb.getX() * TILE_SIZE_PX * SCALE)-offsetX;
                 float y = (bomb.getY() * TILE_SIZE_PX * SCALE)-offsetY;
                 game.getSpriteBatch().draw(bomb.getCurrentAppearance(), x, y, explosionWidth, explosionHeight);
