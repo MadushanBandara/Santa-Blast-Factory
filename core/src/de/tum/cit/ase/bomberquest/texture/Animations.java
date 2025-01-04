@@ -72,4 +72,13 @@ public class Animations {
             SpriteSheet.BOMB.at(4, 3)
     );
 
+    public static final Animation<TextureRegion> EXPLOSION = new Animation<>(0.1f,
+            SpriteSheet.EXPLOSION.at(1, 1),
+            SpriteSheet.EXPLOSION.at(1, 6),
+            SpriteSheet.EXPLOSION.at(6, 1),
+            SpriteSheet.EXPLOSION.at(6, 6)
+    );
+
+
+
 }
