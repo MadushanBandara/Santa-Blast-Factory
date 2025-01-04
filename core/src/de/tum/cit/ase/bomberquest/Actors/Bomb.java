@@ -12,7 +12,7 @@ public class Bomb implements Drawable {
     private float explosionTimer;
     private static final float BOMB_LIFETIME = 3f; // Time until the bomb explodes
     private static final float EXPLOSION_LIFETIME = 1f; // Duration of explosion animation
-    private boolean exploded;
+    private static boolean exploded;
 
     public Bomb(float x, float y) {
         this.position = new Vector2(x, y);
@@ -63,5 +63,9 @@ public class Bomb implements Drawable {
     public boolean isExpired() {
         // The bomb is expired after the explosion animation ends
         return exploded && explosionTimer <= 0;
+    }
+
+    public static boolean isExploded() {
+        return exploded;
     }
 }

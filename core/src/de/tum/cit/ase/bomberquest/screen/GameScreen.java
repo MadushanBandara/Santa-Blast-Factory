@@ -83,17 +83,29 @@ public class GameScreen implements Screen {
     }
 
     private void renderBombs() {
-        game.getSpriteBatch().begin();
-        for (Bomb bomb : map.getPlayer().getBombs()) {
-            float x = bomb.getX() * TILE_SIZE_PX * SCALE;
-            float y = bomb.getY() * TILE_SIZE_PX * SCALE;
-            float width = bomb.getCurrentAppearance().getRegionWidth() * SCALE;
-            float height = bomb.getCurrentAppearance().getRegionHeight() * SCALE;
 
-            game.getSpriteBatch().draw(bomb.getCurrentAppearance(), x, y, width, height);
+        for (Bomb bomb : map.getPlayer().getBombs()) {
+            if (!Bomb.isExploded()){
+                float x = bomb.getX() * TILE_SIZE_PX * SCALE;
+                float y = bomb.getY() * TILE_SIZE_PX * SCALE;
+                float width = bomb.getCurrentAppearance().getRegionWidth() * SCALE;
+                float height = bomb.getCurrentAppearance().getRegionHeight() * SCALE;
+                game.getSpriteBatch().draw(bomb.getCurrentAppearance(), x, y, width, height);
         }
-        game.getSpriteBatch().end();
+            else{
+                float explosionWidth = 80;
+                float explosionHeight = 80;
+                float offsetX = (explosionWidth - 16) / 2f;
+                float offsetY = (explosionHeight - 16) / 2f;
+                float x = (bomb.getX() * TILE_SIZE_PX * SCALE)-offsetX;
+                float y = (bomb.getY() * TILE_SIZE_PX * SCALE)-offsetY;
+                game.getSpriteBatch().draw(bomb.getCurrentAppearance(), x, y, explosionWidth, explosionHeight);
+
+            }
     }
+
+    }
+
     private void renderMap() {
         for (Flowers flowers : map.getFlowers()) {
             draw(spriteBatch, flowers);
@@ -112,7 +124,7 @@ public class GameScreen implements Screen {
         draw(spriteBatch, map.getPlayer());
         draw(spriteBatch, map.getChest());
         for (Bomb bomb : map.getPlayer().getBombs()) {
-            draw(game.getSpriteBatch(), bomb);
+           renderBombs();
         }
 
     }
