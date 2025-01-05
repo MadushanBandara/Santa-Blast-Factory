@@ -2,6 +2,8 @@ package de.tum.cit.ase.bomberquest.map;
 
 import com.badlogic.gdx.physics.box2d.*;
 import de.tum.cit.ase.bomberquest.Actors.Player;
+import de.tum.cit.ase.bomberquest.map.Chest;
+
 
 //https://stackoverflow.com/questions/7447811/clean-way-to-detect-collision-of-object-with-box2d?rq=3
 //https://libgdx.com/wiki/extensions/physics/box2d
@@ -22,6 +24,15 @@ public class CollisionDetector implements ContactListener {
                 ((Player) UserB).PlayerDied();
             }
         }
+        if ((UserA instanceof Player && UserB instanceof Chest)) {
+            ((Player) UserA).PlayerGrantedPowerUP();
+            ((Chest) UserB).ChestOpened();
+        }
+            else if (UserA instanceof Chest && UserB instanceof Player){
+                ((Player) UserB).PlayerGrantedPowerUP();
+                ((Chest) UserA).ChestOpened();
+            }
+
     }
 
     @Override

@@ -219,6 +219,11 @@ public class Player implements Drawable {
         isAlive=false;
         System.out.println("Game Over Player Has died");
     }
+    public void PlayerGrantedPowerUP(){
+        System.out.println("player is granted a Gift");
+        return;
+
+    }
 
     public Body getHitbox() {
         return hitbox;
@@ -227,5 +232,6 @@ public class Player implements Drawable {
     public boolean isAlive() {
         return isAlive;
     }
+
 
 }
