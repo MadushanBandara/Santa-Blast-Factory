@@ -54,6 +54,7 @@ public class GameMap {
     public GameMap(BomberQuestGame game, String mapFilePath) {
         this.game = game;
         this.world = new World(Vector2.Zero, true);
+
         // Load map tiles
         this.tiles = MapLoader.loadMap(this.world, mapFilePath);
         // Set map dimensions
@@ -75,6 +76,7 @@ public class GameMap {
         generateEnemies();
         addMapEdges();// Uses mapWidth and mapHeight
         // Uses mapWidth and mapHeight
+        this.world.setContactListener(new CollisionDetector());
     }
 
     /**

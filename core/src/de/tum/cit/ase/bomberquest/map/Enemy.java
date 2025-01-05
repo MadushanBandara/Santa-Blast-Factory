@@ -17,7 +17,7 @@ import com.badlogic.gdx.physics.box2d.World;
 /**
  * Represents an enemy character in the game.
  */
-public class Enemy implements Drawable {
+public class Enemy implements Drawable{
 
     private int x, y; // Position in grid coordinates
     private Move currentDirection; // Current movement direction
@@ -154,7 +154,7 @@ public class Enemy implements Drawable {
         }
 
         // Randomly change direction with a small chance
-        if (Math.random() < 0.01) {
+        if (Math.random() < 0.05) {
             changeDirection();
         }
     }
@@ -175,6 +175,10 @@ public class Enemy implements Drawable {
     public float getY() {
         // The y-coordinate of the player is the y-coordinate of the hitbox (this can change every frame).
         return hitbox.getPosition().y;
+    }
+
+    public Body getHitbox() {
+        return hitbox;
     }
 }
 

@@ -214,5 +214,18 @@ public class Player implements Drawable {
         return bombs;
     }
 
+    public void PlayerDied(){
+        if(!isAlive) return;
+        isAlive=false;
+        System.out.println("Game Over Player Has died");
+    }
+
+    public Body getHitbox() {
+        return hitbox;
+    }
+
+    public boolean isAlive() {
+        return isAlive;
+    }
 
 }
