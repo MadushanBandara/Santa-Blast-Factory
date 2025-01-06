@@ -17,6 +17,7 @@ public enum SpriteSheet {
 
     /** The character spritesheet, which has a grid size of 16x32. */
     CHARACTER("character.png", 16, 32),
+    CHARACTERDEATH("characterdeath.png", 16, 32),
     /** The enemies spritesheet the grinch. */
     ENEMIES("mobs.png", 16, 16),
     /** The bombs spritesheet, gifts as bombs */

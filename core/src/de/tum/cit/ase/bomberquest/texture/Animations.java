@@ -20,6 +20,17 @@ public class Animations {
             SpriteSheet.CHARACTER.at(1, 4)
     );
 
+    public static final Animation<TextureRegion> CHARACTER_DEATH = new Animation<>(0.1f,
+            SpriteSheet.CHARACTERDEATH.at(9, 1),
+            SpriteSheet.CHARACTERDEATH.at(9, 2),
+            SpriteSheet.CHARACTERDEATH.at(9, 3),
+            SpriteSheet.CHARACTERDEATH.at(9, 5),
+            SpriteSheet.CHARACTERDEATH.at(9, 6),
+            SpriteSheet.CHARACTERDEATH.at(9, 7)
+
+    );
+
+
     /**
      * Animation for the character walking up.
      */

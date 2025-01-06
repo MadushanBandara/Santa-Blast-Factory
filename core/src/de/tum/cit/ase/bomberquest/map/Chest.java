@@ -15,6 +15,7 @@ public class Chest implements Drawable {
     private final float x;
     private final float y;
     private boolean IsOpened;
+    private final Body hitbox;
     
     /**
      * Create a chest at the given position.
@@ -26,14 +27,14 @@ public class Chest implements Drawable {
         this.x = x;
         this.y = y;
         // Since the hitbox never moves, and we never need to change it, we don't need to store a reference to it.
-        createHitbox(world);
+        this.hitbox = createHitbox(world, x, y);
     }
     
     /**
      * Create a Box2D body for the chest.
      * @param world The Box2D world to add the body to.
      */
-    private void createHitbox(World world) {
+    private Body createHitbox(World world, float x, float y) {
         // BodyDef is like a blueprint for the movement properties of the body.
         BodyDef bodyDef = new BodyDef();
         // Static bodies never move, but static bodies can collide with them.
@@ -53,6 +54,7 @@ public class Chest implements Drawable {
         box.dispose();
         // Set the chest as the user data of the body so we can look up the chest from the body later.
         body.setUserData(this);
+        return body;
     }
     
     @Override

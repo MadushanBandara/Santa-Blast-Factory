@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import de.tum.cit.ase.bomberquest.Actors.Player;
 import de.tum.cit.ase.bomberquest.BomberQuestGame;
 import de.tum.cit.ase.bomberquest.map.*;
 import de.tum.cit.ase.bomberquest.texture.Drawable;
@@ -82,6 +83,8 @@ public class GameScreen implements Screen {
         mapCamera.update();
     }
 
+
+
     private void renderBombs() {
 
         for (Bomb bomb : map.getPlayer().getBombs()) {
@@ -105,6 +108,7 @@ public class GameScreen implements Screen {
     }
 
     }
+
 
     private void renderMap() {
         for (Flowers flowers : map.getFlowers()) {
@@ -137,6 +141,7 @@ public class GameScreen implements Screen {
         float height = texture.getRegionHeight() * SCALE;
         spriteBatch.draw(texture, x, y, width, height);
     }
+
 
     private void renderTiles(SpriteBatch spriteBatch) {
         for (var tile : map.getTiles()) {

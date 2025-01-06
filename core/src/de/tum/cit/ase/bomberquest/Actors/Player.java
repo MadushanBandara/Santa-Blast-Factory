@@ -127,19 +127,23 @@ public class Player implements Drawable {
 
     @Override
     public TextureRegion getCurrentAppearance() {
-        switch (currentDirection) {
-            case UP:
-                return Animations.CHARACTER_WALK_UP.getKeyFrame(elapsedTime, true);
-            case DOWN:
-                return Animations.CHARACTER_WALK_DOWN.getKeyFrame(elapsedTime, true);
-            case LEFT:
-                return Animations.CHARACTER_WALK_LEFT.getKeyFrame(elapsedTime, true);
-            case RIGHT:
-                return Animations.CHARACTER_WALK_RIGHT.getKeyFrame(elapsedTime, true);
-            default: // IDLE
-                return Animations.CHARACTER_IDLE.getKeyFrame(elapsedTime,true);
+        if(!isAlive()){
+            return Animations.CHARACTER_DEATH.getKeyFrame(elapsedTime, true);
         }
-
+        else {
+            switch (currentDirection) {
+                case UP:
+                    return Animations.CHARACTER_WALK_UP.getKeyFrame(elapsedTime, true);
+                case DOWN:
+                    return Animations.CHARACTER_WALK_DOWN.getKeyFrame(elapsedTime, true);
+                case LEFT:
+                    return Animations.CHARACTER_WALK_LEFT.getKeyFrame(elapsedTime, true);
+                case RIGHT:
+                    return Animations.CHARACTER_WALK_RIGHT.getKeyFrame(elapsedTime, true);
+                default: // IDLE
+                    return Animations.CHARACTER_IDLE.getKeyFrame(elapsedTime, true);
+            }
+        }
     }
 
     @Override
@@ -221,8 +225,6 @@ public class Player implements Drawable {
     }
     public void PlayerGrantedPowerUP(){
         System.out.println("player is granted a Gift");
-        return;
-
     }
 
     public Body getHitbox() {

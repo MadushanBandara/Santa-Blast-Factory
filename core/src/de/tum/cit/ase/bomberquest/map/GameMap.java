@@ -205,6 +205,6 @@ public class GameMap {
                 .orElse(0) + 1;
     }
     public List<Tile> getTiles() {
-        return tiles; // Assuming `tiles` is a list of `Tile` objects in `GameMap`
+        return tiles;
     }
 }

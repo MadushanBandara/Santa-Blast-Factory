@@ -7,6 +7,7 @@ import de.tum.cit.ase.bomberquest.map.Chest;
 
 //https://stackoverflow.com/questions/7447811/clean-way-to-detect-collision-of-object-with-box2d?rq=3
 //https://libgdx.com/wiki/extensions/physics/box2d
+
 public class CollisionDetector implements ContactListener {
 
 //ChatGpt help here
