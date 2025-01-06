@@ -14,7 +14,7 @@ import com.badlogic.gdx.audio.Music;
 public enum MusicTrack {
 
     BACKGROUND("DecktheHalls.mp3", 0.2f),
-    GAMEOVER("game_over.mp3", 0.2f);
+    GAMEOVER("game_over.mp3", 0.01f);
 
     /** The music file owned by this variant. */
     private final Music music;
