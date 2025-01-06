@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
+import de.tum.cit.ase.bomberquest.audio.MusicTrack;
 import de.tum.cit.ase.bomberquest.screen.GameScreen;
 import de.tum.cit.ase.bomberquest.texture.Animations;
 import de.tum.cit.ase.bomberquest.texture.Drawable;
@@ -128,6 +129,7 @@ public class Player implements Drawable {
     @Override
     public TextureRegion getCurrentAppearance() {
         if(!isAlive()){
+            MusicTrack.GAMEOVER.play();
             return Animations.CHARACTER_DEATH.getKeyFrame(elapsedTime, true);
         }
         else {
