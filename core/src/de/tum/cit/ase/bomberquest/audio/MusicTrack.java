@@ -13,15 +13,16 @@ import com.badlogic.gdx.audio.Music;
  */
 public enum MusicTrack {
 
-    BACKGROUND("DecktheHalls.mp3", 0.2f),
-    GAMEOVER("game_over.mp3", 0.01f);
+    BACKGROUND("DecktheHalls.mp3", 0.2f, true),
+    EXPLOSION("explosion.mp3", 0.1f, false),
+    GAMEOVER("game_over.mp3", 0.01f, false);
 
     /** The music file owned by this variant. */
     private final Music music;
 
-    MusicTrack(String fileName, float volume) {
+    MusicTrack(String fileName, float volume, boolean loop) {
         this.music = Gdx.audio.newMusic(Gdx.files.internal("audio/" + fileName));
-        this.music.setLooping(true);
+        this.music.setLooping(loop);
         this.music.setVolume(volume);
     }
 
@@ -32,4 +33,9 @@ public enum MusicTrack {
     public void play() {
         this.music.play();
     }
+
+    public Music getMusic() {
+        return music;
+    }
+
 }

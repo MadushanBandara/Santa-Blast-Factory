@@ -1,7 +1,9 @@
 package de.tum.cit.ase.bomberquest.Actors;
 
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import de.tum.cit.ase.bomberquest.audio.MusicTrack;
 import de.tum.cit.ase.bomberquest.texture.Animations;
 import de.tum.cit.ase.bomberquest.texture.Drawable;
 
@@ -13,6 +15,7 @@ public class Bomb implements Drawable {
     private static final float BOMB_LIFETIME = 3f; // Time until the bomb explodes
     private static final float EXPLOSION_LIFETIME = 1f; // Duration of explosion animation
     private static boolean exploded;
+    private Music music;
 
     public Bomb(float x, float y) {
         this.position = new Vector2(x, y);
@@ -44,9 +47,10 @@ public class Bomb implements Drawable {
     public TextureRegion getCurrentAppearance() {
         if (!exploded) {
             // Render bomb animation before explosion
-            return Animations.BOMB.getKeyFrame(timer, true);
+            return Animations.BOMB.getKeyFrame(timer, false);
         } else if (explosionTimer > 0) {
             // Render explosion animation during its timer
+            MusicTrack.EXPLOSION.play();
             return Animations.EXPLOSION.getKeyFrame(EXPLOSION_LIFETIME - explosionTimer, true);
         }
         return null; // No texture after explosion finishes

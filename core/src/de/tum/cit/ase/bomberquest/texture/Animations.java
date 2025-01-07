@@ -26,7 +26,9 @@ public class Animations {
             SpriteSheet.CHARACTERDEATH.at(9, 3),
             SpriteSheet.CHARACTERDEATH.at(9, 5),
             SpriteSheet.CHARACTERDEATH.at(9, 6),
-            SpriteSheet.CHARACTERDEATH.at(9, 7)
+            SpriteSheet.CHARACTERDEATH.at(9, 8),
+            SpriteSheet.CHARACTERDEATH.at(9, 9),
+            SpriteSheet.CHARACTERDEATH.at(9, 12)
 
     );
 
