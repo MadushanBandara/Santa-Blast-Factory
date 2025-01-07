@@ -10,10 +10,18 @@ import de.tum.cit.ase.bomberquest.map.Tile;
  */
 public class Textures {
 
-    public static final TextureRegion FLOWERS = SpriteSheet.BASIC_TILES.at(2, 4);
+    public static final TextureRegion FLOWERS = SpriteSheet.BASIC_TILES.at(2, 5);
+    /*
+    public static final int INDESTRUCTIBLE_WALL = 0;
+    public static final int DESTRUCTIBLE_WALL = 1;
+    public static final int EMPTY = 9;
+    public static final int ENTRANCE = 2;
+    public static final int SPECIAL = 5;
+    public static final int POWERUP = 6;
+    */
 
     public static final TextureRegion ENTRANCE = SpriteSheet.BASIC_TILES.at(4, 8);
-
+    public static final TextureRegion EXIT = SpriteSheet.ORIGINALBOMBERMAN.at(4, 12);
     public static final TextureRegion BAK_TILE = SpriteSheet.BASIC_TILES.at(2,4);
 
     public static final TextureRegion BREAK_TILE = SpriteSheet.WALLS.at(4,4);
@@ -24,7 +32,8 @@ public class Textures {
 
     public static final TextureRegion CHEST = SpriteSheet.BASIC_TILES.at(5,5);
     public static final TextureRegion OPENEDCHEST = SpriteSheet.BASIC_TILES.at(5,4);
-    public static final TextureRegion INDESTRUCTIBLEWALLS = SpriteSheet.WALLS.at(4, 5);
+    public static final TextureRegion SANTA = SpriteSheet.SANTA.at(1,1);
+    //public static final TextureRegion INDESTRUCTIBLEWALLS = SpriteSheet.WALLS.at(4, 5);
 
 
 

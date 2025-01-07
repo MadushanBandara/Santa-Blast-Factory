@@ -22,11 +22,12 @@ public enum SpriteSheet {
     ENEMIES("mobs.png", 16, 16),
     /** The bombs spritesheet, gifts as bombs */
     HOUSE("house2.png", 16, 16),
-    BOMB("original-bomberman.png", 16, 16),
+    ORIGINALBOMBERMAN("original-bomberman.png", 16, 16),
     EXPLOSION("explosion.png", 80, 80),
     WALLS("original-bomberman.png", 16, 16),
     TREE("basictiles.png",16,16),
     /** The basic tiles spritesheet, which has a grid size of 16x16. */
+    SANTA("santa.png",16,32),
     BASIC_TILES("basictiles.png", 16, 16)
 
 

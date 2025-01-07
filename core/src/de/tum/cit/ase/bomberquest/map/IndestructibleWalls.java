@@ -7,7 +7,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import de.tum.cit.ase.bomberquest.texture.Textures;
 import de.tum.cit.ase.bomberquest.texture.Drawable;
-
+/*
 
 public class IndestructibleWalls implements Drawable {
     private static final int TILE_SIZE = 16;
@@ -59,3 +59,4 @@ public class IndestructibleWalls implements Drawable {
     }
 
 }
+*/

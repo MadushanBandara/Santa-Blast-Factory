@@ -117,9 +117,9 @@ public class GameScreen implements Screen {
         renderTiles(spriteBatch);
 
 
-        for (IndestructibleWalls wall : map.getIndestructibleWalls()) {
+       /*for (IndestructibleWalls wall : map.getIndestructibleWalls()) {
             draw(spriteBatch, wall);
-        }
+        }*/
 
         for (Enemy enemy : map.getEnemies()) {
             draw(spriteBatch, enemy);

@@ -58,7 +58,7 @@ public class Tile implements Drawable {
 
     private void createHitbox(World world) {
         if (tileType == 1 || tileType == 0) {
-            // These tiles are traversable, so we skip creating a hitbox
+            // other tiles are traversable, so we skip creating a hitbox
 
 
         // BodyDef is like a blueprint for the movement properties of the body.

@@ -37,7 +37,7 @@ public class GameMap {
     private final Chest chest; // The chest object on the map
     private final Flowers[][] flowers; // Decorative flowers
     private final List<Enemy> enemies; // List of enemies
-    private final List<IndestructibleWalls> indestructibleWalls; // Boundary walls
+   // private final List<IndestructibleWalls> indestructibleWalls; // Boundary walls
     private List<Tile> tiles;
 
     private static int mapWidth=21; // Map width in tiles
@@ -69,12 +69,11 @@ public class GameMap {
 
 
         this.enemies = new ArrayList<>();
-        this.indestructibleWalls = new ArrayList<>();
-
+       // this.indestructibleWalls = new ArrayList<>();//
         this.flowers = new Flowers[mapWidth][mapHeight];
         initializeFlowers();
         generateEnemies();
-        addMapEdges();// Uses mapWidth and mapHeight
+        //addMapEdges();// Uses mapWidth and mapHeight
         // Uses mapWidth and mapHeight
         this.world.setContactListener(new CollisionDetector());
     }
@@ -82,6 +81,7 @@ public class GameMap {
     /**
      * Initializes flowers in the map.
      */
+
     private void initializeFlowers() {
 
         for (int i = 0; i < mapWidth; i++) {
@@ -96,7 +96,15 @@ public class GameMap {
      */
     private void generateEnemies() {
 
-        int numberOfEnemies = random.nextInt(5) + 3; // Random number of enemies (3-7)
+        int numberOfEnemies = random.nextInt(5) + 3;// Random number of enemies (3-7)
+        //find suitable tiles for enemy generation on the map
+
+        for(int x=0; x<mapWidth; x++){
+            for(int y=0; y<mapHeight; y++){
+
+            }
+        }
+
         for (int i = 0; i < numberOfEnemies; i++) {
             int x = random.nextInt(mapWidth); // Use the calculated mapWidth
             int y = random.nextInt(mapHeight); // Use the calculated mapHeight
@@ -104,9 +112,11 @@ public class GameMap {
         }
     }
 
+    //private boolean freetile()//
+
     /**
      * Adds indestructible walls around the map edges.
-     */
+     *//* method removed
     private void addMapEdges() {
         // Iterate through all tiles in the grid
         for (int i = 0; i < mapWidth; i++) { // Horizontal edges (top and bottom)
@@ -117,7 +127,7 @@ public class GameMap {
             }
         }
     }
-
+*/
     /**
      * Updates the game state. This is called once per frame.
      *
@@ -166,6 +176,7 @@ public class GameMap {
     /**
      * Returns the flowers on the map.
      */
+
     public List<Flowers> getFlowers() {
         return Arrays.stream(flowers).flatMap(Arrays::stream).toList();
     }
@@ -180,9 +191,10 @@ public class GameMap {
     /**
      * Returns the indestructible walls on the map.
      */
+    /*
     public List<IndestructibleWalls> getIndestructibleWalls() {
         return indestructibleWalls;
-    }
+    }*/
 
     /** Returns the tiles of a specific type. */
     public List<Tile> getTilesByType(int type) {
