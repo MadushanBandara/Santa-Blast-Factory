@@ -15,6 +15,7 @@ public class Bomb implements Drawable {
     private static final float BOMB_LIFETIME = 3f; // Time until the bomb explodes
     private static final float EXPLOSION_LIFETIME = 1f; // Duration of explosion animation
     private static boolean exploded;
+    private static int maxBombs=30;
     private Music music;
 
     public Bomb(float x, float y) {
@@ -39,8 +40,9 @@ public class Bomb implements Drawable {
 
     private void explode() {
         exploded = true;
-        explosionTimer = EXPLOSION_LIFETIME; // Start explosion animation timer
-        System.out.println("Boom! Explosion triggered at: " + position);
+        explosionTimer = EXPLOSION_LIFETIME;// Start explosion animation timer
+        maxBombs--;
+        System.out.println("Boom! Explosion triggered at: " + position+"remaining bombs"+maxBombs);
     }
 
     @Override
@@ -71,5 +73,9 @@ public class Bomb implements Drawable {
 
     public static boolean isExploded() {
         return exploded;
+    }
+
+    public static int getMaxBombs() {
+        return maxBombs;
     }
 }

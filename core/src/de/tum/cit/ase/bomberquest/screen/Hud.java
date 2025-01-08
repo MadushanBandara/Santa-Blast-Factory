@@ -11,6 +11,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import de.tum.cit.ase.bomberquest.BomberQuestGame;
+import de.tum.cit.ase.bomberquest.Actors.Bomb;
+
+
 
 /**
  * A Heads-Up Display (HUD) that displays information on the screen.
@@ -50,7 +53,7 @@ public class Hud {
         // Initialize state variables
         worldTimer = 300;
         timeCount = 0;
-        bomber = 10;
+        bomber = Bomb.getMaxBombs();
         enemy = 0;
 
         // Set up UI Table
@@ -95,6 +98,7 @@ public class Hud {
             countDownLabel.setText(String.format("%03d", worldTimer));
             timeCount = 0;
         }
+        setRemainingBombs(Bomb.getMaxBombs());
     }
 
     public void setRemainingBombs(int remainingBombs) {

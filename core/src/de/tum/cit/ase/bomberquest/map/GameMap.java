@@ -72,6 +72,7 @@ public class GameMap {
         int enemiesGenerated = generateEnemies(this.tiles);
         //addMapEdges();// Uses mapWidth and mapHeight
         // Uses mapWidth and mapHeight
+
         this.world.setContactListener(new CollisionDetector());
     }
 
