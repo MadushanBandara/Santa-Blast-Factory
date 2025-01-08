@@ -115,9 +115,7 @@ public class GameMap {
         }
         System.out.println("Number of enemies generated: " + countenemies);
 
-        for (Tile tile : freetiles) {
-            System.out.println("Free tile at: (" + tile.getX() + ", " + tile.getY() + ")");
-        }
+
         return countenemies;
     }
 
