@@ -23,7 +23,7 @@ public class Textures {
     public static final TextureRegion ENTRANCE = SpriteSheet.BASIC_TILES.at(4, 8);
     public static final TextureRegion EXIT = SpriteSheet.ORIGINALBOMBERMAN.at(4, 12);
     public static final TextureRegion BAK_TILE = SpriteSheet.BASIC_TILES.at(2,4);
-
+    public static final TextureRegion DEFAULT = SpriteSheet.BASIC_TILES.at(1,1);
     public static final TextureRegion BREAK_TILE = SpriteSheet.WALLS.at(4,4);
 
     public static final TextureRegion UN_BREAK_TILE = SpriteSheet.WALLS.at(4,5);
@@ -58,7 +58,7 @@ public class Textures {
             case Tile.POWERUP:
                 return CHEST; // Replace with actual power-up texture
             default:
-                return BAK_TILE; // Default texture for unknown tile types
+                return DEFAULT; // Default texture for unknown tile types
         }
     }
 

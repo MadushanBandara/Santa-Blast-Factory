@@ -43,6 +43,7 @@ public class GameMap {
 
     private final Random random = new Random(); // Random number generator
     private float physicsTime = 0; // Accumulated time since the last physics step
+   ;
 
     /**
      * Constructor for GameMap.

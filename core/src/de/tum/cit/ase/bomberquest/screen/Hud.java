@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import de.tum.cit.ase.bomberquest.BomberQuestGame;
 import de.tum.cit.ase.bomberquest.Actors.Bomb;
-
+import de.tum.cit.ase.bomberquest.map.GameMap;
 
 
 /**
@@ -54,7 +54,7 @@ public class Hud {
         worldTimer = 300;
         timeCount = 0;
         bomber = Bomb.getMaxBombs();
-        enemy = 0;
+        enemy =0;
 
         // Set up UI Table
         Table table = new Table();
@@ -103,6 +103,10 @@ public class Hud {
 
     public void setRemainingBombs(int remainingBombs) {
         bomberLabel.setText(String.format("%02d", remainingBombs));
+    }
+    public void setEnemyCount(int enemyCount) {
+        this.enemy = enemyCount; // Update the HUD's enemy count variable
+        enamyLabel.setText(String.format("%02d", enemyCount)); // Update the label text
     }
 
     public void resize(int width, int height) {
