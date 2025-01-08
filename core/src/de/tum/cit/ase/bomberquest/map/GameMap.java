@@ -5,19 +5,16 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import de.tum.cit.ase.bomberquest.Actors.Player;
 import de.tum.cit.ase.bomberquest.BomberQuestGame;
+import de.tum.cit.ase.bomberquest.screen.Hud;
+
 import java.util.Arrays;
 import java.util.List;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
-import de.tum.cit.ase.bomberquest.Actors.Player;
-import de.tum.cit.ase.bomberquest.Actors.Bomb;
-import de.tum.cit.ase.bomberquest.BomberQuestGame;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
+
+import static java.lang.Math.min;
+
 
 /**
  * Represents the game map.
@@ -37,7 +34,8 @@ public class GameMap {
     private final Chest chest; // The chest object on the map
     private final Flowers[][] flowers; // Decorative flowers
     private final List<Enemy> enemies; // List of enemies
-   // private final List<IndestructibleWalls> indestructibleWalls; // Boundary walls
+
+    // private final List<IndestructibleWalls> indestructibleWalls; // Boundary walls
     private List<Tile> tiles;
 
     private static int mapWidth=21; // Map width in tiles
@@ -54,7 +52,6 @@ public class GameMap {
     public GameMap(BomberQuestGame game, String mapFilePath) {
         this.game = game;
         this.world = new World(Vector2.Zero, true);
-
         // Load map tiles
         this.tiles = MapLoader.loadMap(this.world, mapFilePath);
         // Set map dimensions
@@ -64,7 +61,7 @@ public class GameMap {
         //this.mapHeight = (int) Math.ceil(height / scale); // Calculate map height
 
         // Initialize map objects
-        this.player = new Player(this.world, 7, 7); // Player starts at (1, 3)
+        this.player = new Player(this.world, 10, 9); // Player starts at (1, 3)
         this.chest = new Chest(world, 3, 3); // Chest is placed at (3, 3)
 
 
@@ -72,7 +69,7 @@ public class GameMap {
        // this.indestructibleWalls = new ArrayList<>();//
         this.flowers = new Flowers[mapWidth][mapHeight];
         initializeFlowers();
-        generateEnemies();
+        int enemiesGenerated = generateEnemies(this.tiles);
         //addMapEdges();// Uses mapWidth and mapHeight
         // Uses mapWidth and mapHeight
         this.world.setContactListener(new CollisionDetector());
@@ -93,23 +90,35 @@ public class GameMap {
 
     /**
      * Dynamically generates enemies with random positions.
+     *
+     * @return
      */
-    private void generateEnemies() {
-
-        int numberOfEnemies = random.nextInt(5) + 3;// Random number of enemies (3-7)
+    private int generateEnemies(List<Tile> tiles) {
+        int countenemies=0;
+        List<Tile> freetiles=new ArrayList<>();
+       // Random number of enemies (3-7)
         //find suitable tiles for enemy generation on the map
-
-        for(int x=0; x<mapWidth; x++){
-            for(int y=0; y<mapHeight; y++){
-
+        for(Tile tile: tiles){
+            int type=tile.getTileType();
+            if(type != 0 && type != 1 && type != 2 && type != 5 && type != 6){
+                freetiles.add(tile);
             }
         }
+        System.out.println("Free tiles available: " + freetiles.size());
+        int numberOfEnemies = random.nextInt(freetiles.size()) + 1;
 
         for (int i = 0; i < numberOfEnemies; i++) {
-            int x = random.nextInt(mapWidth); // Use the calculated mapWidth
-            int y = random.nextInt(mapHeight); // Use the calculated mapHeight
-            enemies.add(new Enemy(this.world, x, y, random.nextBoolean()));
+            int x = random.nextInt(freetiles.size()); // select number of enemies according to free tiles
+            Tile y = freetiles.remove(x); //get the corresponding tiles from tiles table and remove sequentially to avoid position reuse
+            enemies.add(new Enemy(this.world, y.getX() , y.getY(), random.nextBoolean()));
+            countenemies++;
         }
+        System.out.println("Number of enemies generated: " + countenemies);
+
+        for (Tile tile : freetiles) {
+            System.out.println("Free tile at: (" + tile.getX() + ", " + tile.getY() + ")");
+        }
+        return countenemies;
     }
 
     //private boolean freetile()//
@@ -219,4 +228,5 @@ public class GameMap {
     public List<Tile> getTiles() {
         return tiles;
     }
+
 }

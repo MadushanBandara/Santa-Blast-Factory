@@ -8,8 +8,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import de.tum.cit.ase.bomberquest.texture.Animations;
 import de.tum.cit.ase.bomberquest.texture.Drawable;
 import de.tum.cit.ase.bomberquest.texture.SpriteSheet;
-import de.tum.cit.ase.bomberquest.texture.Textures;
-import com.badlogic.gdx.physics.box2d.World;
 
 
 /*Source code* https://github.com/Gaspared/Bomberman/blob/main/src/game/Enemy.java */
@@ -19,7 +17,7 @@ import com.badlogic.gdx.physics.box2d.World;
  */
 public class Enemy implements Drawable{
 
-    private int x, y; // Position in grid coordinates
+    private float x, y; // Position in grid coordinates
     private Move currentDirection; // Current movement direction
     private final TextureRegion texture; // Enemy's visual representation
     private float elapsedTime;
@@ -33,7 +31,7 @@ public class Enemy implements Drawable{
      * @param y         Initial Y-coordinate in the grid.
      * @param vertical  If true, restricts movement to vertical directions (UP, DOWN).
      */
-    public Enemy(World world, int x, int y, boolean vertical) {
+    public Enemy(World world, float x, float y, boolean vertical) {
         this.x = x;
         this.y = y;
         this.texture = SpriteSheet.ENEMIES.at(1, 1); // Default Grinch sprite
