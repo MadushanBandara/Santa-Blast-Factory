@@ -4,6 +4,8 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import de.tum.cit.ase.bomberquest.audio.MusicTrack;
+import de.tum.cit.ase.bomberquest.map.GameMap;
+import de.tum.cit.ase.bomberquest.map.Tile;
 import de.tum.cit.ase.bomberquest.texture.Animations;
 import de.tum.cit.ase.bomberquest.texture.Drawable;
 
@@ -16,6 +18,8 @@ public class Bomb implements Drawable {
     private static final float EXPLOSION_LIFETIME = 1f; // Duration of explosion animation
     private static boolean exploded;
     private static int maxBombs=30;
+    private static final int EXPLOSION_RADIUS = 1; // Tiles affected in each direction
+
     private Music music;
 
     public Bomb(float x, float y) {
@@ -43,7 +47,23 @@ public class Bomb implements Drawable {
         explosionTimer = EXPLOSION_LIFETIME;// Start explosion animation timer
         maxBombs--;
         System.out.println("Boom! Explosion triggered at: " + position+"remaining bombs"+maxBombs);
+        //Explosion logic based on radius
+        /*
+        for (int x = Math.max(0, (int) position.x - EXPLOSION_RADIUS);
+             x <= Math.min(map.getWidth() - 1, position.x + EXPLOSION_RADIUS); x++) {
+            for (int y = Math.max(0, (int) position.y - EXPLOSION_RADIUS);
+                 y <= Math.min(map.getHeight() - 1, position.y + EXPLOSION_RADIUS); y++) {
+                Tile tile = map.getTileAt(x, y);
+                if (tile != null) {
+                    tile.explode();
+                } else {
+                    System.out.println("No tile at (" + x + ", " + y + ")");
+                }
+            }
+
+        }*/
     }
+
 
     @Override
     public TextureRegion getCurrentAppearance() {

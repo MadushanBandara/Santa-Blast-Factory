@@ -87,9 +87,9 @@ public class Animations {
 
     public static final Animation<TextureRegion> EXPLOSION = new Animation<>(0.1f,
             SpriteSheet.EXPLOSION.at(1, 1),
-            SpriteSheet.EXPLOSION.at(1, 1),
-            SpriteSheet.EXPLOSION.at(1, 1),
-            SpriteSheet.EXPLOSION.at(1, 1)
+            SpriteSheet.EXPLOSION.at(1, 2),
+            SpriteSheet.EXPLOSION.at(1, 3),
+            SpriteSheet.EXPLOSION.at(1, 4)
     );
 
 

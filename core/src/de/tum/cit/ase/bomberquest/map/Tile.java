@@ -24,7 +24,7 @@ public class Tile implements Drawable {
 
     private final float x;
     private final float y;
-    private final int tileType;
+    private int tileType;
 
 
     public Tile(World world,float x, float y, int tileType) {
@@ -82,5 +82,27 @@ public class Tile implements Drawable {
         body.setUserData(this);
     }
     }
+
+    /**
+     * Handles the effect of an explosion on this
+     tile.
+     40
+     File - D:\Project - Santa_Save\Pilot\02\core\src\de\tum\cit\ase\bomberquest\map\Tile.java
+     Page 2 of 2
+     41 */
+    /*
+ public void explode() {
+     if (tileType == DESTRUCTIBLE_WALL) {
+         setTileType(EMPTY); // Change the tile toan empty tile
+            System.out.println("Tile at (" + x + ", " + y + ") exploded and became EMPTY.");
+             } else {
+            System.out.println("Tile at (" + x + ", " + y + ") is not destructible.");
+           }
+       }
+    public void setTileType(int tileType) {
+     this.tileType = tileType;
+ }
+
+     */
 
 }

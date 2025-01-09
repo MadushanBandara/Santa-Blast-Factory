@@ -98,6 +98,7 @@ public class GameScreen implements Screen {
             else{
                 float explosionWidth = (TILE_SIZE_PX * SCALE)*3;
                 float explosionHeight = (TILE_SIZE_PX * SCALE)*3;
+                //explosion is offset so that appears where the bomb was exploded because the bomb explosion animation is bigger than the bomb
                 float offsetX = (explosionWidth - TILE_SIZE_PX * SCALE) / 2f;
                 float offsetY = (explosionHeight - TILE_SIZE_PX * SCALE) / 2f;
                 float x = (bomb.getX() * TILE_SIZE_PX * SCALE)-offsetX;
