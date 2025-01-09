@@ -107,7 +107,7 @@ public class GameMap {
             }
         }
         System.out.println("Free tiles available: " + freetiles.size());
-        int numberOfEnemies = random.nextInt(freetiles.size()) + 1;
+        int numberOfEnemies = random.nextInt(Math.min(freetiles.size(), 10)) + 1;
 
         for (int i = 0; i < numberOfEnemies; i++) {
             int x = random.nextInt(freetiles.size()); // select number of enemies according to free tiles

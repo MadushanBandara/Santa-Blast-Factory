@@ -6,14 +6,22 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+
+
 
 public class MapLoader {
 
     private static World world;
 
+
     public static List<Tile> loadMap(World world, String filePath) {
         List<Tile> tiles = new ArrayList<>();
+        Map<String, Integer> definedTiles = new HashMap<>();
+
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {

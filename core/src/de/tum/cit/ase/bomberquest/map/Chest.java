@@ -83,7 +83,10 @@ public class Chest implements Drawable {
 
     @Override
     public TextureRegion getCurrentAppearance() {
-        return Textures.CHEST;
+        if(!ChestOpened()){
+            return Textures.CHEST;
+        }
+        else return Textures.OPENEDCHEST;
     }
     
     @Override

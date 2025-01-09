@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import de.tum.cit.ase.bomberquest.audio.MusicTrack;
 import de.tum.cit.ase.bomberquest.map.GameMap;
@@ -47,7 +48,9 @@ public class BomberQuestGame extends Game {
     public void create() {
         this.spriteBatch = new SpriteBatch(); // Create SpriteBatch for rendering
         this.skin = new Skin(Gdx.files.internal("skin/craftacular/craftacular-ui.json")); // Load UI skin
-        this.map = new GameMap(this, "maps/map-2.properties"); // Initialize game map
+        int mapselection = MathUtils.random(1,5);//randomize map selection from map files
+        this.map = new GameMap(this, "maps/map-"+mapselection+".properties");// Initialize game map
+        System.out.println("the genrated map is map number"+mapselection);//
 
         MusicTrack.BACKGROUND.play(); // Play background music
         goToMenu(); // Navigate to the menu screen
