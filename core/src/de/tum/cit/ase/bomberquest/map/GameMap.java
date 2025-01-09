@@ -36,6 +36,7 @@ public class GameMap {
     private final Flowers[][] flowers; // Decorative flowers
     private final List<Enemy> enemies; // List of enemies
     private final Santa santa;
+    public static int enemiesGenerated=10;
 
     // private final List<IndestructibleWalls> indestructibleWalls; // Boundary walls
     private List<Tile> tiles;
@@ -235,5 +236,9 @@ public class GameMap {
 
     public Santa getSanta() {
         return santa;
+    }
+
+    public static int getEnemiesGenerated() {
+        return enemiesGenerated;
     }
 }

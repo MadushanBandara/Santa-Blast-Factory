@@ -21,6 +21,8 @@ public class Enemy implements Drawable{
     private Move currentDirection; // Current movement direction
     private final TextureRegion texture; // Enemy's visual representation
     private float elapsedTime;
+    private boolean isDead;
+    public static int countEnemies;
 
     /** The Box2D hitbox of the player, used for position and collision detection. */
     private final Body hitbox;
@@ -37,6 +39,7 @@ public class Enemy implements Drawable{
         this.texture = SpriteSheet.ENEMIES.at(1, 1); // Default Grinch sprite
         this.currentDirection = randomDirection(vertical);
         this.hitbox = createHitbox(world, x, y);
+        countEnemies=GameMap.getEnemiesGenerated();
     }
 
     /**
@@ -161,6 +164,11 @@ public class Enemy implements Drawable{
     public TextureRegion getCurrentAppearance() {
         // Get the frame of the walk down animation that corresponds to the current time.
         return Animations.ENEMY_WALK_DOWN.getKeyFrame(this.elapsedTime, true);
+    }
+
+    public void killEnemy(){
+        isDead=false;
+        countEnemies--;
     }
 
     @Override
