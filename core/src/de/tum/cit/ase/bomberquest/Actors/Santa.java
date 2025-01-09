@@ -31,11 +31,13 @@ import java.util.ArrayList;
 public class Santa implements Drawable {
 
     private final Body hitbox;
+    private boolean isSaved;
     private boolean isAlive;
 
     public Santa(World world, float x, float y){
         this.hitbox = createHitbox(world, x, y);
         this.isAlive = true;
+        this.isSaved = true;
 
     }
 
@@ -91,5 +93,21 @@ public class Santa implements Drawable {
         public boolean isAlive() {
             return isAlive;
         }
+
+        public boolean isSaved() {
+        return isSaved;}
+
+    public void setSaved(boolean saved) {
+        isSaved = saved;
+    }
+
+    public void setAlive(boolean alive) {
+        isAlive = alive;
+    }
+
+    public void SantaSaved(){
+        isSaved=true;
+        System.out.println("Woohoo, you Saved Santa");
+    }
 
 }

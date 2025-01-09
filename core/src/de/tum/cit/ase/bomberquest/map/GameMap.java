@@ -75,7 +75,7 @@ public class GameMap {
         int enemiesGenerated = generateEnemies(this.tiles);
         //addMapEdges();// Uses mapWidth and mapHeight
         // Uses mapWidth and mapHeight
-        this.santa=new Santa(this.world, 18, 2);
+        this.santa=new Santa(this.world, 10, 8);
         this.world.setContactListener(new CollisionDetector());
     }
 

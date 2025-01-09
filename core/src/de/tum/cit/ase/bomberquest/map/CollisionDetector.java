@@ -2,6 +2,7 @@ package de.tum.cit.ase.bomberquest.map;
 
 import com.badlogic.gdx.physics.box2d.*;
 import de.tum.cit.ase.bomberquest.Actors.Player;
+import de.tum.cit.ase.bomberquest.Actors.Santa;
 import de.tum.cit.ase.bomberquest.map.Chest;
 
 
@@ -23,6 +24,13 @@ public class CollisionDetector implements ContactListener {
                 ((Player) UserA).PlayerDied();
             } else {
                 ((Player) UserB).PlayerDied();
+            }
+        }
+        if ((UserA instanceof Player && UserB instanceof Santa) || (UserA instanceof Santa && UserB instanceof Player)) {
+            if (UserB instanceof Santa) {
+                ((Santa) UserB).SantaSaved();
+            } else {
+                ((Santa) UserB).SantaSaved();
             }
         }
         if ((UserA instanceof Player && UserB instanceof Chest)) {
