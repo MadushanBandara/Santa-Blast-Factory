@@ -152,7 +152,7 @@ public class Enemy implements Drawable{
         }
 
         // Randomly change direction with a small chance
-        if (Math.random() < 0.05) {
+        if (Math.random() < 0.01) {
             changeDirection();
         }
     }

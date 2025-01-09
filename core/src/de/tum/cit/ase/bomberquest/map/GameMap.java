@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import de.tum.cit.ase.bomberquest.Actors.Player;
+import de.tum.cit.ase.bomberquest.Actors.Santa;
 import de.tum.cit.ase.bomberquest.BomberQuestGame;
 import de.tum.cit.ase.bomberquest.screen.Hud;
 
@@ -34,6 +35,7 @@ public class GameMap {
     private final Chest chest; // The chest object on the map
     private final Flowers[][] flowers; // Decorative flowers
     private final List<Enemy> enemies; // List of enemies
+    private final Santa santa;
 
     // private final List<IndestructibleWalls> indestructibleWalls; // Boundary walls
     private List<Tile> tiles;
@@ -63,7 +65,7 @@ public class GameMap {
 
         // Initialize map objects
         this.player = new Player(this.world, 10, 9); // Player starts at (1, 3)
-        this.chest = new Chest(world, 3, 3); // Chest is placed at (3, 3)
+        this.chest = new Chest(world, 3, 3);// Chest is placed at (3, 3)
 
 
         this.enemies = new ArrayList<>();
@@ -73,7 +75,7 @@ public class GameMap {
         int enemiesGenerated = generateEnemies(this.tiles);
         //addMapEdges();// Uses mapWidth and mapHeight
         // Uses mapWidth and mapHeight
-
+        this.santa=new Santa(this.world, 18, 2);
         this.world.setContactListener(new CollisionDetector());
     }
 
@@ -175,6 +177,8 @@ public class GameMap {
         return player;
     }
 
+
+
     /**
      * Returns the chest on the map.
      */
@@ -229,4 +233,7 @@ public class GameMap {
         return tiles;
     }
 
+    public Santa getSanta() {
+        return santa;
+    }
 }

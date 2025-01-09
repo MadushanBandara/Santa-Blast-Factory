@@ -32,7 +32,7 @@ public class Textures {
 
     public static final TextureRegion CHEST = SpriteSheet.BASIC_TILES.at(5,5);
     public static final TextureRegion OPENEDCHEST = SpriteSheet.BASIC_TILES.at(5,4);
-    public static final TextureRegion SANTA = SpriteSheet.SANTA.at(1,1);
+    public static final TextureRegion SANTA = SpriteSheet.SANTA.at(5,1);
     //public static final TextureRegion INDESTRUCTIBLEWALLS = SpriteSheet.WALLS.at(4, 5);
 
 

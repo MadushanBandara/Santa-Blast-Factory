@@ -27,7 +27,7 @@ public enum SpriteSheet {
     WALLS("original-bomberman.png", 16, 16),
     TREE("basictiles.png",16,16),
     /** The basic tiles spritesheet, which has a grid size of 16x16. */
-    SANTA("santa.png",16,32),
+    SANTA("christmasobjects.png",16,16),
     BASIC_TILES("basictiles.png", 16, 16)
 
 

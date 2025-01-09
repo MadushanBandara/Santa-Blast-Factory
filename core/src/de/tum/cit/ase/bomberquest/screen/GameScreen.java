@@ -127,6 +127,7 @@ public class GameScreen implements Screen {
 
         draw(spriteBatch, map.getPlayer());
         draw(spriteBatch, map.getChest());
+        draw(spriteBatch, map.getSanta());
         for (Bomb bomb : map.getPlayer().getBombs()) {
            renderBombs();
         }
