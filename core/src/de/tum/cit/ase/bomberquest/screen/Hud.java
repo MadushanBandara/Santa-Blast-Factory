@@ -100,7 +100,7 @@ public class Hud {
             timeCount = 0;
         }
         setRemainingBombs(Bomb.getMaxBombs());
-        setEnemyCount(Enemy.countEnemies);
+        setEnemyCount(GameMap.getEnemiesGenerated());
     }
 
     public void setRemainingBombs(int remainingBombs) {

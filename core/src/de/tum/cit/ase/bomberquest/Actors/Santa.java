@@ -31,13 +31,15 @@ import java.util.ArrayList;
 public class Santa implements Drawable {
 
     private final Body hitbox;
-    private boolean isSaved;
+    private static boolean isSaved;
     private boolean isAlive;
+    private float elapsedTime;
+    private float timer;
 
     public Santa(World world, float x, float y){
         this.hitbox = createHitbox(world, x, y);
         this.isAlive = true;
-        this.isSaved = true;
+        this.isSaved = false;
 
     }
 
@@ -94,7 +96,7 @@ public class Santa implements Drawable {
             return isAlive;
         }
 
-        public boolean isSaved() {
+        public static boolean isSaved() {
         return isSaved;}
 
     public void setSaved(boolean saved) {
@@ -105,9 +107,27 @@ public class Santa implements Drawable {
         isAlive = alive;
     }
 
+    public void tick(float deltaTime) {
+        elapsedTime += deltaTime; // Increment elapsed time for animations or timed logic
+
+        if (!isSaved()) {
+            timer -= deltaTime; // Decrease timer using delta time
+            if (timer <= 0) {
+                // Add relevant behavior here if needed, e.g., a warning or state change
+            }
+        }
+    }
+
     public void SantaSaved(){
         isSaved=true;
         System.out.println("Woohoo, you Saved Santa");
     }
 
+    public float getElapsedTime() {
+        return elapsedTime;
+    }
+
+    public void setElapsedTime(float elapsedTime) {
+        this.elapsedTime = elapsedTime;
+    }
 }

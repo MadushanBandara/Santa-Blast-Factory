@@ -13,14 +13,16 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import de.tum.cit.ase.bomberquest.Actors.Player;
 import de.tum.cit.ase.bomberquest.BomberQuestGame;
 import de.tum.cit.ase.bomberquest.map.*;
+import de.tum.cit.ase.bomberquest.texture.Animations;
 import de.tum.cit.ase.bomberquest.texture.Drawable;
 import de.tum.cit.ase.bomberquest.Actors.Bomb;
+import de.tum.cit.ase.bomberquest.Actors.Santa;
 import de.tum.cit.ase.bomberquest.map.GameMap;
 
 public class GameScreen implements Screen {
 
     public static final int TILE_SIZE_PX = 16; // Size of a grid cell in pixels
-    public static final float SCALE = 0.5f; // Scale of the game
+    public static final float SCALE = 0.4f; // Scale of the game
 
     private final BomberQuestGame game;
     private final SpriteBatch spriteBatch;
@@ -28,6 +30,7 @@ public class GameScreen implements Screen {
     private final Hud hud;
     private final OrthographicCamera mapCamera;
     private final Viewport viewport;
+    private float deltaTime;
 
     public GameScreen(BomberQuestGame game) {
         this.game = game;
@@ -50,7 +53,7 @@ public class GameScreen implements Screen {
     public void render(float deltaTime) {
         // Clear the screen
         ScreenUtils.clear(Color.BLACK);
-
+        map.getSanta().tick(deltaTime);
         // Handle input to go back to the menu
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             game.goToMenu();
@@ -96,8 +99,8 @@ public class GameScreen implements Screen {
                 game.getSpriteBatch().draw(bomb.getCurrentAppearance(), x, y, width, height);
         }
             else{
-                float explosionWidth = (TILE_SIZE_PX * SCALE)*3;
-                float explosionHeight = (TILE_SIZE_PX * SCALE)*3;
+                float explosionWidth = (TILE_SIZE_PX * SCALE)*4;
+                float explosionHeight = (TILE_SIZE_PX * SCALE)*4;
                 //explosion is offset so that appears where the bomb was exploded because the bomb explosion animation is bigger than the bomb
                 float offsetX = (explosionWidth - TILE_SIZE_PX * SCALE) / 2f;
                 float offsetY = (explosionHeight - TILE_SIZE_PX * SCALE) / 2f;
@@ -107,6 +110,33 @@ public class GameScreen implements Screen {
 
             }
     }
+
+    }
+
+    private void renderSanta(SpriteBatch spritebatch){
+        Santa santa = map.getSanta(); // Get Santa instance
+
+        // Draw Santa
+        draw(spriteBatch, santa);
+
+        // If saved, draw the animation near Santa
+        if (Santa.isSaved()) {
+            TextureRegion currentFrame = Animations.SANTAMESSAGE.getKeyFrame(santa.getElapsedTime(), true);
+//Chatgpt help to make image smaller
+            // Scale factor for the message animation
+            float scale = 0.2f;
+
+            // Calculate scaled dimensions
+            float messageWidth = currentFrame.getRegionWidth() * scale;
+            float messageHeight = currentFrame.getRegionHeight() * scale;
+
+            // Position the animation above Santa
+            float messageX = santa.getX() * TILE_SIZE_PX * SCALE; // Align horizontally with Santa
+            float messageY = santa.getY() * TILE_SIZE_PX * SCALE + TILE_SIZE_PX; // Position above Santa
+
+            // Draw the animation with the scaled size
+            spriteBatch.draw(currentFrame, messageX, messageY, messageWidth, messageHeight);
+        }
 
     }
 
@@ -128,7 +158,9 @@ public class GameScreen implements Screen {
 
         draw(spriteBatch, map.getPlayer());
         draw(spriteBatch, map.getChest());
-        draw(spriteBatch, map.getSanta());
+        renderSanta(spriteBatch);
+
+
         for (Bomb bomb : map.getPlayer().getBombs()) {
            renderBombs();
         }

@@ -81,8 +81,13 @@ public class Animations {
 
 
     public static final Animation<TextureRegion> BOMB = new Animation<>(0.1f,
-            SpriteSheet.ORIGINALBOMBERMAN.at(4, 3),
+            SpriteSheet.ORIGINALBOMBERMAN.at(4, 1),
+            SpriteSheet.ORIGINALBOMBERMAN.at(4, 2),
             SpriteSheet.ORIGINALBOMBERMAN.at(4, 3)
+    );
+    public static final Animation<TextureRegion> SANTAMESSAGE = new Animation<>(1f,
+            SpriteSheet.SANTAMESSAGE.at(2, 1),
+            SpriteSheet.SANTAMESSAGE.at(2, 2)
     );
 
     public static final Animation<TextureRegion> EXPLOSION = new Animation<>(0.1f,

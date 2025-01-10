@@ -45,8 +45,10 @@ public class MenuScreen implements Screen {
         table.add(new Label("Ho Ho Ho, Welcome to Santa´s Blast Factory!", game.getSkin(), "title")).padBottom(40).row();
 
         // Create and add a button to go to the game screen
-        TextButton goToGameButton = new TextButton("Go To Game", game.getSkin());
+        TextButton goToGameButton = new TextButton("Start New Game", game.getSkin());
         table.add(goToGameButton).width(300).row();
+        TextButton ContinueButton = new TextButton("Continue Game", game.getSkin());
+        table.add(ContinueButton).width(300).row();
         goToGameButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
