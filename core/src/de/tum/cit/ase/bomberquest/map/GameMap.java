@@ -3,6 +3,7 @@ package de.tum.cit.ase.bomberquest.map;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import de.tum.cit.ase.bomberquest.Actors.Bomb;
 import de.tum.cit.ase.bomberquest.Actors.Player;
 import de.tum.cit.ase.bomberquest.Actors.Santa;
 import de.tum.cit.ase.bomberquest.BomberQuestGame;
@@ -40,13 +41,12 @@ public class GameMap {
 
     // private final List<IndestructibleWalls> indestructibleWalls; // Boundary walls
     private List<Tile> tiles;
-
+    private final List<Bomb> bombs = new ArrayList<>();
     private static int mapWidth=21; // Map width in tiles
     private static int mapHeight=21; // Map height in tiles
 
     private final Random random = new Random(); // Random number generator
     private float physicsTime = 0; // Accumulated time since the last physics step
-   ;
 
     /**
      * Constructor for GameMap.
@@ -79,6 +79,8 @@ public class GameMap {
         this.santa=new Santa(this.world, 10, 8);
         this.world.setContactListener(new CollisionDetector());
     }
+
+
 
     /**
      * Initializes flowers in the map.
@@ -146,14 +148,20 @@ public class GameMap {
      *
      * @param frameTime The time that has passed since the last update.
      */
-    public void tick(float frameTime) {
+    public void tick(float frameTime, GameMap map) {
         // Update player
-        this.player.tick(frameTime);
+        this.player.tick(frameTime, map);
 
         // Update all enemies
         for (Enemy enemy : enemies) {
             enemy.update(frameTime);
         }
+        for (Bomb bomb : bombs) {
+            bomb.tick(frameTime);
+        }
+
+        bombs.removeIf(Bomb::isExpired); // Clean up expired bombs
+        player.tick(frameTime, map);
 
         // Perform physics steps
         doPhysicsStep(frameTime);
@@ -246,4 +254,16 @@ public class GameMap {
     public void setEnemiesGenerated(int enemiesGenerated) {
         GameMap.enemiesGenerated = enemiesGenerated;
     }
+    public Tile getTileAt(int x, int y) {
+        if (x < 0 || x >= getWidth() || y < 0 || y >= getHeight()) {
+            return null; // Return null for out-of-bounds requests
+        }
+        for (Tile tile : tiles) {
+            if (tile.getX() == x && tile.getY() == y) {
+                return tile;
+            }
+        }
+        return null;
+    }
+
 }

@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import de.tum.cit.ase.bomberquest.audio.MusicTrack;
+import de.tum.cit.ase.bomberquest.map.GameMap;
 import de.tum.cit.ase.bomberquest.screen.GameScreen;
 import de.tum.cit.ase.bomberquest.texture.Animations;
 import de.tum.cit.ase.bomberquest.texture.Drawable;
@@ -87,7 +88,7 @@ public class Player implements Drawable {
      * This doesn't actually move the player, but it tells the physics engine how the player should move next frame.
      * @param frameTime the time since the last frame.
      */
-    public void tick(float frameTime) {
+    public void tick(float frameTime, GameMap map) {
         this.elapsedTime += frameTime;
 
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
@@ -107,7 +108,7 @@ public class Player implements Drawable {
         }
 
         // Handle key press for bomb drop
-        handleKeyPress();
+        handleKeyPress(map);
 
         // Update all bombs
         for (Bomb bomb : bombs) {
@@ -193,15 +194,15 @@ public class Player implements Drawable {
     }
 
     // Method to handle key presses (you already have this in the tick method)
-    public void handleKeyPress() {
+    public void handleKeyPress(GameMap map) {
         if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER) && canDropBomb) {
-            dropBomb();
+            dropBomb(map);
         }
     }
 
-    private void dropBomb() {
+    private void dropBomb(GameMap map) {
         // Create a new bomb at the player's position
-        Bomb bomb = new Bomb(getX(), getY());
+        Bomb bomb = new Bomb (getX(), getY(), map);
         bombs.add(bomb);
 
         // Set canDropBomb to false until the bomb is dropped and exploded

@@ -11,7 +11,7 @@ import de.tum.cit.ase.bomberquest.texture.Drawable;
 
 public class Bomb implements Drawable {
 
-    private Vector2 position;
+    private static Vector2 position;
     private float timer;
     private float explosionTimer;
     private static final float BOMB_LIFETIME = 3f; // Time until the bomb explodes
@@ -19,14 +19,15 @@ public class Bomb implements Drawable {
     private static boolean exploded;
     private static int maxBombs=30;
     private static final int EXPLOSION_RADIUS = 1; // Tiles affected in each direction
-
+    private GameMap map;
     private Music music;
 
-    public Bomb(float x, float y) {
+    public Bomb(float x, float y, GameMap map) {
         this.position = new Vector2(x, y);
         this.timer = BOMB_LIFETIME;
         this.explosionTimer = EXPLOSION_LIFETIME;
         this.exploded = false;
+        this.map = map;
     }
 
     public void tick(float deltaTime) {
@@ -34,7 +35,7 @@ public class Bomb implements Drawable {
             // Countdown until explosion
             timer -= deltaTime;
             if (timer <= 0) {
-                explode();
+               explode(map);
             }
         } else {
             // Countdown for explosion animation
@@ -42,26 +43,46 @@ public class Bomb implements Drawable {
         }
     }
 
-    private void explode() {
+
+
+    private void explode(GameMap map) {
         exploded = true;
         explosionTimer = EXPLOSION_LIFETIME;// Start explosion animation timer
         maxBombs--;
         System.out.println("Boom! Explosion triggered at: " + position+"remaining bombs"+maxBombs);
         //Explosion logic based on radius
-        /*
-        for (int x = Math.max(0, (int) position.x - EXPLOSION_RADIUS);
-             x <= Math.min(map.getWidth() - 1, position.x + EXPLOSION_RADIUS); x++) {
-            for (int y = Math.max(0, (int) position.y - EXPLOSION_RADIUS);
-                 y <= Math.min(map.getHeight() - 1, position.y + EXPLOSION_RADIUS); y++) {
+        // Directions for explosion (up, down, left, right)
+        int[][] directions = {
+                {0, 1},  // Up
+                {0, -1}, // Down
+                {1, 0},  // Right
+                {-1, 0}  // Left
+        };
+        // Iterate through each direction to check the nearest breakable tile within the explosion radius
+        for (int[] direction : directions) {
+            for (int i = 1; i == EXPLOSION_RADIUS; i++) {
+                int x = (int) position.x + direction[0] * i;
+                int y = (int) position.y + direction[1] * i;
+
+                // Ensure the coordinates are within map bounds
+                if (x < 0 || x >= map.getWidth() || y < 0 || y >= map.getHeight()) {
+                    break; // Stop if out of bounds
+                }
+
                 Tile tile = map.getTileAt(x, y);
                 if (tile != null) {
-                    tile.explode();
-                } else {
-                    System.out.println("No tile at (" + x + ", " + y + ")");
+                    if (tile.isBreakable()) {
+                        // Explode the first breakable tile and stop further propagation in this direction
+                        tile.explode();
+                        System.out.println("Tile at (" + x + ", " + y + ") exploded.");
+                        return; // Stop after affecting the first breakable tile in any direction
+                    } else if (tile.getTileType() == Tile.INDESTRUCTIBLE_WALL) {
+                        // Stop propagation if an indestructible wall is encountered
+                        break;
+                    }
                 }
             }
-
-        }*/
+        }
     }
 
 
@@ -97,5 +118,9 @@ public class Bomb implements Drawable {
 
     public static int getMaxBombs() {
         return maxBombs;
+    }
+
+    public static Vector2 getPosition() {
+        return position;
     }
 }

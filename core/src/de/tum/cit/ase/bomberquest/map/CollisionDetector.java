@@ -26,6 +26,7 @@ public class CollisionDetector implements ContactListener {
                 ((Player) UserB).PlayerDied();
             }
         }
+        
         if ((UserA instanceof Player && UserB instanceof Santa) || (UserA instanceof Santa && UserB instanceof Player)) {
             if (UserB instanceof Santa) {
                 ((Santa) UserB).SantaSaved();

@@ -9,6 +9,8 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.*;
+
 
 /**
  * Represents a single tile on the game map.
@@ -105,4 +107,22 @@ public class Tile implements Drawable {
 
      */
 
+    public boolean isBreakable() {
+        return tileType == DESTRUCTIBLE_WALL;
+    }
+
+    public void explode() {
+        if (tileType == DESTRUCTIBLE_WALL) {
+            setTileType(EMPTY); // Change the tile to an empty tile
+            System.out.println("Tile at (" + x + ", " + y + ") exploded and became EMPTY.");
+        } else {
+            System.out.println("Tile at (" + x + ", " + y + ") is not destructible.");
+        }
+    }
+
+    public void setTileType(int tileType) {
+        this.tileType = tileType;
+    }
 }
+
+

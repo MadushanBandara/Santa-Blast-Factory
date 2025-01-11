@@ -63,7 +63,7 @@ public class GameScreen implements Screen {
         float frameTime = Math.min(deltaTime, 0.250f);
 
         // Update game state
-        map.tick(frameTime);
+        map.tick(frameTime, map);
         hud.update(frameTime);
         updateCamera();
 
