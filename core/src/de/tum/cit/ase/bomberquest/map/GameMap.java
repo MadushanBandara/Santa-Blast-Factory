@@ -3,6 +3,7 @@ package de.tum.cit.ase.bomberquest.map;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import de.tum.cit.ase.bomberquest.Actors.Bomb;
 import de.tum.cit.ase.bomberquest.Actors.Player;
 import de.tum.cit.ase.bomberquest.Actors.Santa;
 import de.tum.cit.ase.bomberquest.BomberQuestGame;
@@ -40,18 +41,17 @@ public class GameMap {
 
     // private final List<IndestructibleWalls> indestructibleWalls; // Boundary walls
     private List<Tile> tiles;
+    private final List<Bomb> bombs = new ArrayList<>();
 
-    private static int mapWidth=21; // Map width in tiles
-    private static int mapHeight=21; // Map height in tiles
+    private static int mapWidth = 21; // Map width in tiles
+    private static int mapHeight = 21; // Map height in tiles
 
     private final Random random = new Random(); // Random number generator
     private float physicsTime = 0; // Accumulated time since the last physics step
-   ;
+    ;
 
     /**
      * Constructor for GameMap.
-     *
-
      */
     public GameMap(BomberQuestGame game, String mapFilePath) {
         this.game = game;
@@ -65,18 +65,18 @@ public class GameMap {
         //this.mapHeight = (int) Math.ceil(height / scale); // Calculate map height
 
         // Initialize map objects
-        this.player = new Player(this.world, 10, 9); // Player starts at (1, 3)
+        this.player = new Player(this.world, 10, 9, this); // Player starts at (1, 3)
         this.chest = new Chest(world, 3, 3);// Chest is placed at (3, 3)
 
 
         this.enemies = new ArrayList<>();
-       // this.indestructibleWalls = new ArrayList<>();//
+        // this.indestructibleWalls = new ArrayList<>();//
         this.flowers = new Flowers[mapWidth][mapHeight];
         initializeFlowers();
         int enemiesGenerated = generateEnemies(this.tiles);
         //addMapEdges();// Uses mapWidth and mapHeight
         // Uses mapWidth and mapHeight
-        this.santa=new Santa(this.world, 10, 8);
+        this.santa = new Santa(this.world, 10, 8);
         this.world.setContactListener(new CollisionDetector());
     }
 
@@ -99,13 +99,13 @@ public class GameMap {
      * @return
      */
     private int generateEnemies(List<Tile> tiles) {
-        int countenemies=0;
-        List<Tile> freetiles=new ArrayList<>();
-       // Random number of enemies (3-7)
+        int countenemies = 0;
+        List<Tile> freetiles = new ArrayList<>();
+        // Random number of enemies (3-7)
         //find suitable tiles for enemy generation on the map
-        for(Tile tile: tiles){
-            int type=tile.getTileType();
-            if(type != 0 && type != 1 && type != 2 && type != 5 && type != 6){
+        for (Tile tile : tiles) {
+            int type = tile.getTileType();
+            if (type != 0 && type != 1 && type != 2 && type != 5 && type != 6) {
                 freetiles.add(tile);
             }
         }
@@ -115,7 +115,7 @@ public class GameMap {
         for (int i = 0; i < numberOfEnemies; i++) {
             int x = random.nextInt(freetiles.size()); // select number of enemies according to free tiles
             Tile y = freetiles.remove(x); //get the corresponding tiles from tiles table and remove sequentially to avoid position reuse
-            enemies.add(new Enemy(this.world, y.getX() , y.getY(), random.nextBoolean()));
+            enemies.add(new Enemy(this.world, y.getX(), y.getY(), random.nextBoolean()));
             countenemies++;
         }
         System.out.println("Number of enemies generated: " + countenemies);
@@ -141,6 +141,7 @@ public class GameMap {
         }
     }
 */
+
     /**
      * Updates the game state. This is called once per frame.
      *
@@ -154,6 +155,12 @@ public class GameMap {
         for (Enemy enemy : enemies) {
             enemy.update(frameTime);
         }
+
+        for (Bomb bomb : bombs) {
+            bomb.tick(frameTime, tiles);
+        }
+        bombs.removeIf(Bomb::isExpired); // Clean up expired bombs
+        player.tick(frameTime);
 
         // Perform physics steps
         doPhysicsStep(frameTime);
@@ -178,7 +185,6 @@ public class GameMap {
     public Player getPlayer() {
         return player;
     }
-
 
 
     /**
@@ -211,12 +217,16 @@ public class GameMap {
         return indestructibleWalls;
     }*/
 
-    /** Returns the tiles of a specific type. */
+    /**
+     * Returns the tiles of a specific type.
+     */
     public List<Tile> getTilesByType(int type) {
         return tiles.stream().filter(tile -> tile.getTileType() == type).toList();
     }
 
-    /** Returns the width of the map. */
+    /**
+     * Returns the width of the map.
+     */
     public int getWidth() {
         return tiles.stream()
                 .mapToInt(tile -> (int) tile.getX()) // Cast float to int
@@ -224,13 +234,16 @@ public class GameMap {
                 .orElse(0) + 1;
     }
 
-    /** Returns the height of the map. */
+    /**
+     * Returns the height of the map.
+     */
     public int getHeight() {
         return tiles.stream()
                 .mapToInt(tile -> (int) tile.getY()) // Cast float to int
                 .max()
                 .orElse(0) + 1;
     }
+
     public List<Tile> getTiles() {
         return tiles;
     }
@@ -246,4 +259,17 @@ public class GameMap {
     public void setEnemiesGenerated(int enemiesGenerated) {
         GameMap.enemiesGenerated = enemiesGenerated;
     }
+
+    public Tile getTileAt(int x, int y) {
+        if (x < 0 || x >= getWidth() || y < 0 || y >= getHeight()) {
+            return null; // Return null for out-of-bounds requests
+        }
+        for (Tile tile : tiles) {
+            if (tile.getX() == x && tile.getY() == y) {
+                return tile;
+            }
+        }
+        return null;
+    }
+
 }

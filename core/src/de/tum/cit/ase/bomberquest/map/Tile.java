@@ -46,6 +46,11 @@ public class Tile implements Drawable {
         return tileType;
     }
 
+
+    public void setTileType(int tileType) {
+        this.tileType = tileType;
+    }
+
     /**
      * Returns the appearance of the tile based on its type.
      *
@@ -104,5 +109,18 @@ public class Tile implements Drawable {
  }
 
      */
+
+    public boolean isBreakable() {
+        return tileType == DESTRUCTIBLE_WALL;
+    }
+
+    public void explode() {
+        if (tileType == DESTRUCTIBLE_WALL) {
+            setTileType(EMPTY); // Change the tile to an empty tile
+            System.out.println("Tile at (" + x + ", " + y + ") exploded and became EMPTY.");
+        } else {
+            System.out.println("Tile at (" + x + ", " + y + ") is not destructible.");
+        }
+    }
 
 }

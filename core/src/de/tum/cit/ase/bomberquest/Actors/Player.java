@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import de.tum.cit.ase.bomberquest.audio.MusicTrack;
+import de.tum.cit.ase.bomberquest.map.GameMap;
 import de.tum.cit.ase.bomberquest.screen.GameScreen;
 import de.tum.cit.ase.bomberquest.texture.Animations;
 import de.tum.cit.ase.bomberquest.texture.Drawable;
@@ -19,40 +20,56 @@ import static de.tum.cit.ase.bomberquest.screen.GameScreen.TILE_SIZE_PX;
  */
 public class Player implements Drawable {
 
-    /** Total time elapsed since the game started. We use this for calculating the player movement and animating it. */
+    /**
+     * Total time elapsed since the game started. We use this for calculating the player movement and animating it.
+     */
     private float elapsedTime;
 
 
-    /** The Box2D hitbox of the player, used for position and collision detection. */
+    /**
+     * The Box2D hitbox of the player, used for position and collision detection.
+     */
     private final Body hitbox;
 
-    /** Player's life status. */
+    /**
+     * Player's life status.
+     */
     private boolean isAlive;
 
     private ArrayList<Bomb> bombs;
 
-    /** Whether the player can drop a bomb. */
+    /**
+     * Whether the player can drop a bomb.
+     */
     private boolean canDropBomb;
 
-    /** Number of enemies defeated. */
+    /**
+     * Number of enemies defeated.
+     */
     private int enemiesDefeated;
 
-    /** Whether the exit is unlocked. */
+    /**
+     * Whether the exit is unlocked.
+     */
     private boolean isExitUnlocked;
 
-    public Player(World world, float x, float y) {
+    private GameMap map;
+
+    public Player(World world, float x, float y, GameMap map) {
         this.hitbox = createHitbox(world, x, y);
         this.isAlive = true;
         bombs = new ArrayList<>();
         this.canDropBomb = true; // Starts with the ability to drop one bomb
         this.enemiesDefeated = 0;
         this.isExitUnlocked = false;
+        this.map = map; // Initialize map
     }
 
     /**
      * Creates a Box2D body for the player.
      * This is what the physics engine uses to move the player around and detect collisions with other bodies.
-     * @param world The Box2D world to add the body to.
+     *
+     * @param world  The Box2D world to add the body to.
      * @param startX The initial X position.
      * @param startY The initial Y position.
      * @return The created body.
@@ -63,7 +80,7 @@ public class Player implements Drawable {
         // Dynamic bodies are affected by forces and collisions.
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         // Set the initial position of the body.
-        bodyDef.position.set(10,3);
+        bodyDef.position.set(10, 3);
         // Create the body in the world using the body definition.
         Body body = world.createBody(bodyDef);
         // Now we need to give the body a shape so the physics engine knows how to collide with it.
@@ -85,6 +102,7 @@ public class Player implements Drawable {
     /**
      * Move the player around in a circle by updating the linear velocity of its hitbox every frame.
      * This doesn't actually move the player, but it tells the physics engine how the player should move next frame.
+     *
      * @param frameTime the time since the last frame.
      */
     public void tick(float frameTime) {
@@ -110,12 +128,12 @@ public class Player implements Drawable {
         handleKeyPress();
 
         // Update all bombs
-        for (Bomb bomb : bombs) {
-            bomb.tick(frameTime);
-        }
-
-        // Remove expired bombs
-        bombs.removeIf(Bomb::isExpired);
+        bombs.forEach(bomb -> bomb.tick(frameTime, null));
+        bombs.removeIf(bomb -> {
+            boolean expired = bomb.isExpired();
+            if (expired) canDropBomb = true;
+            return expired;
+        });
 
 
         // Make the player move in a circle with radius 2 tiles
@@ -200,19 +218,21 @@ public class Player implements Drawable {
     }
 
     private void dropBomb() {
-        // Create a new bomb at the player's position
-        Bomb bomb = new Bomb(getX(), getY());
+        int tileX = Math.round(getX());
+        int tileY = Math.round(getY());
+        Bomb bomb = new Bomb(tileX, tileY, map); // Pass the map to the bomb
         bombs.add(bomb);
-
-        // Set canDropBomb to false until the bomb is dropped and exploded
-        canDropBomb = true;
+        canDropBomb = false;
     }
 
     public void render(SpriteBatch spriteBatch) {
-        // Render the player as before
-        // Render all bombs
         for (Bomb bomb : bombs) {
-            spriteBatch.draw(bomb.getCurrentAppearance(), bomb.getX(), bomb.getY());
+            spriteBatch.draw(
+                    bomb.getCurrentAppearance(),
+                    bomb.getX() * TILE_SIZE_PX,
+                    bomb.getY() * TILE_SIZE_PX,
+                    TILE_SIZE_PX, TILE_SIZE_PX
+            );
         }
     }
 
