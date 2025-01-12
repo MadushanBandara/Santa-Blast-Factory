@@ -27,6 +27,7 @@ public class Tile implements Drawable {
     private final float y;
     private int tileType;
     private Body body;
+    private boolean exploded;
 
 
 
@@ -113,6 +114,7 @@ public class Tile implements Drawable {
             for (Fixture fixture : body.getFixtureList()) { //Chatgpt help here
                 fixture.setSensor(true); // Make the fixture a sensor
             }
+            setExploded(true);
             System.out.println("Tile at (" + x + ", " + y + ") exploded and became EMPTY.");
         } else {
             System.out.println("Tile at (" + x + ", " + y + ") is not destructible.");
@@ -125,7 +127,13 @@ public class Tile implements Drawable {
         this.tileType = tileType;
     }
 
+    public boolean isExploded() {
+        return exploded;
+    }
 
+    public void setExploded(boolean exploded) {
+        this.exploded = exploded;
+    }
 }
 
 

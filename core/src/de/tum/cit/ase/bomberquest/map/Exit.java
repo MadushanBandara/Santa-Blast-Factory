@@ -47,6 +47,7 @@ public class Exit implements Drawable {
         box.dispose();
         // Set the chest as the user data of the body so we can look up the chest from the body later.
         body.setUserData(this);
+        System.out.println("exit created at position"+x+" "+y);
         return body;
     }
 
@@ -54,7 +55,7 @@ public class Exit implements Drawable {
     @Override
     public TextureRegion getCurrentAppearance() {
         if(!exitRevealed){
-            return Textures.UN_BREAK_TILE;
+            return Textures.BREAK_TILE;
         }
         else return Textures.EXIT;
     }
@@ -81,8 +82,13 @@ public class Exit implements Drawable {
     }
 
     //for when the player breaks the destructible tile to reveal the Exit
-    public boolean ExitRevealed(){
-        exitRevealed=true;
+    public boolean ExitRevealed(GameMap map){
+        Tile tile = map.getTileAt(x, y);
+        if(tile.isExploded()){
+            exitRevealed=true;
+        }
+        System.out.println("exit is revealed");
+
         return exitRevealed;
     }
 

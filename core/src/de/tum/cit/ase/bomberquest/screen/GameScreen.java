@@ -142,10 +142,13 @@ public class GameScreen implements Screen {
 
 
     private void renderMap() {
+
         for (Flowers flowers : map.getFlowers()) {
             draw(spriteBatch, flowers);
         }
+
         renderTiles(spriteBatch);
+        draw(spriteBatch, map.getExit());//render exit after tiles
 
 
        /*for (IndestructibleWalls wall : map.getIndestructibleWalls()) {

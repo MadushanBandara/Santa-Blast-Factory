@@ -34,7 +34,9 @@ public class GameMap {
 
     private final Player player; // The player character
     //private final Chest chest; // The chest object on the map
+
     private final Flowers[][] flowers; // Decorative flowers
+    private final Exit exit;
     private final List<Enemy> enemies; // List of enemies
     private final Santa santa;
     public static int enemiesGenerated;
@@ -56,8 +58,12 @@ public class GameMap {
     public GameMap(BomberQuestGame game, String mapFilePath) {
         this.game = game;
         this.world = new World(Vector2.Zero, true);
-        // Load map tiles
+        this.flowers = new Flowers[mapWidth][mapHeight];
+        initializeFlowers();
+
+        //load tiles
         this.tiles = MapLoader.loadMap(this.world, mapFilePath);
+        this.exit=new Exit(this.world, random.nextFloat(), random.nextFloat());
         // Set map dimensions
 
         // Determine grid dimensions based on viewport size and scale
@@ -71,12 +77,12 @@ public class GameMap {
 
         this.enemies = new ArrayList<>();
        // this.indestructibleWalls = new ArrayList<>();//
-        this.flowers = new Flowers[mapWidth][mapHeight];
-        initializeFlowers();
+
         int enemiesGenerated = generateEnemies(this.tiles);
         //addMapEdges();// Uses mapWidth and mapHeight
         // Uses mapWidth and mapHeight
         this.santa=new Santa(this.world, 10, 8);
+
         this.world.setContactListener(new CollisionDetector());
     }
 
@@ -126,8 +132,6 @@ public class GameMap {
 
         return countenemies;
     }
-
-    //private boolean freetile()//
 
     /**
      * Adds indestructible walls around the map edges.
@@ -252,10 +256,14 @@ public class GameMap {
         return enemiesGenerated;
     }
 
+    public Exit getExit() {
+        return exit;
+    }
+
     public void setEnemiesGenerated(int enemiesGenerated) {
         GameMap.enemiesGenerated = enemiesGenerated;
     }
-    public Tile getTileAt(int x, int y) {
+    public Tile getTileAt(float x,float y) {
         if (x < 0 || x >= getWidth() || y < 0 || y >= getHeight()) {
             return null; // Return null for out-of-bounds requests
         }
