@@ -24,7 +24,7 @@ public interface Drawable {
      *
      * @return The X coordinate of the drawable.
      */
-    int getX();
+    float getX();
     
     /**
      * Gets the Y coordinate of the drawable in the game world grid.
@@ -34,6 +34,6 @@ public interface Drawable {
      *
      * @return The Y coordinate of the drawable.
      */
-    int getY();
+    float getY();
     
 }

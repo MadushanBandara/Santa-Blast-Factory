@@ -90,13 +90,13 @@ public class Chest implements Drawable {
     }
     
     @Override
-    public int getX() {
-        return (int) x;
+    public float getX() {
+        return x;
     }
     
     @Override
-    public int getY() {
-        return (int) y;
+    public float getY() {
+        return y;
     }
 
     public boolean ChestOpened() {

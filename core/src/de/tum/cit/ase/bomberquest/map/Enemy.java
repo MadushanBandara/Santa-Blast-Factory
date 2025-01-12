@@ -172,15 +172,15 @@ public class Enemy implements Drawable{
     }
 
     @Override
-    public int getX() {
+    public float getX() {
         // The x-coordinate of the player is the x-coordinate of the hitbox (this can change every frame).
-        return (int) hitbox.getPosition().x;
+        return hitbox.getPosition().x;
     }
 
     @Override
-    public int getY() {
+    public float getY() {
         // The y-coordinate of the player is the y-coordinate of the hitbox (this can change every frame).
-        return (int) hitbox.getPosition().y;
+        return hitbox.getPosition().y;
     }
 
     public Body getHitbox() {
