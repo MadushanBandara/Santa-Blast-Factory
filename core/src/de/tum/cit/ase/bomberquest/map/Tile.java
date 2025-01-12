@@ -9,7 +9,6 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.physics.box2d.*;
 
 
 /**
@@ -27,13 +26,16 @@ public class Tile implements Drawable {
     private final float x;
     private final float y;
     private int tileType;
+    private Body body;
+
+
 
 
     public Tile(World world,float x, float y, int tileType) {
         this.x = x;
         this.y = y;
         this.tileType = tileType;
-        createHitbox(world);
+        this.body=createHitbox(world);
     }
     @Override
     public float getX() {
@@ -58,71 +60,72 @@ public class Tile implements Drawable {
         return Textures.getTextureForTileType(tileType);
     }
 
-    private void createHitbox(World world) {
-        if (tileType == 1 || tileType == 0) {
-            // other tiles are traversable, so we skip creating a hitbox
-
-
+    private Body createHitbox(World world) {
         // BodyDef is like a blueprint for the movement properties of the body.
         BodyDef bodyDef = new BodyDef();
-        // Static bodies never move, but static bodies can collide with them.
-        bodyDef.type = BodyDef.BodyType.StaticBody;
-        // Set the initial position of the body.
-        bodyDef.position.set(this.x, this.y);
-        // Create the body in the world using the body definition.
+        bodyDef.type = BodyDef.BodyType.StaticBody; // Static bodies for tiles
+        bodyDef.position.set(this.x, this.y); // Set the initial position of the body
+
+        // Create the body in the world using the body definition
         Body body = world.createBody(bodyDef);
-        // Now we need to give the body a shape so the physics engine knows how to collide with it.
-        // We'll use a polygon shape for the chest.
+
+        // Create a polygon shape for the tile
         PolygonShape box = new PolygonShape();
-        // Make the polygon a square with a side length of 1 tile.
-        box.setAsBox(0.5f, 0.5f);
-        // Attach the shape to the body as a fixture.
-        body.createFixture(box, 1.0f);
-        // We're done with the shape, so we should dispose of it to free up memory.
+        box.setAsBox(0.5f, 0.5f); // Half the width/height of a tile
+
+        // Create the fixture definition
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = box;
+        fixtureDef.density = 1.0f; // Adjust as needed
+
+        // sensor based on tile type
+        if (tileType == 1 || tileType == 0) {
+            // Non-traversable
+            fixtureDef.isSensor = false;
+        } else
+        {
+            // Traversable
+            fixtureDef.isSensor = true;
+        }
+
+        // Attach the fixture to the body
+        body.createFixture(fixtureDef);
+
+        // Clean up the shape object
         box.dispose();
-        // Set the chest as the user data of the body so we can look up the chest from the body later.
+
+        // Set the body’s UserData to the tile for collision handling
         body.setUserData(this);
-    }
+        return body;
     }
 
-    /**
-     * Handles the effect of an explosion on this
-     tile.
-     40
-     File - D:\Project - Santa_Save\Pilot\02\core\src\de\tum\cit\ase\bomberquest\map\Tile.java
-     Page 2 of 2
-     41 */
-    /*
- public void explode() {
-     if (tileType == DESTRUCTIBLE_WALL) {
-         setTileType(EMPTY); // Change the tile toan empty tile
-            System.out.println("Tile at (" + x + ", " + y + ") exploded and became EMPTY.");
-             } else {
-            System.out.println("Tile at (" + x + ", " + y + ") is not destructible.");
-           }
-       }
-    public void setTileType(int tileType) {
-     this.tileType = tileType;
- }
-
-     */
 
     public boolean isBreakable() {
         return tileType == DESTRUCTIBLE_WALL;
     }
-
+    public boolean isTraversable() {
+        return tileType == EMPTY;// Traversable if the tile is of type EMPTY
+    }
     public void explode() {
-        if (tileType == DESTRUCTIBLE_WALL) {
-            setTileType(EMPTY); // Change the tile to an empty tile
+        if (isBreakable()) {
+            setTileType(EMPTY);// Change the tile to an empty tile
+
+            for (Fixture fixture : body.getFixtureList()) { //Chatgpt help here
+                fixture.setSensor(true); // Make the fixture a sensor
+            }
             System.out.println("Tile at (" + x + ", " + y + ") exploded and became EMPTY.");
         } else {
             System.out.println("Tile at (" + x + ", " + y + ") is not destructible.");
         }
     }
 
+
+
     public void setTileType(int tileType) {
         this.tileType = tileType;
     }
+
+
 }
 
 

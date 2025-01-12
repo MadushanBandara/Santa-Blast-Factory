@@ -1,3 +1,4 @@
+/*
 package de.tum.cit.ase.bomberquest.map;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -6,9 +7,9 @@ import de.tum.cit.ase.bomberquest.texture.Drawable;
 import de.tum.cit.ase.bomberquest.texture.Textures;
 
 
-/**
+
  * A chest is a static object with a hitbox, so the player cannot walk through it.
- */
+
 public class Chest implements Drawable {
     
     // We would normally get the position from the hitbox, but since we don't need to move the chest, we can store the position directly.
@@ -23,6 +24,7 @@ public class Chest implements Drawable {
      * @param x The X position.
      * @param y The Y position.
      */
+/*
     public Chest(World world, float x, float y) {
         this.x = x;
         this.y = y;
@@ -57,6 +59,7 @@ public class Chest implements Drawable {
         body.setUserData(this);
         return body;
     }*/
+/*
     private Body createHitbox(World world, float startX, float startY) {
         // BodyDef is like a blueprint for the movement properties of the body.
         BodyDef bodyDef = new BodyDef();
@@ -80,7 +83,7 @@ public class Chest implements Drawable {
         body.setUserData(this);
         return body;
     }
-
+/*
     @Override
     public TextureRegion getCurrentAppearance() {
         if(!ChestOpened()){
@@ -109,3 +112,4 @@ public class Chest implements Drawable {
     }
 
 }
+*/

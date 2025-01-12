@@ -4,16 +4,13 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.*;
-import com.badlogic.gdx.utils.Array;
 import de.tum.cit.ase.bomberquest.audio.MusicTrack;
 import de.tum.cit.ase.bomberquest.map.GameMap;
-import de.tum.cit.ase.bomberquest.screen.GameScreen;
+import de.tum.cit.ase.bomberquest.map.Tile;
 import de.tum.cit.ase.bomberquest.texture.Animations;
 import de.tum.cit.ase.bomberquest.texture.Drawable;
 import java.util.ArrayList;
-import static com.badlogic.gdx.math.Interpolation.circle;
-import static de.tum.cit.ase.bomberquest.screen.GameScreen.SCALE;
-import static de.tum.cit.ase.bomberquest.screen.GameScreen.TILE_SIZE_PX;
+
 /**
  * Represents the player character in the game.
  * The player has a hitbox, so it can collide with other objects in the game.
@@ -28,7 +25,7 @@ public class Player implements Drawable {
     private final Body hitbox;
 
     /** Player's life status. */
-    private boolean isAlive;
+    private static boolean isAlive;
 
     private ArrayList<Bomb> bombs;
 
@@ -200,6 +197,7 @@ public class Player implements Drawable {
         }
     }
 
+
     private void dropBomb(GameMap map) {
         // Create a new bomb at the player's position
         Bomb bomb = new Bomb (getX(), getY(), map);
@@ -224,9 +222,11 @@ public class Player implements Drawable {
     public void PlayerDied(){
         if(!isAlive) return;
         isAlive=false;
+
         System.out.println("Game Over Player Has died");
     }
     public void PlayerGrantedPowerUP(){
+
         System.out.println("player is granted a Gift");
     }
 
@@ -234,9 +234,10 @@ public class Player implements Drawable {
         return hitbox;
     }
 
-    public boolean isAlive() {
+    public static boolean isAlive() {
         return isAlive;
     }
+
 
 
 }

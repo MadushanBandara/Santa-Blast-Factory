@@ -33,7 +33,7 @@ public class GameMap {
     private final World world; // Box2D world for physics simulation
 
     private final Player player; // The player character
-    private final Chest chest; // The chest object on the map
+    //private final Chest chest; // The chest object on the map
     private final Flowers[][] flowers; // Decorative flowers
     private final List<Enemy> enemies; // List of enemies
     private final Santa santa;
@@ -66,7 +66,7 @@ public class GameMap {
 
         // Initialize map objects
         this.player = new Player(this.world, 10, 9); // Player starts at (1, 3)
-        this.chest = new Chest(world, 3, 3);// Chest is placed at (3, 3)
+        //this.chest = new Chest(world, 3, 3);// Chest is placed at (3, 3)
 
 
         this.enemies = new ArrayList<>();
@@ -192,10 +192,11 @@ public class GameMap {
     /**
      * Returns the chest on the map.
      */
+    /*
     public Chest getChest() {
         return chest;
     }
-
+*/
     /**
      * Returns the flowers on the map.
      */

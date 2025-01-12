@@ -32,7 +32,7 @@ public class Hud {
     private float timeCount;
     private static Integer bomber;
     private static Integer enemy;
-    private boolean timeUp;
+    private static boolean timeUp;
 
     // UI Labels
     private Label christmasStartLabel;
@@ -115,7 +115,8 @@ public class Hud {
         viewport.update(width, height);
     }
 
-    public boolean isTimeUp() {
+    public static boolean isTimeUp() {
         return timeUp;
     }
+
 }

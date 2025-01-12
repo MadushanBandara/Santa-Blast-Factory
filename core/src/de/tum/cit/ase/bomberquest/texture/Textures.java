@@ -24,9 +24,9 @@ public class Textures {
     public static final TextureRegion EXIT = SpriteSheet.ORIGINALBOMBERMAN.at(4, 12);
     public static final TextureRegion BAK_TILE = SpriteSheet.BASIC_TILES.at(2,4);
     public static final TextureRegion DEFAULT = SpriteSheet.BASIC_TILES.at(2,4);
-    public static final TextureRegion BREAK_TILE = SpriteSheet.WALLS.at(4,4);
+    public static final TextureRegion UN_BREAK_TILE = SpriteSheet.WALLS.at(4,4);
 
-    public static final TextureRegion UN_BREAK_TILE = SpriteSheet.WALLS.at(4,5);
+    public static final TextureRegion BREAK_TILE= SpriteSheet.WALLS.at(4,5);
 
     public static final TextureRegion SPECIAL = SpriteSheet.TREE.at(4,7);
 
