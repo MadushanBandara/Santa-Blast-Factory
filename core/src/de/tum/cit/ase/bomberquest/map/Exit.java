@@ -8,7 +8,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import de.tum.cit.ase.bomberquest.Actors.Santa;
 import de.tum.cit.ase.bomberquest.texture.Drawable;
 import de.tum.cit.ase.bomberquest.texture.Textures;
-import de.tum.cit.ase.bomberquest.map.GameMap;
 
 public class Exit implements Drawable {
 
@@ -84,13 +83,13 @@ public class Exit implements Drawable {
     }
 
     @Override
-    public float getX() {
-        return x;
+    public int getX() {
+        return (int) x;
     }
 
     @Override
-    public float getY() {
-        return y;
+    public int getY() {
+        return (int) y;
     }
 
     public boolean ExitOpened() {

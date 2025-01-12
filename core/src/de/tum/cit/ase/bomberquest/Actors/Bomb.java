@@ -99,12 +99,12 @@ public class Bomb implements Drawable {
         return null; // No texture after explosion finishes
     }
 
-    public float getX() {
-        return position.x;
+    public int getX() {
+        return (int) position.x;
     }
 
-    public float getY() {
-        return position.y;
+    public int getY() {
+        return (int) position.y;
     }
 
     public boolean isExpired() {

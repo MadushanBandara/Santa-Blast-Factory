@@ -6,26 +6,8 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.World;
 import de.tum.cit.ase.bomberquest.audio.MusicTrack;
-import de.tum.cit.ase.bomberquest.texture.Animations;
 import de.tum.cit.ase.bomberquest.texture.Drawable;
 import de.tum.cit.ase.bomberquest.texture.Textures;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.physics.box2d.*;
-import com.badlogic.gdx.utils.Array;
-import de.tum.cit.ase.bomberquest.audio.MusicTrack;
-import de.tum.cit.ase.bomberquest.screen.GameScreen;
-import de.tum.cit.ase.bomberquest.texture.Animations;
-import de.tum.cit.ase.bomberquest.texture.Drawable;
-import java.util.ArrayList;
-import static com.badlogic.gdx.math.Interpolation.circle;
-import static de.tum.cit.ase.bomberquest.screen.GameScreen.SCALE;
-import static de.tum.cit.ase.bomberquest.screen.GameScreen.TILE_SIZE_PX;
-
-import java.util.ArrayList;
-
 
 
 public class Santa implements Drawable {
@@ -78,15 +60,15 @@ public class Santa implements Drawable {
     }
     }
     @Override
-    public float getX() {
+    public int getX() {
         // The x-coordinate of the player is the x-coordinate of the hitbox (this can change every frame).
-        return hitbox.getPosition().x;
+        return (int) hitbox.getPosition().x;
     }
 
     @Override
-    public float getY() {
+    public int getY() {
         // The y-coordinate of the player is the y-coordinate of the hitbox (this can change every frame).
-        return hitbox.getPosition().y;
+        return (int) hitbox.getPosition().y;
     }
         public Body getHitbox() {
             return hitbox;

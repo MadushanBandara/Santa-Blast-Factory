@@ -1,7 +1,6 @@
 package de.tum.cit.ase.bomberquest.map;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.physics.box2d.*;
 import de.tum.cit.ase.bomberquest.texture.Drawable;
 import de.tum.cit.ase.bomberquest.texture.Textures;
 
@@ -9,7 +8,6 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.physics.box2d.*;
 
 
 /**
@@ -24,23 +22,23 @@ public class Tile implements Drawable {
     public static final int SPECIAL = 5;
     public static final int POWERUP = 6;
 
-    private final float x;
-    private final float y;
+    private final int x;
+    private final int y;
     private int tileType;
 
 
-    public Tile(World world,float x, float y, int tileType) {
+    public Tile(World world,int x, int y, int tileType) {
         this.x = x;
         this.y = y;
         this.tileType = tileType;
         createHitbox(world);
     }
     @Override
-    public float getX() {
+    public int getX() {
         return x;
     }
     @Override
-    public float getY() {
+    public int getY() {
         return y;
     }
 

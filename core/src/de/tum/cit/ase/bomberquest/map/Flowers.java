@@ -26,12 +26,12 @@ public class Flowers implements Drawable {
     }
 
     @Override
-    public float getX() {
+    public int getX() {
         return x;
     }
 
     @Override
-    public float getY() {
+    public int getY() {
         return y;
     }
 }
