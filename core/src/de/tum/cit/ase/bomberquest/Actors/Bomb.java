@@ -55,6 +55,19 @@ public class Bomb implements Drawable {
         int centerX = Math.round(position.x);
         int centerY = Math.round(position.y);
 
+        Player player = map.getPlayer();
+
+        if (player != null && player.isAlive()) {
+            int playerX = Math.round(player.getX());
+            int playerY = Math.round(player.getY());
+
+            // Check the player's position against the bomb's center and its explosion radius
+            if (Math.abs(playerX - centerX) <= EXPLOSION_RADIUS && Math.abs(playerY - centerY) <= EXPLOSION_RADIUS) {
+                player.PlayerDied(); // Kill the player
+                System.out.println("Player killed by the bomb at (" + playerX + ", " + playerY + ")");
+            }
+        }
+
         // Explosion logic based on radius
         // Directions for explosion (up, down, left, right)
         int[][] directions = {
