@@ -75,6 +75,7 @@ public class Bomb implements Drawable {
                 {0, -1}, // Down
                 {1, 0},  // Right
                 {-1, 0}  // Left
+
         };
 
         // Iterate through each direction to check the nearest breakable tile within the explosion radius

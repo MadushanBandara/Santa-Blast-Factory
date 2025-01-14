@@ -108,9 +108,12 @@ public class Player implements Drawable {
         handleKeyPress(map);
 
         // Update all bombs
-        for (Bomb bomb : bombs) {
-            bomb.tick(frameTime);
-        }
+        bombs.forEach(bomb -> bomb.tick(frameTime));
+        bombs.removeIf(bomb -> {
+            boolean expired = bomb.isExpired();
+            if (expired) canDropBomb = true;
+            return expired;
+        });
 
         // Remove expired bombs
         bombs.removeIf(Bomb::isExpired);
@@ -204,7 +207,7 @@ public class Player implements Drawable {
         bombs.add(bomb);
 
         // Set canDropBomb to false until the bomb is dropped and exploded
-        canDropBomb = true;
+        canDropBomb = false;
     }
 
     public void render(SpriteBatch spriteBatch) {
@@ -224,6 +227,7 @@ public class Player implements Drawable {
         isAlive=false;
 
         System.out.println("Game Over Player Has died");
+
     }
     public void PlayerGrantedPowerUP(){
 
