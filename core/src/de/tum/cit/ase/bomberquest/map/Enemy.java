@@ -79,7 +79,7 @@ public class Enemy implements Drawable{
         // We'll use a circle shape for the player.
         CircleShape circle = new CircleShape();
         // Give the circle a radius of 0.3 tiles (the player is 0.6 tiles wide).
-        circle.setRadius(0.8f);
+        circle.setRadius(0.3f);
         // Attach the shape to the body as a fixture.
         // Bodies can have multiple fixtures, but we only need one for the player.
         body.createFixture(circle, 1.0f);
@@ -167,7 +167,7 @@ public class Enemy implements Drawable{
     }
 
     public void killEnemy(){
-        isDead=false;
+        isDead=true;
         countEnemies--;
     }
 
@@ -185,6 +185,10 @@ public class Enemy implements Drawable{
 
     public Body getHitbox() {
         return hitbox;
+    }
+
+    public boolean isDead() {
+        return isDead;
     }
 }
 
