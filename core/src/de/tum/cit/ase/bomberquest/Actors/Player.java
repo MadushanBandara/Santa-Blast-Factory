@@ -27,6 +27,8 @@ public class Player implements Drawable {
     /** Player's life status. */
     private static boolean isAlive;
 
+    private static int lifeCounter=1;
+
     private ArrayList<Bomb> bombs;
 
     /** Whether the player can drop a bomb. */
@@ -45,6 +47,14 @@ public class Player implements Drawable {
         this.canDropBomb = true; // Starts with the ability to drop one bomb
         this.enemiesDefeated = 0;
         this.isExitUnlocked = false;
+    }
+
+    public static int getLifeCounter() {
+        return lifeCounter;
+    }
+
+    public static void setLifeCounter(int lifeCounter) {
+        Player.lifeCounter = lifeCounter;
     }
 
     /**
@@ -225,7 +235,7 @@ public class Player implements Drawable {
     public void PlayerDied(){
         if(!isAlive) return;
         isAlive=false;
-
+        lifeCounter--;
         System.out.println("Game Over Player Has died");
 
     }

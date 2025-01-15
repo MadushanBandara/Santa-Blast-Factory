@@ -3,6 +3,11 @@ package de.tum.cit.ase.bomberquest.texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import de.tum.cit.ase.bomberquest.map.Tile;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.badlogic.gdx.math.MathUtils.random;
+
 /**
  * Contains all texture constants used in the game.
  * It is good practice to keep all textures and animations in constants to avoid loading them multiple times.
@@ -35,6 +40,16 @@ public class Textures {
     public static final TextureRegion SANTA = SpriteSheet.SANTA.at(5,1);
     //public static final TextureRegion INDESTRUCTIBLEWALLS = SpriteSheet.WALLS.at(4, 5);
 
+    //powerups
+    public static final TextureRegion LIFE = SpriteSheet.ORIGINALBOMBERMAN.at(15, 5);
+    public static final TextureRegion BLASTRADIUSPLUS= SpriteSheet.ORIGINALBOMBERMAN.at(15, 7);
+    public static final TextureRegion KILLENEMY= SpriteSheet.ORIGINALBOMBERMAN.at(15, 6);
+    public static final TextureRegion EXTRABOMBS= SpriteSheet.ORIGINALBOMBERMAN.at(15, 3);
+
+    //powerdown
+    public static final TextureRegion MOREENEMIES= SpriteSheet.ORIGINALBOMBERMAN.at(15, 2);
+
+
 
 
 
@@ -61,6 +76,20 @@ public class Textures {
                 return DEFAULT; // Default texture for unknown tile types
         }
     }
+
+    public static List<TextureRegion> randomSurprise = new ArrayList<>(List.of(
+            LIFE, BLASTRADIUSPLUS, KILLENEMY, MOREENEMIES,EXIT, SPECIAL,BAK_TILE,DEFAULT,EXTRABOMBS
+    ));
+
+    public static TextureRegion RandomSurprise() {
+        return randomSurprise.get(random.nextInt(randomSurprise.size()));
+//
+    }
+
+   public static void removeExit(){
+        randomSurprise.remove(EXIT);
+    }
+
 
 
 

@@ -18,7 +18,7 @@ public class Bomb implements Drawable {
     private static final float EXPLOSION_LIFETIME = 1f; // Duration of explosion animation
     private static boolean exploded;
     private static int maxBombs=30;
-    private static final int EXPLOSION_RADIUS = 1; // Tiles affected in each direction
+    private static int EXPLOSION_RADIUS = 1; // Tiles affected in each direction
     private GameMap map;
     private Music music;
 
@@ -142,5 +142,17 @@ public class Bomb implements Drawable {
 
     public static Vector2 getPosition() {
         return position;
+    }
+
+    public static int getExplosionRadius() {
+        return EXPLOSION_RADIUS;
+    }
+
+    public static void setExplosionRadius(int explosionRadius) {
+        EXPLOSION_RADIUS = explosionRadius;
+    }
+
+    public static void setMaxBombs(int maxBombs) {
+        Bomb.maxBombs = maxBombs;
     }
 }

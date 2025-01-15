@@ -47,7 +47,7 @@ public class GameMap {
     private static int mapWidth=21; // Map width in tiles
     private static int mapHeight=21; // Map height in tiles
 
-    private final Random random = new Random(); // Random number generator
+    private static final Random random = new Random(); // Random number generator
     private float physicsTime = 0; // Accumulated time since the last physics step
 
     /**
@@ -106,7 +106,7 @@ public class GameMap {
      *
      * @return
      */
-    private int generateEnemies(List<Tile> tiles) {
+   public int generateEnemies(List<Tile> tiles) {
         int countenemies=0;
         List<Tile> freetiles=new ArrayList<>();
        // Random number of enemies (3-7)
@@ -157,9 +157,8 @@ public class GameMap {
         this.player.tick(frameTime, map);
         for (Tile tile : tiles) {
             tile.tick(frameTime);
+
         }
-
-
         // Update all enemies
         for (Enemy enemy : enemies) {
             enemy.update(frameTime);

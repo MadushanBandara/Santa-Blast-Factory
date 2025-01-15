@@ -1,7 +1,10 @@
 package de.tum.cit.ase.bomberquest.map;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.*;
+import de.tum.cit.ase.bomberquest.Actors.Bomb;
+import de.tum.cit.ase.bomberquest.Actors.Player;
 import de.tum.cit.ase.bomberquest.texture.Animations;
 import de.tum.cit.ase.bomberquest.texture.Drawable;
 import de.tum.cit.ase.bomberquest.texture.Textures;
@@ -9,6 +12,10 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+
+import java.util.List;
+
+import static de.tum.cit.ase.bomberquest.texture.Textures.*;
 
 
 /**
@@ -23,6 +30,8 @@ public class Tile implements Drawable {
     public static final int ENTRANCE = 2;
     public static final int SPECIAL = 5;
     public static final int POWERUP = 6;
+    public static final int POWERDOWN=3;
+    public static final int EXIT = 8;
     private float elapsedTime;
 
     private final float x;
@@ -30,6 +39,8 @@ public class Tile implements Drawable {
     private int tileType;
     private Body body;
     private boolean exploded;
+    private boolean animationFinished;
+    private TextureRegion currentAppearance;
 
 
 
@@ -39,6 +50,7 @@ public class Tile implements Drawable {
         this.y = y;
         this.tileType = tileType;
         this.body=createHitbox(world);
+        this.currentAppearance = Textures.getTextureForTileType(tileType);
     }
     @Override
     public float getX() {
@@ -58,15 +70,46 @@ public class Tile implements Drawable {
      *
      * @return A TextureRegion representing the tile's appearance.
      */
-    @Override
-    public TextureRegion getCurrentAppearance() {
-        if(isExploded()){
+        @Override
+        public TextureRegion getCurrentAppearance() {
+            if (isExploded()) {
+                if (!animationFinished) {
+                    if (Animations.WALLEXPLOSION.isAnimationFinished(elapsedTime)) {
+                        // Animation finished, assign a random texture
+                        animationFinished = true;
+                        currentAppearance = Textures.RandomSurprise();// Assign the random texture
+                        if (currentAppearance.equals(Textures.LIFE)) {
+                            setTileType(9);
+                            Player.setLifeCounter(Player.getLifeCounter() + 1);
+                            System.out.println("now the player has "+Player.getLifeCounter()+" lives");
+                        } else if (currentAppearance.equals(Textures.EXIT)) {
+                            setTileType(8);
+                            Textures.removeExit();// Remove EXIT from surprise list so it only appears once
+                            System.out.println("Congrats the Exit is now open");
+                        } else if (currentAppearance.equals(Textures.MOREENEMIES)) {
+                            setTileType(3);
+                            //
+                            // GameMap.generateEnemies(this.tiles);
+                        } else if (currentAppearance.equals(Textures.BLASTRADIUSPLUS)) {
+                            Bomb.setExplosionRadius(Bomb.getExplosionRadius() + 1);
+                            System.out.println("now the explosion Radius is"+Bomb.getExplosionRadius());
+                        } else if (currentAppearance.equals(Textures.EXTRABOMBS)) {
+                            Bomb.setMaxBombs(Bomb.getMaxBombs() + 5);
+                            System.out.println("now you have 5 extra Bombs");
+                        }
 
-            return Animations.WALLEXPLOSION.getKeyFrame(elapsedTime, false);
+                        return currentAppearance; // Return the random texture
+                    } else {
+                        //directly after explosion wallexplosion animation sets
+                        return Animations.WALLEXPLOSION.getKeyFrame(elapsedTime, false);
+                    }
+                } else {
+                    // return the final texture
+                    return currentAppearance;
+                }
+            }
+            return Textures.getTextureForTileType(tileType); // if not exploded standard tile rendering before explosion according to tile type
         }
-
-        else return Textures.getTextureForTileType(tileType);
-    }
 
     private Body createHitbox(World world) {
         // BodyDef is like a blueprint for the movement properties of the body.
@@ -148,7 +191,6 @@ public class Tile implements Drawable {
             elapsedTime += deltaTime;
         }
     }
-
 
 
 

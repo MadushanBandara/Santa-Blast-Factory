@@ -7,7 +7,7 @@ import de.tum.cit.ase.bomberquest.texture.Drawable;
 import de.tum.cit.ase.bomberquest.texture.Textures;
 import de.tum.cit.ase.bomberquest.map.GameMap;
 
-public class Exit implements Drawable {
+public class Exit  implements Drawable {
 
     private final float x;
     private final float y;
