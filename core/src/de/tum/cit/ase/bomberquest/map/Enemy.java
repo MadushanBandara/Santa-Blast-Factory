@@ -192,9 +192,9 @@ public class Enemy implements Drawable{
         return hitbox;
     }
 
-    public boolean isDead() {
-        return isDead;
-    }
+
+
+
 }
 
 
