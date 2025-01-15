@@ -38,6 +38,7 @@ public class Textures {
     public static final TextureRegion CHEST = SpriteSheet.BASIC_TILES.at(5,5);
     public static final TextureRegion OPENEDCHEST = SpriteSheet.BASIC_TILES.at(5,4);
     public static final TextureRegion SANTA = SpriteSheet.SANTA.at(5,1);
+    public static final TextureRegion SNOWMAN=SpriteSheet.SNOWMAN.at(1,1);
     //public static final TextureRegion INDESTRUCTIBLEWALLS = SpriteSheet.WALLS.at(4, 5);
 
     //powerups
@@ -71,7 +72,7 @@ public class Textures {
             case Tile.SPECIAL:
                 return SPECIAL; // Replace with actual special tile texture
             case Tile.POWERUP:
-                return CHEST; // Replace with actual power-up texture
+                return SNOWMAN; // Replace with actual power-up texture
             default:
                 return DEFAULT; // Default texture for unknown tile types
         }

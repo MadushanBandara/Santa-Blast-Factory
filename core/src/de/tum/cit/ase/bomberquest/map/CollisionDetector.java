@@ -11,7 +11,7 @@ import de.tum.cit.ase.bomberquest.Actors.Santa;
 
 public class CollisionDetector implements ContactListener {
 
-//ChatGpt help here
+
     @Override
     public void beginContact(Contact contact) {
         Fixture ActorA= contact.getFixtureA();
@@ -41,6 +41,7 @@ public class CollisionDetector implements ContactListener {
         if ((UserA instanceof Player && UserB instanceof Tile && ((Tile) UserB).getTileType() ==8) ||
                 (UserA instanceof Tile && ((Tile) UserA).getTileType() == 8 && UserB instanceof Player)) {
             Tile.setExitFound(true);
+            System.out.println("you can leave from here");
         }
 
         // Player and Power-Up Tile interaction
