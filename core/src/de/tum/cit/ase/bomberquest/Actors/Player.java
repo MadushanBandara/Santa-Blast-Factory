@@ -255,7 +255,8 @@ public class Player implements Drawable {
     public boolean outOfBombs(){
         if(Bomb.getMaxBombs()==0){
             canDropBomb=false;
-        }
+            System.out.println("You ran out of Bombs :(");
+        } 
         return !canDropBomb;
     }
 
