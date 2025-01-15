@@ -92,7 +92,7 @@ public class Tile implements Drawable {
                             // GameMap.generateEnemies(this.tiles);
                         } else if (currentAppearance.equals(Textures.BLASTRADIUSPLUS)) {
                             Bomb.setExplosionRadius(Bomb.getExplosionRadius() + 1);
-                            System.out.println("now the explosion Radius is"+Bomb.getExplosionRadius());
+                            System.out.println("now the explosion Radius is "+Bomb.getExplosionRadius());
                         } else if (currentAppearance.equals(Textures.EXTRABOMBS)) {
                             Bomb.setMaxBombs(Bomb.getMaxBombs() + 5);
                             System.out.println("now you have 5 extra Bombs");

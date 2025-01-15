@@ -252,6 +252,13 @@ public class Player implements Drawable {
         return isAlive;
     }
 
+    public boolean outOfBombs(){
+        if(Bomb.getMaxBombs()==0){
+            canDropBomb=false;
+        }
+        return !canDropBomb;
+    }
+
 
 
 }
