@@ -155,6 +155,10 @@ public class GameMap {
     public void tick(float frameTime, GameMap map) {
         // Update player
         this.player.tick(frameTime, map);
+        for (Tile tile : tiles) {
+            tile.tick(frameTime);
+        }
+
 
         // Update all enemies
         for (Enemy enemy : enemies) {
@@ -260,7 +264,7 @@ public class GameMap {
         return exit;
     }
 
-    public void setEnemiesGenerated(int enemiesGenerated) {
+    public static void setEnemiesGenerated(int enemiesGenerated) {
         GameMap.enemiesGenerated = enemiesGenerated;
     }
     public Tile getTileAt(float x,float y) {

@@ -2,9 +2,9 @@ package de.tum.cit.ase.bomberquest.map;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.*;
+import de.tum.cit.ase.bomberquest.texture.Animations;
 import de.tum.cit.ase.bomberquest.texture.Drawable;
 import de.tum.cit.ase.bomberquest.texture.Textures;
-
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
@@ -13,7 +13,8 @@ import com.badlogic.gdx.physics.box2d.World;
 
 /**
  * Represents a single tile on the game map.
- */
+#*/
+
 public class Tile implements Drawable {
 
     public static final int INDESTRUCTIBLE_WALL = 0;
@@ -22,6 +23,7 @@ public class Tile implements Drawable {
     public static final int ENTRANCE = 2;
     public static final int SPECIAL = 5;
     public static final int POWERUP = 6;
+    private float elapsedTime;
 
     private final float x;
     private final float y;
@@ -58,7 +60,12 @@ public class Tile implements Drawable {
      */
     @Override
     public TextureRegion getCurrentAppearance() {
-        return Textures.getTextureForTileType(tileType);
+        if(isExploded()){
+
+            return Animations.WALLEXPLOSION.getKeyFrame(elapsedTime, false);
+        }
+
+        else return Textures.getTextureForTileType(tileType);
     }
 
     private Body createHitbox(World world) {
@@ -109,12 +116,13 @@ public class Tile implements Drawable {
     }
     public void explode() {
         if (isBreakable()) {
-            setTileType(EMPTY);// Change the tile to an empty tile
-
+           // Change the tile to an empty tile
+            setExploded(true);
+            setTileType(EMPTY);
             for (Fixture fixture : body.getFixtureList()) { //Chatgpt help here
                 fixture.setSensor(true); // Make the fixture a sensor
             }
-            setExploded(true);
+
             System.out.println("Tile at (" + x + ", " + y + ") exploded and became EMPTY.");
         } else {
             System.out.println("Tile at (" + x + ", " + y + ") is not destructible.");
@@ -134,6 +142,16 @@ public class Tile implements Drawable {
     public void setExploded(boolean exploded) {
         this.exploded = exploded;
     }
+
+    public void tick(float deltaTime) {
+        if (isExploded()) {
+            elapsedTime += deltaTime;
+        }
+    }
+
+
+
+
 }
 
 

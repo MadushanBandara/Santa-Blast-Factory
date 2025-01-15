@@ -169,6 +169,7 @@ public class Enemy implements Drawable{
     public void killEnemy(){
         isDead=false;
         countEnemies--;
+        GameMap.setEnemiesGenerated(GameMap.getEnemiesGenerated() - 1);
     }
 
     @Override
@@ -181,6 +182,10 @@ public class Enemy implements Drawable{
     public float getY() {
         // The y-coordinate of the player is the y-coordinate of the hitbox (this can change every frame).
         return hitbox.getPosition().y;
+    }
+
+    public boolean isDead() {
+        return isDead;
     }
 
     public Body getHitbox() {

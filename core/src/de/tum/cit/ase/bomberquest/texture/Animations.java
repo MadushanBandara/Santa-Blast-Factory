@@ -97,6 +97,18 @@ public class Animations {
             SpriteSheet.EXPLOSION.at(1, 4)
     );
 
+    public static final Animation<TextureRegion> WALLEXPLOSION= new Animation<>(0.1f,
+            SpriteSheet.ORIGINALBOMBERMAN.at(4, 6),
+            SpriteSheet.ORIGINALBOMBERMAN.at(4, 7),
+            SpriteSheet.ORIGINALBOMBERMAN.at(4, 8),
+            SpriteSheet.ORIGINALBOMBERMAN.at(4, 9),
+            SpriteSheet.ORIGINALBOMBERMAN.at(4, 10),
+            SpriteSheet.ORIGINALBOMBERMAN.at(4, 11),
+            SpriteSheet.BASIC_TILES.at(2, 4)
+
+    );
+
+
 
 
 }
