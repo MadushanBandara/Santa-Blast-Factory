@@ -41,6 +41,8 @@ public class Tile implements Drawable {
     private boolean exploded;
     private boolean animationFinished;
     private TextureRegion currentAppearance;
+    private static boolean exitFound=false;
+    private static boolean exitRevealed=false;
 
 
 
@@ -84,7 +86,8 @@ public class Tile implements Drawable {
                             System.out.println("now the player has "+Player.getLifeCounter()+" lives");
                         } else if (currentAppearance.equals(Textures.EXIT)) {
                             setTileType(8);
-                            Textures.removeExit();// Remove EXIT from surprise list so it only appears once
+                            Textures.removeExit();//// Remove EXIT from surprise list so it only appears once
+                            setExitRevealed(true);
                             System.out.println("Congrats the Exit is now open");
                         } else if (currentAppearance.equals(Textures.MOREENEMIES)) {
                             setTileType(3);
@@ -192,6 +195,17 @@ public class Tile implements Drawable {
         }
     }
 
+    public static void setExitFound(boolean exitFound) {
+        Tile.exitFound = exitFound;
+    }
+
+    public static boolean isExitFound() {
+        return exitFound;
+    }
+
+    public static void setExitRevealed(boolean exitRevealed) {
+        Tile.exitRevealed = exitRevealed;
+    }
 
 
 }

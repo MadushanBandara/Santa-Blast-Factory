@@ -152,7 +152,7 @@ public class GameScreen implements Screen {
         }
 
         renderTiles(spriteBatch);
-        draw(spriteBatch, map.getExit());//render exit after tiles
+        //draw(spriteBatch, map.getExit());//render exit after tiles
 
 
        /*for (IndestructibleWalls wall : map.getIndestructibleWalls()) {

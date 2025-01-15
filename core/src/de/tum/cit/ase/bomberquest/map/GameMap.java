@@ -36,7 +36,7 @@ public class GameMap {
     //private final Chest chest; // The chest object on the map
 
     private final Flowers[][] flowers; // Decorative flowers
-    private final Exit exit;
+    // private final Exit exit;
     private final List<Enemy> enemies; // List of enemies
     private final Santa santa;
     public static int enemiesGenerated;
@@ -63,7 +63,7 @@ public class GameMap {
 
         //load tiles
         this.tiles = MapLoader.loadMap(this.world, mapFilePath);
-        this.exit=new Exit(this.world, random.nextFloat(), random.nextFloat());
+        //this.exit=new Exit(this.world, random.nextFloat(), random.nextFloat());
         // Set map dimensions
 
         // Determine grid dimensions based on viewport size and scale
@@ -258,11 +258,11 @@ public class GameMap {
     public static int getEnemiesGenerated() {
         return enemiesGenerated;
     }
-
+/*
     public Exit getExit() {
         return exit;
     }
-
+*/
     public static void setEnemiesGenerated(int enemiesGenerated) {
         GameMap.enemiesGenerated = enemiesGenerated;
     }

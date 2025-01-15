@@ -32,9 +32,15 @@ public class CollisionDetector implements ContactListener {
         }
 
         // Player and Exit interaction
+        /*
         if ((UserA instanceof Player && UserB instanceof Exit) || (UserA instanceof Exit && UserB instanceof Player)) {
             Exit exit = (UserA instanceof Exit) ? (Exit) UserA : (Exit) UserB;
             exit.exitFound();
+        }*/
+
+        if ((UserA instanceof Player && UserB instanceof Tile && ((Tile) UserB).getTileType() ==8) ||
+                (UserA instanceof Tile && ((Tile) UserA).getTileType() == 8 && UserB instanceof Player)) {
+            Tile.setExitFound(true);
         }
 
         // Player and Power-Up Tile interaction

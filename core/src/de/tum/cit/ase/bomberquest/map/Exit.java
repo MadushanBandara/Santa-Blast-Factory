@@ -1,3 +1,4 @@
+/*
 package de.tum.cit.ase.bomberquest.map;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -27,6 +28,8 @@ public class Exit  implements Drawable {
      * Create a Box2D body for the chest.
      * @param world The Box2D world to add the body to.
      */
+
+/*
       private Body createHitbox(World world, float x, float y) {
         // BodyDef is like a blueprint for the movement properties of the body.
         BodyDef bodyDef = new BodyDef();
@@ -99,5 +102,5 @@ public class Exit  implements Drawable {
     public static boolean isExitFound() {
         return exitFound;
     }
-
 }
+*/
