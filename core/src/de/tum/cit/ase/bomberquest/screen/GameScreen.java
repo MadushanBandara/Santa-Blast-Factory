@@ -65,7 +65,7 @@ public class GameScreen implements Screen {
         // Update game state
         map.tick(frameTime, map);
         hud.update(frameTime);
-        updateCamera();
+        updateCamera(this.map.getPlayer());
 
         // Render the game map
         spriteBatch.setProjectionMatrix(mapCamera.combined);
@@ -78,12 +78,15 @@ public class GameScreen implements Screen {
 
     }
 
-    private void updateCamera() {
-        // Update the camera position based on the player (or center the map)
-        mapCamera.zoom = 1.15f; // Increase the zoom level to fit more of the map
-        mapCamera.position.set(mapCamera.viewportWidth / 2,
-                mapCamera.viewportHeight/2 ,
-                0);
+    private void updateCamera(Player player) {
+        // Get the player's position in pixels
+        float playerX = player.getX() * TILE_SIZE_PX * SCALE;
+        float playerY = player.getY() * TILE_SIZE_PX * SCALE;
+
+        // Set the camera's position to center on the player
+        mapCamera.position.set(playerX, playerY, 0);
+
+        // Update the camera to apply the changes
         mapCamera.update();
     }
 
