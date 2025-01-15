@@ -1,5 +1,6 @@
 package de.tum.cit.ase.bomberquest.texture;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import de.tum.cit.ase.bomberquest.map.Tile;
 
@@ -49,6 +50,7 @@ public class Textures {
 
     //powerdown
     public static final TextureRegion MOREENEMIES= SpriteSheet.ORIGINALBOMBERMAN.at(15, 2);
+    public static final TextureRegion LESSBOMBS=SpriteSheet.ORIGINALBOMBERMAN.at(15, 3);
 
 
 
@@ -79,7 +81,7 @@ public class Textures {
     }
 
     public static List<TextureRegion> randomSurprise = new ArrayList<>(List.of(
-            LIFE, BLASTRADIUSPLUS, KILLENEMY, MOREENEMIES,EXIT, SPECIAL,BAK_TILE,DEFAULT,EXTRABOMBS
+            LIFE, BLASTRADIUSPLUS, KILLENEMY, MOREENEMIES,EXIT, SPECIAL,BAK_TILE,DEFAULT,EXTRABOMBS,SNOWMAN, LESSBOMBS
     ));
 
     public static TextureRegion RandomSurprise() {

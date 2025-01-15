@@ -45,11 +45,13 @@ public class CollisionDetector implements ContactListener {
         }
 
         // Player and Power-Up Tile interaction
+        //this will be removed as powerup will be granted as they are revealed by explosion under the breakable tile
+        /*
         if ((UserA instanceof Player && UserB instanceof Tile && ((Tile) UserB).getTileType() == Tile.POWERUP) ||
                 (UserA instanceof Tile && ((Tile) UserA).getTileType() == Tile.POWERUP && UserB instanceof Player)) {
             Player player = (UserA instanceof Player) ? (Player) UserA : (Player) UserB;
             player.PlayerGrantedPowerUP();
-        }
+        }*/
     }
 
     @Override

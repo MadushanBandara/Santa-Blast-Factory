@@ -239,7 +239,7 @@ public class Player implements Drawable {
         System.out.println("Game Over Player Has died");
 
     }
-    public void PlayerGrantedPowerUP(){
+    public static void PlayerGrantedPowerUP(){
 
         System.out.println("player is granted a Gift");
     }
