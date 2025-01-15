@@ -40,6 +40,12 @@ public class Textures {
     public static final TextureRegion OPENEDCHEST = SpriteSheet.BASIC_TILES.at(5,4);
     public static final TextureRegion SANTA = SpriteSheet.SANTA.at(5,1);
     public static final TextureRegion SNOWMAN=SpriteSheet.SNOWMAN.at(1,1);
+    public static final TextureRegion CHAIR=SpriteSheet.CHAIR.at(1,1);
+    public static final TextureRegion BENCH=SpriteSheet.BENCH.at(1,1);
+    public static final TextureRegion LAMP=SpriteSheet.LAMP.at(1,1);
+    public static final TextureRegion REINDEER=SpriteSheet.SANTA.at(2,1);
+    public static final TextureRegion GIFT=SpriteSheet.SANTA.at(1,5);
+    public static final TextureRegion HOUSE=SpriteSheet.HOUSES.at(1,1);
     //public static final TextureRegion INDESTRUCTIBLEWALLS = SpriteSheet.WALLS.at(4, 5);
 
     //powerups
@@ -81,7 +87,8 @@ public class Textures {
     }
 
     public static List<TextureRegion> randomSurprise = new ArrayList<>(List.of(
-            LIFE, BLASTRADIUSPLUS, KILLENEMY, MOREENEMIES,EXIT, SPECIAL,BAK_TILE,DEFAULT,EXTRABOMBS,SNOWMAN, LESSBOMBS
+            LIFE, BLASTRADIUSPLUS, KILLENEMY, MOREENEMIES,EXIT, SPECIAL,BAK_TILE,DEFAULT,EXTRABOMBS,SNOWMAN, LESSBOMBS,
+            BENCH,REINDEER,GIFT,LAMP,HOUSE
     ));
 
     public static TextureRegion RandomSurprise() {

@@ -29,9 +29,19 @@ public enum SpriteSheet {
     /** The basic tiles spritesheet, which has a grid size of 16x16. */
     SANTA("christmasobjects.png",16,16),
     SANTAMESSAGE("speech.png",68,70),
+
     SNOWMAN("snowman1.png",16,16),
 
-    BASIC_TILES("basictiles.png", 16, 16)
+    BASIC_TILES("basictiles.png", 16, 16),
+
+    //additional randoms to appear as the player destroys tiles
+    BENCH("bench.png",16,16),
+    CHAIR("chair.png",16,16),
+    LAMP("lamp-post.png",16,32),
+    HOUSES("house.png",16,16),
+
+
+
 
 
     ;
