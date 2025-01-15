@@ -167,7 +167,7 @@ public class Enemy implements Drawable{
     }
 
     public void killEnemy(){
-        isDead=false;
+        isDead=true;
         countEnemies--;
         GameMap.setEnemiesGenerated(GameMap.getEnemiesGenerated() - 1);
     }
@@ -190,6 +190,10 @@ public class Enemy implements Drawable{
 
     public Body getHitbox() {
         return hitbox;
+    }
+
+    public boolean isDead() {
+        return isDead;
     }
 }
 

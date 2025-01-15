@@ -75,6 +75,7 @@ public class GameScreen implements Screen {
 
         // Render the HUD
         hud.render(); // HUD manages its own SpriteBatch
+
     }
 
     private void updateCamera() {

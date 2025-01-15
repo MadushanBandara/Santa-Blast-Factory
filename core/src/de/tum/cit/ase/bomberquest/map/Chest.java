@@ -34,7 +34,7 @@ public class Chest implements Drawable {
     
     /**
      * Create a Box2D body for the chest.
-     * @param world The Box2D world to add the body to.
+     * @param world The Box2D world to add the body0 to.
      */
     /*
     private Body createHitbox(World world, float x, float y) {
