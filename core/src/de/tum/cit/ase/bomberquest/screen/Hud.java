@@ -33,6 +33,7 @@ public class Hud {
     private static Integer bomber;
     private static Integer enemy;
     private static boolean timeUp;
+    private static Integer blastRadius;
 
     // UI Labels
     private Label christmasStartLabel;
@@ -41,6 +42,8 @@ public class Hud {
     private Label amountOfBomberLabel;
     private Label enamyLabel;
     private Label numberOfEnamyLabel;
+    private Label blastRadiusLabel;
+    private Label numBlastRadius;
 
     public Hud(SpriteBatch spriteBatch) {
         this.camera = new OrthographicCamera();
@@ -56,6 +59,7 @@ public class Hud {
         timeCount = 0;
         bomber = Bomb.getMaxBombs();
         enemy =Enemy.countEnemies;
+        blastRadius=Bomb.getExplosionRadius();
 
         // Set up UI Table
         Table table = new Table();
@@ -68,6 +72,9 @@ public class Hud {
         amountOfBomberLabel = new Label("Bombs: ", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         enamyLabel = new Label(String.format("%2d", enemy), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         numberOfEnamyLabel = new Label("Enemies: ", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        blastRadiusLabel = new Label("Blast Radius: ", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        numBlastRadius = new Label(String.format("%2d", blastRadius), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+
 
         table.add(christmasStartLabel).expandX().padBottom(0);
         table.add(countDownLabel).expandX();
@@ -75,6 +82,8 @@ public class Hud {
         table.add(bomberLabel).expandX();
         table.add(numberOfEnamyLabel).expandX().padBottom(0);
         table.add(enamyLabel).expandX();
+        table.add(blastRadiusLabel).expandX().padBottom(0);
+        table.add(numBlastRadius).expandX();
 
 
 
@@ -101,6 +110,8 @@ public class Hud {
         }
         setRemainingBombs(Bomb.getMaxBombs());
         setEnemyCount(GameMap.getEnemiesGenerated());
+        setBlastRadius(Bomb.getExplosionRadius());
+
     }
 
     public void setRemainingBombs(int remainingBombs) {
@@ -110,6 +121,10 @@ public class Hud {
         this.enemy = enemyCount; // Update the HUD's enemy count variable
         enamyLabel.setText(String.format("%02d", enemyCount)); // Update the label text
     }
+    public void setBlastRadius(int blastRadius) {
+        numBlastRadius.setText(String.format("%02d", blastRadius));
+    }
+
 
     public void resize(int width, int height) {
         viewport.update(width, height);

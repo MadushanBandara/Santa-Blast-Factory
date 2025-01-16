@@ -32,7 +32,7 @@ public class Player implements Drawable {
     private ArrayList<Bomb> bombs;
 
     /** Whether the player can drop a bomb. */
-    private boolean canDropBomb;
+    private static boolean canDropBomb;
 
     /** Number of enemies defeated. */
     private int enemiesDefeated;
@@ -252,14 +252,15 @@ public class Player implements Drawable {
         return isAlive;
     }
 
-    public boolean outOfBombs(){
+    public static boolean outOfBombs(){
         if(Bomb.getMaxBombs()==0){
-            canDropBomb=false;
+            setCanDropBomb(false);
             System.out.println("You ran out of Bombs :(");
         } 
         return !canDropBomb;
     }
 
-
-
+    public static void setCanDropBomb(boolean canDropBomb) {
+        Player.canDropBomb = canDropBomb;
+    }
 }
