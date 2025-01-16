@@ -17,6 +17,9 @@ import static com.badlogic.gdx.math.MathUtils.random;
 public class Textures {
 
     public static final TextureRegion FLOWERS = SpriteSheet.BASIC_TILES.at(2, 4);
+    //Hear counter it would look cute appearing on the map as heart :)
+    public static final TextureRegion HEART = SpriteSheet.HEART.at(1, 5);
+
     /*
     public static final int INDESTRUCTIBLE_WALL = 0;
     public static final int DESTRUCTIBLE_WALL = 1;

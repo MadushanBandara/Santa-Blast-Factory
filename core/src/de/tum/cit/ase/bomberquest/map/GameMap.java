@@ -33,10 +33,10 @@ public class GameMap {
     private final World world; // Box2D world for physics simulation
 
     private final Player player; // The player character
-    //private final Chest chest; // The chest object on the map
-
+    //**removed private final Chest chest; // The chest object on the map
+    private Life life;
     private final Flowers[][] flowers; // Decorative flowers
-    // private final Exit exit;
+    //** removed private final Exit exit;
     private final List<Enemy> enemies; // List of enemies
     private final Santa santa;
     public static int enemiesGenerated;
@@ -64,6 +64,7 @@ public class GameMap {
         //load tiles
         this.tiles = MapLoader.loadMap(this.world, mapFilePath);
         //this.exit=new Exit(this.world, random.nextFloat(), random.nextFloat());
+        this.life=new Life(0,0);
         // Set map dimensions
 
         // Determine grid dimensions based on viewport size and scale
@@ -101,6 +102,7 @@ public class GameMap {
         }
     }
 
+
     /**
      * Dynamically generates enemies with random positions.
      *
@@ -133,6 +135,16 @@ public class GameMap {
         return countenemies;
     }
 
+    public void removeDeadEnemy(){
+
+        for (int i = 0; i < enemies.size(); i++) {
+            if (enemies.get(i).isDead()) {
+                enemies.remove(i);
+                i--;
+            }
+        }
+    }
+
     /**
      * Adds indestructible walls around the map edges.
      *//* method removed
@@ -163,6 +175,7 @@ public class GameMap {
         for (Enemy enemy : enemies) {
             enemy.update(frameTime);
         }
+        removeDeadEnemy();
         for (Bomb bomb : bombs) {
             bomb.tick(frameTime);
         }
@@ -278,4 +291,7 @@ public class GameMap {
         return null;
     }
 
+    public Life getLife() {
+        return life;
+    }
 }

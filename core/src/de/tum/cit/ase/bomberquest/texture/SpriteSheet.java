@@ -41,6 +41,11 @@ public enum SpriteSheet {
     HOUSES("house.png",16,16),
 
 
+    HEART("objects.png",16,16),
+
+
+
+
 
 
 

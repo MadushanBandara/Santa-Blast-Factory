@@ -141,7 +141,7 @@ public class Player implements Drawable {
     public TextureRegion getCurrentAppearance() {
         if(!isAlive()){
             MusicTrack.GAMEOVER.play();
-            return Animations.CHARACTER_DEATH.getKeyFrame(elapsedTime, true);
+            return Animations.CHARACTER_DEATH.getKeyFrame(elapsedTime, false);
         }
         else {
             switch (currentDirection) {
