@@ -141,7 +141,7 @@ public class Player implements Drawable {
     public TextureRegion getCurrentAppearance() {
         if(!isAlive()){
             MusicTrack.GAMEOVER.play();
-            return Animations.CHARACTER_DEATH.getKeyFrame(elapsedTime, false);
+            return Animations.CHARACTER_DEATH.getKeyFrame(elapsedTime, true);
         }
         else {
             switch (currentDirection) {
@@ -257,7 +257,7 @@ public class Player implements Drawable {
             setCanDropBomb(false);
             System.out.println("You ran out of Bombs :(");
         } 
-        return !canDropBomb;
+        return canDropBomb;
     }
 
     public static void setCanDropBomb(boolean canDropBomb) {

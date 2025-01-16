@@ -175,14 +175,14 @@ public class GameMap {
         for (Enemy enemy : enemies) {
             enemy.update(frameTime);
         }
-        removeDeadEnemy();
+
         for (Bomb bomb : bombs) {
             bomb.tick(frameTime);
         }
 
         bombs.removeIf(Bomb::isExpired); // Clean up expired bombs
         player.tick(frameTime, map);
-
+        removeDeadEnemy();
         // Perform physics steps
         doPhysicsStep(frameTime);
     }
