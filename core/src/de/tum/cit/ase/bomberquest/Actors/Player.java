@@ -242,9 +242,8 @@ public class Player implements Drawable {
         if(!isAlive) return;
         isAlive=false;
         lifeCounter--;
-        System.out.println("Game Over Player Has died");
+        System.out.println("Game Over Player Has died at "+hitbox.getPosition() );
         deathAnimationTime = 5f;
-
     }
     public static void PlayerGrantedPowerUP(){
 

@@ -162,14 +162,25 @@ public class Enemy implements Drawable{
 
     @Override
     public TextureRegion getCurrentAppearance() {
+        if(!isDead){
+            return Animations.ENEMY_WALK_DOWN.getKeyFrame(this.elapsedTime, true);
+        }
         // Get the frame of the walk down animation that corresponds to the current time.
-        return Animations.ENEMY_WALK_DOWN.getKeyFrame(this.elapsedTime, true);
-    }
+        else return Animations.ENEMY_DEATH.getKeyFrame(this.elapsedTime, false);
+
+        }
+
+
 
     public void killEnemy(){
         this.isDead=true;
+        this.elapsedTime = 0;
         countEnemies--;
         GameMap.setEnemiesGenerated(GameMap.getEnemiesGenerated() - 1);
+    }
+
+    public boolean isDeathAnimationFinished() {
+        return isDead && Animations.ENEMY_DEATH.isAnimationFinished(elapsedTime);
     }
 
     @Override

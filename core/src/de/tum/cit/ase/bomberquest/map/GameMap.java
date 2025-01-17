@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
 
+
 import static java.lang.Math.min;
 
 
@@ -137,8 +138,10 @@ public class GameMap {
 
     public void removeDeadEnemy(){
 
+
         for (int i = 0; i < enemies.size(); i++) {
-            if (enemies.get(i).isDead()) {
+            Enemy enemy=enemies.get(i);
+            if (enemy.isDeathAnimationFinished()) {
                 enemies.remove(i);
                 i--;
             }

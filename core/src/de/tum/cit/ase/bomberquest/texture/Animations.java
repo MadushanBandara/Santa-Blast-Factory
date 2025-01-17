@@ -74,9 +74,22 @@ public class Animations {
      * Animation for the enemy walking (e.g., Grinch enemy).
      */
     public static final Animation<TextureRegion> ENEMY_WALK_DOWN = new Animation<>(0.2f,
-            SpriteSheet.ENEMIES.at(5, 1),
-            SpriteSheet.ENEMIES.at(5, 2),
-            SpriteSheet.ENEMIES.at(5, 3)
+            SpriteSheet.ENEMIES.at(16, 1),
+            SpriteSheet.ENEMIES.at(16, 2),
+            SpriteSheet.ENEMIES.at(16, 3),
+            SpriteSheet.ENEMIES.at(16, 4),
+            SpriteSheet.ENEMIES.at(16, 5),
+            SpriteSheet.ENEMIES.at(16, 6)
+
+    );
+
+    public static final Animation<TextureRegion> ENEMY_DEATH = new Animation<>(0.2f,
+            SpriteSheet.ENEMIES.at(16, 7),
+            SpriteSheet.ENEMIES.at(16, 8),
+            SpriteSheet.ENEMIES.at(16, 9),
+            SpriteSheet.ENEMIES.at(16, 10),
+            SpriteSheet.ENEMIES.at(16, 11)
+
     );
 
 

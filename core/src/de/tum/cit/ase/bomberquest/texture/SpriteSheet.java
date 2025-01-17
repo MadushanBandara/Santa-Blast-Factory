@@ -19,7 +19,7 @@ public enum SpriteSheet {
     CHARACTER("character.png", 16, 32),
     CHARACTERDEATH("characterdeath.png", 16, 32),
     /** The enemies spritesheet the grinch. */
-    ENEMIES("mobs.png", 16, 16),
+    ENEMIES("grinchbomberman.png", 16, 16),
     /** The bombs spritesheet, gifts as bombs */
     HOUSE("house2.png", 16, 16),
     ORIGINALBOMBERMAN("original-bomberman.png", 16, 16),
