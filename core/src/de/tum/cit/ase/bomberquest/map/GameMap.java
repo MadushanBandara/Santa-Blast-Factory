@@ -142,7 +142,9 @@ public class GameMap {
         for (int i = 0; i < enemies.size(); i++) {
             Enemy enemy=enemies.get(i);
             if (enemy.isDeathAnimationFinished()) {
+                world.destroyBody(enemy.getHitbox());
                 enemies.remove(i);
+
                 i--;
             }
         }

@@ -176,6 +176,7 @@ public class Enemy implements Drawable{
         this.isDead=true;
         this.elapsedTime = 0;
         countEnemies--;
+
         GameMap.setEnemiesGenerated(GameMap.getEnemiesGenerated() - 1);
     }
 
