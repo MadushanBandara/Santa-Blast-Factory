@@ -20,7 +20,7 @@ public class Bomb implements Drawable {
     private static final float BOMB_LIFETIME = 3f; // Time until the bomb explodes
     private static final float EXPLOSION_LIFETIME = 1f; // Duration of explosion animation
     private static boolean exploded;
-    private static int maxBombs = 30;
+    private static int maxBombs = 20;
     private static int EXPLOSION_RADIUS = 1; // Tiles affected in each direction
     private GameMap map;
     private Music music;

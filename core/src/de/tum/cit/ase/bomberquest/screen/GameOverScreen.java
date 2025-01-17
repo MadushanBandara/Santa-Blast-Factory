@@ -45,7 +45,7 @@ public class GameOverScreen implements Screen {
         table.add(new Label("You Lose!", game.getSkin(), "title")).padBottom(40).row();
 
         // Create and add a button to go to the menu
-        TextButton goToMenuButton = new TextButton("Go to Menu", game.getSkin());
+        TextButton goToMenuButton = new TextButton("Home", game.getSkin());
         table.add(goToMenuButton).width(300).row();
 
 
@@ -53,6 +53,17 @@ public class GameOverScreen implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 game.setScreen(new MenuScreen(game)); // Restart the game
+            }
+        });
+
+        // Create and add the Exit button
+        TextButton exitButton = new TextButton("Exit", game.getSkin());
+        table.add(exitButton).width(300).row();
+
+        exitButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                Gdx.app.exit(); // Exit the game
             }
         });
 

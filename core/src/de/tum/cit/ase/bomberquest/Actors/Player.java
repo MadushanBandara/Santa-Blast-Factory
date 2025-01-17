@@ -276,7 +276,7 @@ public class Player implements Drawable {
 
     public void reset(World world, float startX, float startY) {
         this.isAlive = true;
-        this.bombs.clear();
+        this.bombs = new ArrayList<>(20);
         this.deathAnimationTime = 0;
         this.canDropBomb = true; // Reset bomb-dropping ability
         this.enemiesDefeated = 0;
