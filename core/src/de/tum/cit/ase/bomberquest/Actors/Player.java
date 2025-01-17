@@ -40,6 +40,8 @@ public class Player implements Drawable {
     /** Whether the exit is unlocked. */
     private boolean isExitUnlocked;
 
+    private float deathAnimationTime = 0f;
+
     public Player(World world, float x, float y) {
         this.hitbox = createHitbox(world, x, y);
         this.isAlive = true;
@@ -97,6 +99,10 @@ public class Player implements Drawable {
      */
     public void tick(float frameTime, GameMap map) {
         this.elapsedTime += frameTime;
+
+        if (!isAlive && deathAnimationTime > 0) {
+            deathAnimationTime -= frameTime;
+        }
 
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
             moveUp();
@@ -237,6 +243,7 @@ public class Player implements Drawable {
         isAlive=false;
         lifeCounter--;
         System.out.println("Game Over Player Has died");
+        deathAnimationTime = 5f;
 
     }
     public static void PlayerGrantedPowerUP(){
@@ -262,5 +269,27 @@ public class Player implements Drawable {
 
     public static void setCanDropBomb(boolean canDropBomb) {
         Player.canDropBomb = canDropBomb;
+    }
+
+    public float getDeathAnimationTime() {
+        return deathAnimationTime;
+    }
+
+    public void reset(World world, float startX, float startY) {
+        this.isAlive = true;
+        this.bombs.clear();
+        this.deathAnimationTime = 0;
+        this.canDropBomb = true; // Reset bomb-dropping ability
+        this.enemiesDefeated = 0;
+        this.isExitUnlocked = false;
+
+        // Reset life counter (if applicable)
+        this.lifeCounter = 1;
+
+        // Reset hitbox position
+        hitbox.setTransform(startX, startY, 0);
+        hitbox.setLinearVelocity(0, 0);
+        hitbox.setAngularVelocity(0);
+        System.out.println("Player has been reset.");
     }
 }

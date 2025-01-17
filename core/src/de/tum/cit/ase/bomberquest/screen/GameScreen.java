@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -18,6 +19,8 @@ import de.tum.cit.ase.bomberquest.texture.Drawable;
 import de.tum.cit.ase.bomberquest.Actors.Bomb;
 import de.tum.cit.ase.bomberquest.Actors.Santa;
 import de.tum.cit.ase.bomberquest.map.GameMap;
+
+import static de.tum.cit.ase.bomberquest.Actors.Player.isAlive;
 
 public class GameScreen implements Screen {
 
@@ -31,11 +34,19 @@ public class GameScreen implements Screen {
     private final OrthographicCamera mapCamera;
     private final Viewport viewport;
     private float deltaTime;
+    private Player player;
 
     public GameScreen(BomberQuestGame game) {
         this.game = game;
         this.spriteBatch = game.getSpriteBatch();
-        this.map = game.getMap();
+
+        // Initialize game map
+        int mapselection = MathUtils.random(1,5);
+        this.map = new GameMap(game, "maps/map-"+mapselection+".properties");
+
+        this.player = map.getPlayer();
+        this.player.reset(player.getHitbox().getWorld(), player.getX(), player.getY());
+
         this.hud = new Hud(game.getSpriteBatch());
 
         // Calculate world size
@@ -75,6 +86,11 @@ public class GameScreen implements Screen {
 
         // Render the HUD
         hud.render(); // HUD manages its own SpriteBatch
+
+        if (!isAlive() && player.getDeathAnimationTime() <= 0) {
+            game.setScreen(new GameOverScreen(game)); // Show Game Over Screen
+            dispose();
+        }
 
     }
 
