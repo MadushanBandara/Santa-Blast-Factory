@@ -175,4 +175,8 @@ public class Bomb implements Drawable {
         public static void setMaxBombs ( int maxBombs){
             Bomb.maxBombs = maxBombs;
         }
+
+    public static void resetBombs() {
+        maxBombs = 20; // Reset the bomb count to 20 at the start of a new game
+    }
     }
