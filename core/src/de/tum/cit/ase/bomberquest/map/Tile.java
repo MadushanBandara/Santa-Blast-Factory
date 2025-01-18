@@ -80,8 +80,7 @@ public class Tile implements Drawable {
                     if (Animations.WALLEXPLOSION.isAnimationFinished(elapsedTime)) {
                         // Animation finished, assign a random texture
                         animationFinished = true;
-                        currentAppearance =
-                                Textures.RandomSurprise();// Assign the random texture
+                        currentAppearance = Textures.RandomSurprise();// Assign the random texture
                         if(!PowerupRedeemed) {//added this condition to all powerups/downs so that the powerup could be gained only once not every explosion
                             setPowerupRedeemed(true);
                             if (currentAppearance.equals(Textures.LIFE)) {

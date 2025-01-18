@@ -107,7 +107,7 @@ public class Player implements Drawable {
         if (!isAlive && deathAnimationTime > 0) {
             deathAnimationTime -= frameTime;
         }
-        if(GameStatus.isVictory()){
+        if(GameStatus.GameWon()){
             WinAnimationTime += frameTime;
         }
 
@@ -156,7 +156,7 @@ public class Player implements Drawable {
             MusicTrack.GAMEOVER.play();
             return Animations.CHARACTER_DEATH.getKeyFrame(elapsedTime, true);
         }
-        else if(GameStatus.isVictory()){
+        else if(GameStatus.GameWon()){
             return Animations.CHARACTER_WIN.getKeyFrame(WinAnimationTime, true);
         }
         else {
@@ -287,6 +287,10 @@ public class Player implements Drawable {
             System.out.println("You ran out of Bombs :(");
         } 
         return canDropBomb;
+    }
+
+    public float getWinAnimationTime() {
+        return WinAnimationTime;
     }
 
     public static void setCanDropBomb(boolean canDropBomb) {
