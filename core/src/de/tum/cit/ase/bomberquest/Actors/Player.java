@@ -42,8 +42,8 @@ public class Player implements Drawable {
     private boolean isExitUnlocked;
 
     private float deathAnimationTime = 0f;
-    private float WinAnimationTime = 5f;
-    private boolean playerWon=false;
+    private static float WinAnimationTime = 0f;
+    private static boolean playerWon=false;
 
     public Player(World world, float x, float y) {
         this.hitbox = createHitbox(world, x, y);
@@ -107,8 +107,8 @@ public class Player implements Drawable {
         if (!isAlive && deathAnimationTime > 0) {
             deathAnimationTime -= frameTime;
         }
-        if(GameStatus.GameWon()){
-            WinAnimationTime += frameTime;
+        if(GameStatus.GameWon() && WinAnimationTime > 0){
+            WinAnimationTime -= frameTime;
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
@@ -259,6 +259,12 @@ public class Player implements Drawable {
 
     }
 
+    public static void PlayerWon(){
+        playerWon=true;
+        WinAnimationTime = 5f;
+
+    }
+
     public static void setIsAlive(boolean isAlive) {
         Player.isAlive = isAlive;
     }
@@ -289,7 +295,7 @@ public class Player implements Drawable {
         return canDropBomb;
     }
 
-    public float getWinAnimationTime() {
+    public static float getWinAnimationTime() {
         return WinAnimationTime;
     }
 

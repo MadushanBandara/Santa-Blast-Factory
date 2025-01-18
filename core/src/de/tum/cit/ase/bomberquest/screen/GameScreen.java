@@ -87,6 +87,7 @@ public class GameScreen implements Screen {
 
         // Render the HUD
         hud.render(); // HUD manages its own SpriteBatch
+
         GameStatus.GameWon();
         GameStatus.GameOver();
 
@@ -94,7 +95,7 @@ public class GameScreen implements Screen {
             game.setScreen(new GameOverScreen(game)); // Show Game Over Screen
             dispose();
         }
-        if(GameStatus.GameWon() && Animations.CHARACTER_WIN.isAnimationFinished(player.getWinAnimationTime())){
+        if(GameStatus.GameWon() && player.getWinAnimationTime()<= 0){
             game.setScreen(new VictoryScreen(game)); // Show Victory Screen
             dispose();
         }
