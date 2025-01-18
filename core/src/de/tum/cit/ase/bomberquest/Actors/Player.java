@@ -284,7 +284,8 @@ public class Player implements Drawable {
         this.enemiesDefeated = 0;
         this.isExitUnlocked = false;
 
-        // Reset life counter (if applicable)
+
+        // Reset life counter //not yet functional
         this.lifeCounter = 1;
 
         // Reset hitbox position

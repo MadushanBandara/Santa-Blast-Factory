@@ -166,7 +166,7 @@ public class Enemy implements Drawable{
             return Animations.ENEMY_WALK_DOWN.getKeyFrame(this.elapsedTime, true);
         }
         // Get the frame of the walk down animation that corresponds to the current time.
-        else return Animations.ENEMY_DEATH.getKeyFrame(this.elapsedTime, false);
+        else return Animations.ENEMY_DEATH.getKeyFrame(this.elapsedTime, true);
 
         }
 
