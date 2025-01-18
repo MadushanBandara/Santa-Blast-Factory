@@ -43,7 +43,7 @@ public class Player implements Drawable {
 
     private float deathAnimationTime = 0f;
     private float WinAnimationTime = 5f;
-
+    private boolean playerWon=false;
 
     public Player(World world, float x, float y) {
         this.hitbox = createHitbox(world, x, y);
