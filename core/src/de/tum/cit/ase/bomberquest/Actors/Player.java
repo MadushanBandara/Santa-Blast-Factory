@@ -218,12 +218,15 @@ public class Player implements Drawable {
 
 
     private void dropBomb(GameMap map) {
-        // Create a new bomb at the player's position
-        Bomb bomb = new Bomb (getX(), getY(), map);
-        bombs.add(bomb);
+        if(Bomb.getMaxBombs()>0) {
+            // Create a new bomb at the player's position
+            Bomb bomb = new Bomb(getX(), getY(), map);
+            bombs.add(bomb);
 
-        // Set canDropBomb to false until the bomb is dropped and exploded
-        canDropBomb = false;
+            // Set canDropBomb to false until the bomb is dropped and exploded
+            canDropBomb = false;
+        }
+        else return;
     }
 
     public void render(SpriteBatch spriteBatch) {
@@ -258,6 +261,7 @@ public class Player implements Drawable {
     public static boolean isAlive() {
         return isAlive;
     }
+
 
     public static boolean outOfBombs(){
         if(Bomb.getMaxBombs()==0){

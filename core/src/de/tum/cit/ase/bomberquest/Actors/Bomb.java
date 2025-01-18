@@ -50,6 +50,8 @@ public class Bomb implements Drawable {
     private void explode(GameMap map) {
         if (getMaxBombs() == 0) {
             Player.outOfBombs();
+            System.out.println("No bombs left to drop!");
+            return;
         } else {
             exploded = true;
             explosionTimer = EXPLOSION_LIFETIME; // Start explosion animation timer
