@@ -42,7 +42,7 @@ public class Player implements Drawable {
     private boolean isExitUnlocked;
 
     private float deathAnimationTime = 0f;
-    private float WinAnimationTime = 0f;
+    private float WinAnimationTime = 5f;
 
 
     public Player(World world, float x, float y) {
@@ -107,7 +107,7 @@ public class Player implements Drawable {
         if (!isAlive && deathAnimationTime > 0) {
             deathAnimationTime -= frameTime;
         }
-        if(GameStatus.GameWon()){
+        if(GameStatus.isVictory()){
             WinAnimationTime += frameTime;
         }
 
@@ -156,7 +156,7 @@ public class Player implements Drawable {
             MusicTrack.GAMEOVER.play();
             return Animations.CHARACTER_DEATH.getKeyFrame(elapsedTime, true);
         }
-        else if(GameStatus.GameWon()){
+        else if(GameStatus.isVictory()){
             return Animations.CHARACTER_WIN.getKeyFrame(WinAnimationTime, true);
         }
         else {
@@ -252,13 +252,21 @@ public class Player implements Drawable {
     }
 
     public void PlayerDied(){
-        if(!isAlive) return;
-        isAlive=false;
+        setIsAlive(false);
         lifeCounter--;
         System.out.println("Game Over Player Has died at "+getHitbox() );
         deathAnimationTime = 5f;
 
     }
+
+    public static void setIsAlive(boolean isAlive) {
+        Player.isAlive = isAlive;
+    }
+
+    public static boolean isIsAlive() {
+        return isAlive;
+    }
+
     public static void PlayerGrantedPowerUP(){
 
         System.out.println("player is granted a Gift");
@@ -297,6 +305,7 @@ public class Player implements Drawable {
         this.canDropBomb = true; // Reset bomb-dropping ability
         this.enemiesDefeated = 0;
         this.isExitUnlocked = false;
+        GameStatus.reset();
 
 
         // Reset life counter //not yet functional

@@ -8,31 +8,43 @@ import de.tum.cit.ase.bomberquest.screen.Hud;
 
 public class GameStatus {
 
+   private static boolean Victory;
+   private static boolean GameOver;
+
+
+
     public static boolean GameWon() {
-
-        boolean victory = false;
-        if(Player.isAlive() && GameMap.getEnemiesGenerated()==0 && Santa.isSaved() && Tile.isExitFound()){
-            victory=true;
-            System.out.println("Congratulations! You have won the game!");
-        } else{
-            victory=false;
+        if (!Player.isAlive() || Hud.isTimeUp()) {
+            System.out.println("Game Over! You lose.");
+            setGameOver(true);
+            return false;
         }
-        return victory;
-
+        else if (Player.isAlive() && GameMap.getEnemiesGenerated() == 0 && Santa.isSaved() && Tile.isExitFound()) {
+            System.out.println("Congratulations! You have won the game!");
+            setVictory(true);
+            return true;
+        }
+        else return false;
     }
 
-    public static boolean GameOver(){
-        boolean GameOver=false;
-        if(!Player.isAlive()){
-            GameOver=true;
-            System.out.println("Game Over!, you lose");
+    public static boolean isVictory() {
+        return Victory;
+    }
 
-        }
-        else if(Hud.isTimeUp()){
-            GameOver=true;
-            System.out.println("Game Over!, you lose");
-        }
+    public static boolean isGameOver() {
         return GameOver;
     }
 
+    public static void setVictory(boolean victory) {
+        Victory = victory;
+    }
+
+    public static void setGameOver(boolean gameOver) {
+        GameOver = gameOver;
+    }
+
+    public static void reset() {
+        setGameOver(false);
+        setVictory(false);
+    }
 }
