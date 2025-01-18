@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -23,6 +24,8 @@ import de.tum.cit.ase.bomberquest.BomberQuestGame;
 public class MenuScreen implements Screen {
 
     private final Stage stage;
+    private final Texture background; // The background texture
+    private final SpriteBatch batch;
 
 
     /**
@@ -37,12 +40,16 @@ public class MenuScreen implements Screen {
         Viewport viewport = new ScreenViewport(camera); // Create a viewport with the camera
         stage = new Stage(viewport, game.getSpriteBatch()); // Create a stage for UI elements
 
+        batch = game.getSpriteBatch();
+        background = new Texture(Gdx.files.internal("texture/santa blast.png"));
+
         Table table = new Table(); // Create a table for layout
         table.setFillParent(true); // Make the table fill the stage
         stage.addActor(table); // Add the table to the stage
 
         // Add a label as a title
         table.add(new Label("Ho Ho Ho, Welcome to Santa´s Blast Factory!", game.getSkin(), "title")).padBottom(40).row();
+
 
         // Create and add a button to go to the game screen
         TextButton goToGameButton = new TextButton("Start New Game", game.getSkin());
@@ -53,6 +60,17 @@ public class MenuScreen implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 game.goToGame(); // Change to the game screen when button is pressed
+            }
+        });
+
+        // Create and add the Exit button
+        TextButton exitButton = new TextButton("Exit", game.getSkin());
+        table.add(exitButton).width(300).row();
+
+        exitButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                Gdx.app.exit();
             }
         });
     }
@@ -66,8 +84,16 @@ public class MenuScreen implements Screen {
     public void render(float deltaTime) {
         float frameTime = Math.min(deltaTime, 0.250f); // Cap frame time to 250ms to prevent spiral of death        ScreenUtils.clear(Color.BLACK);
         ScreenUtils.clear(Color.BLACK);
-        stage.act(frameTime); // Update the stage
-        stage.draw(); // Draw the stage
+
+
+        // Draw the background image
+        batch.begin();
+        batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        batch.end();
+
+        // Draw the stage
+        stage.act(frameTime);
+        stage.draw();
     }
 
     /**
