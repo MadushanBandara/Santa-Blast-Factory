@@ -47,80 +47,67 @@ public class Bomb implements Drawable {
     }
 
 
-    private void explode(GameMap map) {
+    public void explode(GameMap map) {
         if (getMaxBombs() == 0) {
             Player.outOfBombs();
             System.out.println("No bombs left to drop!");
             return;
-        } else {
-            exploded = true;
-            explosionTimer = EXPLOSION_LIFETIME; // Start explosion animation timer
-            maxBombs--;
-            System.out.println("Boom! Explosion triggered at: (" + Math.round(position.x) + ", " + Math.round(position.y) + ") remaining bombs " + maxBombs);
+        }
 
-            // Calculate the tile coordinates for the bomb's position
-            int centerX = Math.round(position.x);
-            int centerY = Math.round(position.y);
+        exploded = true;
+        explosionTimer = EXPLOSION_LIFETIME;
 
-            Player player = map.getPlayer();
+        System.out.println("Explosion triggered at: (" + Math.round(position.x) + ", " + Math.round(position.y) + ")");
 
-            if (player != null && player.isAlive()) {
-                int playerX = Math.round(player.getX());
-                int playerY = Math.round(player.getY());
+        int centerX = Math.round(position.x);
+        int centerY = Math.round(position.y);
 
-                // Ensure the player is within the radius and aligned horizontally or vertically
-                if ((playerX == centerX && Math.abs(playerY - centerY) <= EXPLOSION_RADIUS) ||
-                        (playerY == centerY && Math.abs(playerX - centerX) <= EXPLOSION_RADIUS)) {
-                    player.PlayerDied(); // Kill the player
-                    System.out.println("Player killed by the bomb at (" + playerX + ", " + playerY + ")");
-                }
-            }
+        // Always handle tile explosions regardless of enemies
+        tileExplosion(map, centerX, centerY);
 
-            // Check if any enemies are within the explosion radius
+        // Check for nearby enemies (only if there are any)
+        if (!map.getEnemies().isEmpty()) {
             for (Enemy enemy : map.getEnemies()) {
-                if (!enemy.isDead()) { // Ensure the enemy is alive before checking
+                if (!enemy.isDead()) {
                     int enemyX = Math.round(enemy.getX());
                     int enemyY = Math.round(enemy.getY());
 
-                    if (Math.abs(enemyX - centerX) <= EXPLOSION_RADIUS && Math.abs(enemyY - centerY) <= EXPLOSION_RADIUS) {
-                        enemy.killEnemy(); // Call a method to kill the enemy
+                    if (Math.abs(enemyX - centerX) <= EXPLOSION_RADIUS &&
+                            Math.abs(enemyY - centerY) <= EXPLOSION_RADIUS) {
+                        enemy.killEnemy();
                         System.out.println("Enemy killed by the bomb at (" + enemyX + ", " + enemyY + ")");
                     }
                 }
+            }
+        } else {
+            System.out.println("No enemies to check in the explosion radius.");
+        }
+    }
 
-                // Explosion logic based on radius
-                // Directions for explosion (up, down, left, right)
-                int[][] directions = {
-                        {0, 1},  // Up
-                        {0, -1}, // Down
-                        {1, 0},  // Right
-                        {-1, 0}  // Left
+    private void tileExplosion(GameMap map, int centerX, int centerY) {
+        System.out.println("Handling tile explosions around: (" + centerX + ", " + centerY + ")");
 
-                };
+        int[][] directions = {
+                {0, 1},  // Up
+                {0, -1}, // Down
+                {1, 0},  // Right
+                {-1, 0}  // Left
+        };
 
-                // Iterate through each direction to check the nearest breakable tile within the explosion radius
-                for (int[] direction : directions) {
-                    for (int i = 1; i <= EXPLOSION_RADIUS; i++) {
-                        int x = centerX + direction[0] * i;
-                        int y = centerY + direction[1] * i;
+        for (int[] direction : directions) {
+            for (int i = 1; i <= EXPLOSION_RADIUS; i++) {
+                int x = centerX + direction[0] * i;
+                int y = centerY + direction[1] * i;
 
-                        // Ensure the coordinates are within map bounds
-                        if (x < 0 || x >= map.getWidth() || y < 0 || y >= map.getHeight()) {
-                            break; // Stop if out of bounds
-                        }
-
-                        Tile tile = map.getTileAt(x, y);
-                        if (tile != null) {
-                            if (tile.isBreakable()) {
-                                // Explode the first breakable tile and stop further propagation in this direction
-                                tile.explode();
-                                System.out.println("Tile at (" + x + ", " + y + ") exploded.");
-                                break; // Stop after affecting the first breakable tile in any direction
-                            } else if (tile.getTileType() == Tile.INDESTRUCTIBLE_WALL) {
-                                // Stop propagation if an indestructible wall is encountered
-                                break;
-                            }
-                        }
+                Tile tile = map.getTileAt(x, y);
+                if (tile != null) {
+                    if (tile.isBreakable()) {
+                        tile.explode();
+                        System.out.println("Tile at (" + x + ", " + y + ") exploded.");
+                        break; // Stop further propagation in this direction
+                    } else if (tile.getTileType() == Tile.INDESTRUCTIBLE_WALL) {
+                        System.out.println("Indestructible wall at (" + x + ", " + y + "). Stopping propagation.");
+                        break; // Stop at an indestructible wall
                     }
                 }
             }

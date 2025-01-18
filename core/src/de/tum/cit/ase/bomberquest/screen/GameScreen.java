@@ -185,7 +185,8 @@ public class GameScreen implements Screen {
         for (Enemy enemy : map.getEnemies()) {
             draw(spriteBatch, enemy);
         }
-
+        GameStatus.GameWon();
+        GameStatus.GameOver();
         draw(spriteBatch, map.getPlayer());
        // draw(spriteBatch, map.getChest());
         renderSanta(spriteBatch);
