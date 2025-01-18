@@ -56,6 +56,7 @@ public class Bomb implements Drawable {
 
         exploded = true;
         explosionTimer = EXPLOSION_LIFETIME;
+        setMaxBombs(getMaxBombs()-1);
 
         System.out.println("Explosion triggered at: (" + Math.round(position.x) + ", " + Math.round(position.y) + ")");
 
