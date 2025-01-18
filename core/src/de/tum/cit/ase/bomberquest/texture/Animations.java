@@ -20,6 +20,18 @@ public class Animations {
             SpriteSheet.CHARACTER.at(1, 4)
     );
 
+    public static final Animation<TextureRegion> CHARACTER_WIN= new Animation<>(0.1f,
+            SpriteSheet.CHARACTER.at(1, 6),
+            SpriteSheet.CHARACTER.at(1, 8),
+            SpriteSheet.CHARACTER.at(1, 9),
+            SpriteSheet.CHARACTER.at(1, 10),
+            SpriteSheet.CHARACTER.at(1, 11),
+            SpriteSheet.CHARACTER.at(1, 12),
+            SpriteSheet.CHARACTER.at(1, 13),
+            SpriteSheet.CHARACTER.at(1, 15)
+    );
+
+
     public static final Animation<TextureRegion> CHARACTER_DEATH = new Animation<>(0.1f,
             SpriteSheet.CHARACTERDEATH.at(9, 1),
             SpriteSheet.CHARACTERDEATH.at(9, 2),

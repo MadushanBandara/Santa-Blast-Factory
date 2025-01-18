@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.*;
 import de.tum.cit.ase.bomberquest.audio.MusicTrack;
 import de.tum.cit.ase.bomberquest.map.GameMap;
+import de.tum.cit.ase.bomberquest.map.GameStatus;
 import de.tum.cit.ase.bomberquest.map.Tile;
 import de.tum.cit.ase.bomberquest.texture.Animations;
 import de.tum.cit.ase.bomberquest.texture.Drawable;
@@ -41,6 +42,8 @@ public class Player implements Drawable {
     private boolean isExitUnlocked;
 
     private float deathAnimationTime = 0f;
+    private float WinAnimationTime = 0f;
+
 
     public Player(World world, float x, float y) {
         this.hitbox = createHitbox(world, x, y);
@@ -100,8 +103,12 @@ public class Player implements Drawable {
     public void tick(float frameTime, GameMap map) {
         this.elapsedTime += frameTime;
 
+
         if (!isAlive && deathAnimationTime > 0) {
             deathAnimationTime -= frameTime;
+        }
+        if(GameStatus.GameWon()){
+            WinAnimationTime += frameTime;
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
@@ -148,6 +155,9 @@ public class Player implements Drawable {
         if(!isAlive()){
             MusicTrack.GAMEOVER.play();
             return Animations.CHARACTER_DEATH.getKeyFrame(elapsedTime, true);
+        }
+        else if(GameStatus.GameWon()){
+            return Animations.CHARACTER_WIN.getKeyFrame(WinAnimationTime, true);
         }
         else {
             switch (currentDirection) {

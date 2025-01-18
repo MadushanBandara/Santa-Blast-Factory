@@ -172,6 +172,7 @@ public class GameMap {
      * @param frameTime The time that has passed since the last update.
      */
     public void tick(float frameTime, GameMap map) {
+        doPhysicsStep(frameTime);
         // Update player
         this.player.tick(frameTime, map);
         for (Tile tile : tiles) {
@@ -188,10 +189,10 @@ public class GameMap {
         }
 
         bombs.removeIf(Bomb::isExpired); // Clean up expired bombs
-        player.tick(frameTime, map);
+
         removeDeadEnemy();
         // Perform physics steps
-        doPhysicsStep(frameTime);
+
     }
 
     /**

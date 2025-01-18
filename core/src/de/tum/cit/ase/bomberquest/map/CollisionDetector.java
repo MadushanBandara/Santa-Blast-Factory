@@ -31,8 +31,8 @@ public class CollisionDetector implements ContactListener {
             santa.SantaSaved();
         }
 
-        // Player and Exit interaction
-        /*
+        // Player and Exit interaction//
+        /*removed
         if ((UserA instanceof Player && UserB instanceof Exit) || (UserA instanceof Exit && UserB instanceof Player)) {
             Exit exit = (UserA instanceof Exit) ? (Exit) UserA : (Exit) UserB;
             exit.exitFound();
@@ -41,8 +41,10 @@ public class CollisionDetector implements ContactListener {
         if ((UserA instanceof Player && UserB instanceof Tile && ((Tile) UserB).getTileType() ==8) ||
                 (UserA instanceof Tile && ((Tile) UserA).getTileType() == 8 && UserB instanceof Player)) {
             Tile.setExitFound(true);
-            System.out.println("you can leave from here");
-        }
+            System.out.println("you can leave from here");}
+            else {
+                Tile.setExitFound(false);
+            }
 
         // Player and Power-Up Tile interaction
         //this will be removed as powerup will be granted as they are revealed by explosion under the breakable tile
