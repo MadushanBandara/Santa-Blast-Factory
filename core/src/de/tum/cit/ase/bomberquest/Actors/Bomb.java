@@ -63,8 +63,22 @@ public class Bomb implements Drawable {
         int centerX = Math.round(position.x);
         int centerY = Math.round(position.y);
 
+        Player player = map.getPlayer();
+
         // Always handle tile explosions regardless of enemies
         tileExplosion(map, centerX, centerY);
+
+        if (player != null && player.isAlive()) {
+            int playerX = Math.round(player.getX());
+            int playerY = Math.round(player.getY());
+
+            // Ensure the player is within the radius and aligned horizontally or vertically
+            if ((playerX == centerX && Math.abs(playerY - centerY) <= EXPLOSION_RADIUS) ||
+                    (playerY == centerY && Math.abs(playerX - centerX) <= EXPLOSION_RADIUS)) {
+                player.PlayerDied(); // Kill the player
+                System.out.println("Player killed by the bomb at (" + playerX + ", " + playerY + ")");
+            }
+        }
 
         // Check for nearby enemies (only if there are any)
         if (!map.getEnemies().isEmpty()) {
