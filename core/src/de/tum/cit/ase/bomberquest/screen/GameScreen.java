@@ -88,8 +88,12 @@ public class GameScreen implements Screen {
         // Render the HUD
         hud.render(); // HUD manages its own SpriteBatch
 
-        if (!isAlive() && player.getDeathAnimationTime() <= 0) {
+        if (GameStatus.GameOver() && player.getDeathAnimationTime() <= 0) {
             game.setScreen(new GameOverScreen(game)); // Show Game Over Screen
+            dispose();
+        }
+        if(GameStatus.GameWon()){
+            game.setScreen(new VictoryScreen(game)); // Show Victory Screen
             dispose();
         }
 

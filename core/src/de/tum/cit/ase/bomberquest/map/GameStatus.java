@@ -8,7 +8,7 @@ import de.tum.cit.ase.bomberquest.screen.Hud;
 
 public class GameStatus {
 
-    public boolean GameWon() {
+    public static boolean GameWon() {
 
         boolean victory = false;
         if(Player.isAlive() && GameMap.getEnemiesGenerated()==0 && Santa.isSaved() && Tile.isExitFound()){
@@ -21,7 +21,7 @@ public class GameStatus {
 
     }
 
-    public boolean GameOver(){
+    public static boolean GameOver(){
         boolean GameOver=false;
         if(!Player.isAlive()){
             GameOver=true;

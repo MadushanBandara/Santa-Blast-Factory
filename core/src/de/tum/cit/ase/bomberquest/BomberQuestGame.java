@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import de.tum.cit.ase.bomberquest.audio.MusicTrack;
 import de.tum.cit.ase.bomberquest.map.GameMap;
+import de.tum.cit.ase.bomberquest.map.GameStatus;
 import de.tum.cit.ase.bomberquest.screen.GameScreen;
 import de.tum.cit.ase.bomberquest.screen.MenuScreen;
 import games.spooky.gdx.nativefilechooser.NativeFileChooser;
@@ -31,6 +32,7 @@ public class BomberQuestGame extends Game {
 
     // The map
     private GameMap map;
+    private GameStatus gameStatus;
 
     /**
      * Constructor for BomberQuestGame.
@@ -48,8 +50,10 @@ public class BomberQuestGame extends Game {
     public void create() {
         this.spriteBatch = new SpriteBatch(); // Create SpriteBatch for rendering
         this.skin = new Skin(Gdx.files.internal("skin/craftacular/craftacular-ui.json")); // Load UI skin
+        this.gameStatus=gameStatus;
         MusicTrack.BACKGROUND.play(); // Play background music
         goToMenu(); // Navigate to the menu screen
+
     }
 
     /**
