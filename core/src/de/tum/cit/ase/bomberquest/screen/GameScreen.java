@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -141,18 +142,18 @@ public class GameScreen implements Screen {
 
         // If saved, draw the animation near Santa
         if (Santa.isSaved()) {
-            TextureRegion currentFrame = Animations.SANTAMESSAGE.getKeyFrame(santa.getElapsedTime(), true);
+            TextureRegion currentFrame = Animations.SANTAMESSAGE.getKeyFrame(santa.getElapsedTime(), false);
 //Chatgpt help to make image smaller
             // Scale factor for the message animation
-            float scale = 0.2f;
+            float scale = 0.15f;
 
             // Calculate scaled dimensions
             float messageWidth = currentFrame.getRegionWidth() * scale;
             float messageHeight = currentFrame.getRegionHeight() * scale;
 
             // Position the animation above Santa
-            float messageX = santa.getX() * TILE_SIZE_PX * SCALE; // Align horizontally with Santa
-            float messageY = santa.getY() * TILE_SIZE_PX * SCALE + TILE_SIZE_PX; // Position above Santa
+            float messageX = santa.getX() * TILE_SIZE_PX * SCALE+3; // Align horizontally with Santa
+            float messageY = santa.getY() * TILE_SIZE_PX * SCALE + 6; // Position above Santa
 
             // Draw the animation with the scaled size
             spriteBatch.draw(currentFrame, messageX, messageY, messageWidth, messageHeight);

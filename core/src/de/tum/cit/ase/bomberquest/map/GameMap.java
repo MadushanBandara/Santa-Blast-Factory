@@ -88,7 +88,9 @@ public class GameMap {
         this.world.setContactListener(new CollisionDetector());
     }
 
-
+    public World getWorld() {
+        return world;
+    }
 
     /**
      * Initializes flowers in the map.

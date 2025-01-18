@@ -23,7 +23,7 @@ public class Chest implements Drawable {
      * @param world The Box2D world to add the chest's hitbox to.
      * @param x The X position.
      * @param y The Y position.
-     */
+
 /*
     public Chest(World world, float x, float y) {
         this.x = x;
