@@ -35,7 +35,8 @@ public class GameMap {
 
     private final Player player; // The player character
     //**removed private final Chest chest; // The chest object on the map
-    private Life life;
+
+    private static List<Life> lives = new ArrayList<>();
     private final Flowers[][] flowers; // Decorative flowers
     //** removed private final Exit exit;
     private final List<Enemy> enemies; // List of enemies
@@ -65,7 +66,7 @@ public class GameMap {
         //load tiles
         this.tiles = MapLoader.loadMap(this.world, mapFilePath);
         //this.exit=new Exit(this.world, random.nextFloat(), random.nextFloat());
-        this.life=new Life(0,0);
+        updateLifeCounter();
         // Set map dimensions
 
         // Determine grid dimensions based on viewport size and scale
@@ -105,6 +106,15 @@ public class GameMap {
         }
     }
 
+    static void updateLifeCounter(){
+        int plives=Player.getLifeCounter();
+        while (lives.size()<plives){
+            int x=lives.size()+1;
+            int y=0;
+            lives.add(new Life(x,y));
+        }
+
+    }
 
     /**
      * Dynamically generates enemies with random positions.
@@ -177,8 +187,12 @@ public class GameMap {
         this.player.tick(frameTime, map);
         for (Tile tile : tiles) {
             tile.tick(frameTime);
-
         }
+
+        for (Life life : lives) {
+            life.tick(frameTime);
+        }
+
         // Update all enemies
         for (Enemy enemy : enemies) {
             enemy.update(frameTime);
@@ -299,7 +313,8 @@ public class GameMap {
         return null;
     }
 
-    public Life getLife() {
-        return life;
+  public static List<Life> getLives() {
+        return lives;
     }
+
 }

@@ -16,6 +16,7 @@ public class Life implements Drawable {
     private final int x;
     private final int y;
     private final int lifeCounter;
+    private float elapsedTime;
 
     public Life(int x, int y) {
         this.x = x;
@@ -37,6 +38,12 @@ public class Life implements Drawable {
     public float getY() {
         return y;
     }
+
+    public void tick(float deltaTime) {
+        elapsedTime += deltaTime;
+    }
+
+
 }
 
 

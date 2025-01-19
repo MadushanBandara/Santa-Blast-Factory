@@ -262,7 +262,6 @@ public class Player implements Drawable {
     public static void PlayerWon(){
         playerWon=true;
         WinAnimationTime = 5f;
-
     }
 
     public static void setIsAlive(boolean isAlive) {

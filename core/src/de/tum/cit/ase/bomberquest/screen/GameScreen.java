@@ -20,6 +20,7 @@ import de.tum.cit.ase.bomberquest.texture.Drawable;
 import de.tum.cit.ase.bomberquest.Actors.Bomb;
 import de.tum.cit.ase.bomberquest.Actors.Santa;
 import de.tum.cit.ase.bomberquest.map.GameMap;
+import de.tum.cit.ase.bomberquest.texture.Textures;
 
 import static de.tum.cit.ase.bomberquest.Actors.Player.isAlive;
 
@@ -87,6 +88,7 @@ public class GameScreen implements Screen {
 
         // Render the HUD
         hud.render(); // HUD manages its own SpriteBatch
+
 
         GameStatus.GameWon();
         GameStatus.GameOver();
@@ -168,12 +170,17 @@ public class GameScreen implements Screen {
 
     }
 
-
+    public static void renderLifeCounter(SpriteBatch spriteBatch){
+        // Render hearts from GameMap
+        for (Life life : GameMap.getLives())
+            draw(spriteBatch,life);
+    }
     private void renderMap() {
 
         for (Flowers flowers : map.getFlowers()) {
             draw(spriteBatch, flowers);
         }
+
 
         renderTiles(spriteBatch);
         //draw(spriteBatch, map.getExit());//render exit after tiles
@@ -192,10 +199,11 @@ public class GameScreen implements Screen {
        // draw(spriteBatch, map.getChest());
         renderSanta(spriteBatch);
 
-        draw(spriteBatch, map.getLife());
+        //draw(spriteBatch, map.getLife());
         for (Bomb bomb : map.getPlayer().getBombs()) {
            renderBombs();
         }
+        renderLifeCounter(spriteBatch);
 
     }
 

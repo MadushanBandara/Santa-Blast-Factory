@@ -1,10 +1,12 @@
 package de.tum.cit.ase.bomberquest.map;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.*;
 import de.tum.cit.ase.bomberquest.Actors.Bomb;
 import de.tum.cit.ase.bomberquest.Actors.Player;
+import de.tum.cit.ase.bomberquest.BomberQuestGame;
 import de.tum.cit.ase.bomberquest.texture.Animations;
 import de.tum.cit.ase.bomberquest.texture.Drawable;
 import de.tum.cit.ase.bomberquest.texture.Textures;
@@ -12,6 +14,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import de.tum.cit.ase.bomberquest.screen.GameScreen;
 
 import java.util.List;
 
@@ -48,12 +51,15 @@ public class Tile implements Drawable {
 
 
 
+
+
     public Tile(World world,float x, float y, int tileType) {
         this.x = x;
         this.y = y;
         this.tileType = tileType;
         this.body=createHitbox(world);
         this.currentAppearance = Textures.getTextureForTileType(tileType);
+
     }
     @Override
     public float getX() {
@@ -88,6 +94,7 @@ public class Tile implements Drawable {
                                     setTileType(9);
                                     Player.setLifeCounter(Player.getLifeCounter() + 1);
                                     Player.PlayerGrantedPowerUP();
+                                    GameMap.updateLifeCounter();
                                     System.out.println("now the player has " + Player.getLifeCounter() + " lives");
 
                             } else if (currentAppearance.equals(Textures.EXIT)) {

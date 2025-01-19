@@ -35,6 +35,7 @@ public class Hud {
     private static boolean timeUp;
     private static Integer blastRadius;
 
+
     // UI Labels
     private Label christmasStartLabel;
     private Label countDownLabel;
