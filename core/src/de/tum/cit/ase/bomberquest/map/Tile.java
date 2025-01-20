@@ -126,7 +126,6 @@ public class Tile implements Drawable {
                             } else if (currentAppearance.equals(Textures.LESSBOMBS)) {
 
                                     Bomb.setMaxBombs(Bomb.getMaxBombs() - 5);
-                                    Player.PlayerGrantedPowerUP();
                                     System.out.println("now you have 5 Bombs less");
 
                             }

@@ -22,7 +22,14 @@ public class CollisionDetector implements ContactListener {
         // Player and Enemy interaction
         if ((UserA instanceof Player && UserB instanceof Enemy) || (UserA instanceof Enemy && UserB instanceof Player)) {
             Player player = (UserA instanceof Player) ? (Player) UserA : (Player) UserB;
-            player.PlayerDied();
+            if(player.getLifeCounter()==1){
+                player.PlayerDied();
+                GameMap.updateLifeCounter();
+            }
+            else {
+                player.PlayerSurvives();
+                GameMap.updateLifeCounter();
+            }
         }
 
         // Player and Santa interaction

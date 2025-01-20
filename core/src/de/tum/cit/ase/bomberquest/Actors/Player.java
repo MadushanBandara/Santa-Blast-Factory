@@ -259,6 +259,11 @@ public class Player implements Drawable {
 
     }
 
+    public void PlayerSurvives(){
+        lifeCounter--;
+        System.out.println("Game Over Player Has survived an enemy attack thanks to additional life power up"+getHitbox() );;
+    }
+
     public static void PlayerWon(){
         playerWon=true;
         WinAnimationTime = 5f;
@@ -314,6 +319,7 @@ public class Player implements Drawable {
         this.canDropBomb = true; // Reset bomb-dropping ability
         this.enemiesDefeated = 0;
         this.isExitUnlocked = false;
+
         GameStatus.reset();
 
 
