@@ -76,7 +76,7 @@ public class Player implements Drawable {
         // Dynamic bodies are affected by forces and collisions.
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         // Set the initial position of the body.
-        bodyDef.position.set(10,3);
+        bodyDef.position.set(10,10);
         // Create the body in the world using the body definition.
         Body body = world.createBody(bodyDef);
         // Now we need to give the body a shape so the physics engine knows how to collide with it.

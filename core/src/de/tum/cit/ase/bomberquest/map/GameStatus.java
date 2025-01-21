@@ -26,7 +26,6 @@ public class GameStatus {
     public static boolean GameOver(){
         if(!Player.isAlive() || Hud.isTimeUp()){
             setGameOver(true);
-            System.out.println("Game Over!, you lose");
         }
         return gameOver;
     }
