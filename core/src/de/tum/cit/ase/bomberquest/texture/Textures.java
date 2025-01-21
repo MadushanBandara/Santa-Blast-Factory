@@ -94,6 +94,16 @@ public class Textures {
             BENCH,REINDEER,GIFT,LAMP,HOUSE
     ));
 
+    public static List<TextureRegion> randomNonPU = new ArrayList<>(List.of(
+            SPECIAL,BAK_TILE,DEFAULT,SNOWMAN,
+            BENCH,REINDEER,GIFT,LAMP,HOUSE
+    ));
+
+    public static TextureRegion randomNonPU() {
+        return randomNonPU.get(random.nextInt(randomNonPU.size()));
+//
+    }
+
     public static TextureRegion RandomSurprise() {
         return randomSurprise.get(random.nextInt(randomSurprise.size()));
 //
