@@ -51,9 +51,6 @@ public class Tile implements Drawable {
 
 
 
-
-
-
     public Tile(World world,float x, float y, int tileType) {
         this.x = x;
         this.y = y;
@@ -136,7 +133,10 @@ public class Tile implements Drawable {
                 Bomb.setMaxBombs(Bomb.getMaxBombs() - 5);
                 System.out.println("Fewer bombs available!");
             }
-            currentAppearance =Textures.randomNonPU();
+            if(!currentAppearance.equals(Textures.EXIT)){
+                currentAppearance =Textures.randomNonPU();
+            }
+
         }
     }
 
