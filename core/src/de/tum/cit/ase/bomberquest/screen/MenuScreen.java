@@ -44,6 +44,9 @@ public class MenuScreen implements Screen {
         batch = game.getSpriteBatch();
         background = new Texture(Gdx.files.internal("texture/santa blast.png"));
 
+        MusicTrack.BACKGROUND.stopMusic();
+        MusicTrack.GAMEOVERMUSIC.play();
+
 
         Table table = new Table(); // Create a table for layout
         table.setFillParent(true); // Make the table fill the stage
@@ -61,6 +64,8 @@ public class MenuScreen implements Screen {
         goToGameButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                MusicTrack.GAMEOVERMUSIC.stopMusic();
+                MusicTrack.BACKGROUND.play();
                 game.goToGame(); // Change to the game screen when button is pressed
             }
         });
@@ -72,6 +77,7 @@ public class MenuScreen implements Screen {
         exitButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                MusicTrack.GAMEOVERMUSIC.stopMusic();
                 Gdx.app.exit();
             }
         });
