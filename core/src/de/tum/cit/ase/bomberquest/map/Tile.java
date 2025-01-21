@@ -136,6 +136,7 @@ public class Tile implements Drawable {
                 Bomb.setMaxBombs(Bomb.getMaxBombs() - 5);
                 System.out.println("Fewer bombs available!");
             }
+            currentAppearance = Textures.getTextureForTileType(Tile.EMPTY);
         }
     }
 
