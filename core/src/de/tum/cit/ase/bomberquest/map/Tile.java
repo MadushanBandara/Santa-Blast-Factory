@@ -46,7 +46,8 @@ public class Tile implements Drawable {
     private TextureRegion currentAppearance;
     private static boolean exitFound=false;
     private static boolean exitRevealed=false;
-    private boolean PowerupRedeemed = false;
+    private boolean PowerupRedeemed;
+    private static boolean PowerupFound;
 
 
 
@@ -59,6 +60,8 @@ public class Tile implements Drawable {
         this.tileType = tileType;
         this.body=createHitbox(world);
         this.currentAppearance = Textures.getTextureForTileType(tileType);
+        this.PowerupRedeemed=false;
+        this.PowerupFound=false;
 
     }
     @Override
@@ -88,17 +91,19 @@ public class Tile implements Drawable {
                         animationFinished = true;
                         currentAppearance = Textures.RandomSurprise();// Assign the random texture
                         if(!PowerupRedeemed) {//added this condition to all powerups/downs so that the powerup could be gained only once not every explosion
-                            setPowerupRedeemed(true);
+
                             if (currentAppearance.equals(Textures.LIFE)) {
 
                                     setTileType(9);
-                                    Player.setLifeCounter(Player.getLifeCounter() + 1);
-                                    Player.PlayerGrantedPowerUP();
-                                    GameMap.updateLifeCounter();
-                                    if(Player.getLifeCounter()==3){
-                                        removeLife();
-                                    }
-                                    System.out.println("now the player has " + Player.getLifeCounter() + " lives");
+                                    if(PowerupFound==true){
+                                        setPowerupRedeemed(true);
+                                        Player.setLifeCounter(Player.getLifeCounter() + 1);
+                                        Player.PlayerGrantedPowerUP();
+                                        GameMap.updateLifeCounter();
+                                        if(Player.getLifeCounter()==3){
+                                        removeLife();//to ensure maximum of 3 lives
+                                        }
+                                        System.out.println("now the player has " + Player.getLifeCounter() + " lives");}
 
                             } else if (currentAppearance.equals(Textures.EXIT)) {
 
@@ -119,7 +124,7 @@ public class Tile implements Drawable {
                                     Bomb.setExplosionRadius(Bomb.getExplosionRadius() + 1);
                                     Player.PlayerGrantedPowerUP();
                                     if(Bomb.getExplosionRadius()==8){
-                                    removeBlastRadius();
+                                    removeBlastRadius();//to ensure maximum blastRadius is 8
                                 }
                                     System.out.println("now the explosion Radius is " + Bomb.getExplosionRadius());
 
@@ -249,6 +254,14 @@ public class Tile implements Drawable {
 
     public void setPowerupRedeemed(boolean powerupRedeemed) {
         PowerupRedeemed = powerupRedeemed;
+    }
+
+    public static boolean isPowerupFound() {
+        return PowerupFound;
+    }
+
+    public static void setPowerupFound(boolean powerupFound) {
+        PowerupFound = powerupFound;
     }
 }
 

@@ -15,7 +15,10 @@ public enum MusicTrack {
 
     BACKGROUND("DecktheHalls.mp3", 0.2f, true),
     EXPLOSION("explosion.mp3", 0.1f, false),
+
+    GAMEMENU("JingleBells.mp3", 0.2f, true),
     GAMEOVER("game_over.mp3", 0.01f, false);
+
 
     /** The music file owned by this variant. */
     private final Music music;
@@ -32,6 +35,10 @@ public enum MusicTrack {
      */
     public void play() {
         this.music.play();
+    }
+
+    public void stop(){
+        this.music.stop();
     }
 
     public Music getMusic() {

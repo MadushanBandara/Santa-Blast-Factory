@@ -14,19 +14,18 @@ public class CollisionDetector implements ContactListener {
 
     @Override
     public void beginContact(Contact contact) {
-        Fixture ActorA= contact.getFixtureA();
-        Fixture ActorB= contact.getFixtureB();
-        Object  UserA=ActorA.getBody().getUserData();
-        Object  UserB=ActorB.getBody().getUserData();
+        Fixture ActorA = contact.getFixtureA();
+        Fixture ActorB = contact.getFixtureB();
+        Object UserA = ActorA.getBody().getUserData();
+        Object UserB = ActorB.getBody().getUserData();
 
         // Player and Enemy interaction
         if ((UserA instanceof Player && UserB instanceof Enemy) || (UserA instanceof Enemy && UserB instanceof Player)) {
             Player player = (UserA instanceof Player) ? (Player) UserA : (Player) UserB;
-            if(player.getLifeCounter()==1){
+            if (player.getLifeCounter() == 1) {
                 player.PlayerDied();
                 GameMap.updateLifeCounter();
-            }
-            else {
+            } else {
                 player.PlayerSurvives();
                 GameMap.updateLifeCounter();
             }
@@ -45,13 +44,13 @@ public class CollisionDetector implements ContactListener {
             exit.exitFound();
         }*/
 
-        if ((UserA instanceof Player && UserB instanceof Tile && ((Tile) UserB).getTileType() ==8) ||
+        if ((UserA instanceof Player && UserB instanceof Tile && ((Tile) UserB).getTileType() == 8) ||
                 (UserA instanceof Tile && ((Tile) UserA).getTileType() == 8 && UserB instanceof Player)) {
             Tile.setExitFound(true);
-            System.out.println("you can leave from here");}
-            else {
-                Tile.setExitFound(false);
-            }
+            System.out.println("you can leave from here");
+        } else {
+            Tile.setExitFound(false);
+        }
 
         // Player and Power-Up Tile interaction
         //this will be removed as powerup will be granted as they are revealed by explosion under the breakable tile
@@ -61,6 +60,12 @@ public class CollisionDetector implements ContactListener {
             Player player = (UserA instanceof Player) ? (Player) UserA : (Player) UserB;
             player.PlayerGrantedPowerUP();
         }*/
+
+        if ((UserA instanceof Player && UserB instanceof Tile && ((Tile) UserB).getTileType() == 9) ||
+                (UserA instanceof Tile && ((Tile) UserA).getTileType() == 9 && UserB instanceof Player)) {
+            Tile.setPowerupFound(true);
+
+        }
     }
 
     @Override
