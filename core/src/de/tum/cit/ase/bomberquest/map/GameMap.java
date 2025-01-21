@@ -114,7 +114,6 @@ public class GameMap {
             lives.add(new Life(x,y));
         }
         while (lives.size()>plives){
-
             lives.remove(lives.size()-1);
         }
 

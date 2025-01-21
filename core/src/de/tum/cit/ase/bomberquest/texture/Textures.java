@@ -102,6 +102,12 @@ public class Textures {
    public static void removeExit(){
         randomSurprise.remove(EXIT);
     }
+    public static void removeLife(){
+        randomSurprise.remove(LIFE);
+    }
+    public static void removeBlastRadius(){
+        randomSurprise.remove(BLASTRADIUSPLUS);
+    }
 
 
 

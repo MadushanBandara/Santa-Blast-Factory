@@ -95,6 +95,9 @@ public class Tile implements Drawable {
                                     Player.setLifeCounter(Player.getLifeCounter() + 1);
                                     Player.PlayerGrantedPowerUP();
                                     GameMap.updateLifeCounter();
+                                    if(Player.getLifeCounter()==3){
+                                        removeLife();
+                                    }
                                     System.out.println("now the player has " + Player.getLifeCounter() + " lives");
 
                             } else if (currentAppearance.equals(Textures.EXIT)) {
@@ -115,6 +118,9 @@ public class Tile implements Drawable {
 
                                     Bomb.setExplosionRadius(Bomb.getExplosionRadius() + 1);
                                     Player.PlayerGrantedPowerUP();
+                                    if(Bomb.getExplosionRadius()==8){
+                                    removeBlastRadius();
+                                }
                                     System.out.println("now the explosion Radius is " + Bomb.getExplosionRadius());
 
                             } else if (currentAppearance.equals(Textures.EXTRABOMBS)) {
