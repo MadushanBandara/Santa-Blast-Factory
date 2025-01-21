@@ -14,11 +14,11 @@ import com.badlogic.gdx.audio.Music;
 public enum MusicTrack {
 
     BACKGROUND("DecktheHalls.mp3", 0.2f, true),
-    EXPLOSION("explosion.mp3", 0.1f, false),
-
-    GAMEMENU("JingleBells.mp3", 0.2f, true),
-    GAMEOVER("game_over.mp3", 0.01f, false);
-
+    EXPLOSION("explosion.mp3", 0.2f, false),
+    GAMEOVER("game_over.mp3", 0.02f, false),
+    GAMEOVERMUSIC("Death Is Just Another Path.mp3",0.5f,false),
+    GAMEMENUMUSIC("wintery loop.wav",0.2f,false),
+    GAMEVICTORYMUSIC("JingleBells.mp3",0.2f,false);
 
     /** The music file owned by this variant. */
     private final Music music;
@@ -37,7 +37,7 @@ public enum MusicTrack {
         this.music.play();
     }
 
-    public void stop(){
+    public void stopMusic(){
         this.music.stop();
     }
 

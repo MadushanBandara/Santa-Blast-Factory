@@ -15,6 +15,9 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import de.tum.cit.ase.bomberquest.BomberQuestGame;
+import de.tum.cit.ase.bomberquest.audio.MusicTrack;
+
+import java.lang.management.MemoryUsage;
 
 /**
  * The MenuScreen class is responsible for displaying the main menu of the game.
@@ -37,6 +40,10 @@ public class GameOverScreen implements Screen {
         Viewport viewport = new ScreenViewport(camera); // Create a viewport with the camera
         stage = new Stage(viewport, game.getSpriteBatch()); // Create a stage for UI elements
 
+        MusicTrack.GAMEOVER.stopMusic();
+        MusicTrack.BACKGROUND.stopMusic();
+        MusicTrack.GAMEOVERMUSIC.play();
+
         Table table = new Table(); // Create a table for layout
         table.setFillParent(true); // Make the table fill the stage
         stage.addActor(table); // Add the table to the stage
@@ -52,6 +59,7 @@ public class GameOverScreen implements Screen {
         goToMenuButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                MusicTrack.GAMEOVERMUSIC.stopMusic();
                 game.setScreen(new MenuScreen(game)); // Restart the game
             }
         });

@@ -36,13 +36,16 @@ public class MenuScreen implements Screen {
      */
     public MenuScreen(BomberQuestGame game) {
         var camera = new OrthographicCamera();
-        camera.zoom = 1f; // Set camera zoom for a closer view
+        camera.zoom = 2f; // Set camera zoom for a closer view
 
         Viewport viewport = new ScreenViewport(camera); // Create a viewport with the camera
         stage = new Stage(viewport, game.getSpriteBatch()); // Create a stage for UI elements
 
         batch = game.getSpriteBatch();
         background = new Texture(Gdx.files.internal("texture/santa blast.png"));
+
+        MusicTrack.BACKGROUND.stopMusic();
+        MusicTrack.GAMEMENUMUSIC.play();
 
 
         Table table = new Table(); // Create a table for layout
@@ -61,6 +64,8 @@ public class MenuScreen implements Screen {
         goToGameButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                MusicTrack.GAMEMENUMUSIC.stopMusic();
+                MusicTrack.BACKGROUND.play();
                 game.goToGame(); // Change to the game screen when button is pressed
             }
         });
@@ -72,6 +77,7 @@ public class MenuScreen implements Screen {
         exitButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                MusicTrack.GAMEOVERMUSIC.stopMusic();
                 Gdx.app.exit();
             }
         });
