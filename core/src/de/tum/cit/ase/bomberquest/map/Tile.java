@@ -125,6 +125,9 @@ public class Tile implements Drawable {
                 System.out.println("Exit revealed!");
             } else if (currentAppearance.equals(Textures.BLASTRADIUSPLUS)) {
                 Bomb.setExplosionRadius(Bomb.getExplosionRadius() + 1);
+                if(Bomb.getExplosionRadius()==8) {
+                    Textures.removeBlastRadius();
+                }
                 System.out.println("Explosion radius increased!");
             } else if (currentAppearance.equals(Textures.EXTRABOMBS)) {
                 Bomb.setMaxBombs(Bomb.getMaxBombs() + 5);
