@@ -47,7 +47,7 @@ public class Tile implements Drawable {
     private static boolean exitFound=false;
     private static boolean exitRevealed=false;
     private boolean PowerupRedeemed;
-    private static boolean PowerupFound;
+    private boolean PowerupFound;
 
 
 
@@ -82,78 +82,59 @@ public class Tile implements Drawable {
      *
      * @return A TextureRegion representing the tile's appearance.
      */
+
         @Override
         public TextureRegion getCurrentAppearance() {
             if (isExploded()) {
-                if (!animationFinished) {
-                    if (Animations.WALLEXPLOSION.isAnimationFinished(elapsedTime)) {
-                        // Animation finished, assign a random texture
-                        animationFinished = true;
-                        currentAppearance = Textures.RandomSurprise();// Assign the random texture
-                        if(!PowerupRedeemed) {//added this condition to all powerups/downs so that the powerup could be gained only once not every explosion
-
-                            if (currentAppearance.equals(Textures.LIFE)) {
-
-                                    setTileType(9);
-                                    if(PowerupFound==true){
-                                        setPowerupRedeemed(true);
-                                        Player.setLifeCounter(Player.getLifeCounter() + 1);
-                                        Player.PlayerGrantedPowerUP();
-                                        GameMap.updateLifeCounter();
-                                        if(Player.getLifeCounter()==3){
-                                        removeLife();//to ensure maximum of 3 lives
-                                        }
-                                        System.out.println("now the player has " + Player.getLifeCounter() + " lives");}
-
-                            } else if (currentAppearance.equals(Textures.EXIT)) {
-
-                                    setTileType(8);
-                                    Textures.removeExit();//// Remove EXIT from surprise list so it only appears once
-                                    setExitRevealed(true);
-                                    System.out.println("Congrats the Exit is now open");
-
-                            } else if
-                            (currentAppearance.equals(Textures.MOREENEMIES)) {
-
-                                    setTileType(3);
-                                    //
-                                    // GameMap.generateEnemies(this.tiles);
-
-                            } else if (currentAppearance.equals(Textures.BLASTRADIUSPLUS)) {
-
-                                    Bomb.setExplosionRadius(Bomb.getExplosionRadius() + 1);
-                                    Player.PlayerGrantedPowerUP();
-                                    if(Bomb.getExplosionRadius()==8){
-                                    removeBlastRadius();//to ensure maximum blastRadius is 8
-                                }
-                                    System.out.println("now the explosion Radius is " + Bomb.getExplosionRadius());
-
-                            } else if (currentAppearance.equals(Textures.EXTRABOMBS)) {
-
-                                    Bomb.setMaxBombs(Bomb.getMaxBombs() + 5);
-                                    Player.PlayerGrantedPowerUP();
-                                    System.out.println("now you have 5 extra Bombs");
-
-                            } else if (currentAppearance.equals(Textures.LESSBOMBS)) {
-
-                                    Bomb.setMaxBombs(Bomb.getMaxBombs() - 5);
-                                    System.out.println("now you have 5 Bombs less");
-
-                            }
-                        }
-
-                        return currentAppearance; // Return the random texture
-                    } else {
-                        //directly after explosion wallexplosion animation sets
-                        return Animations.WALLEXPLOSION.getKeyFrame(elapsedTime, false);
-                    }
+                assignRandomTextureAfterExplosion();
+                if (animationFinished) {
+                    return currentAppearance; // Return the final texture
                 } else {
-                    // return the final texture
-                    return currentAppearance;
+                    return Animations.WALLEXPLOSION.getKeyFrame(elapsedTime, false); // Animation texture
                 }
             }
-            return Textures.getTextureForTileType(tileType); // if not exploded standard tile rendering before explosion according to tile type
+            return Textures.getTextureForTileType(tileType); // Default appearance for non-exploded tiles
         }
+
+    public void assignRandomTextureAfterExplosion() {
+        if (!animationFinished) {
+            if (Animations.WALLEXPLOSION.isAnimationFinished(elapsedTime)) {
+                animationFinished = true;
+                currentAppearance = Textures.RandomSurprise(); // Assign the random texture
+                setTileType(EMPTY);
+                System.out.println("Random texture assigned: " + currentAppearance);
+            }
+        }
+    }
+
+    public void grantPowerup(Player player) {
+        if (!isPowerupRedeemed()&& isPowerupFound()) {
+            PowerupRedeemed = true;
+
+            if (currentAppearance.equals(Textures.LIFE)) {
+                player.setLifeCounter(player.getLifeCounter() + 1);
+                GameMap.updateLifeCounter();
+                if (player.getLifeCounter() == 3) {
+                    removeLife(); // Ensure maximum of 3 lives total
+                }
+                System.out.println("Player gained an extra life!");
+            } else if (currentAppearance.equals(Textures.EXIT)) {
+                setTileType(EXIT);
+                Textures.removeExit(); // Remove EXIT from surprise list
+                setExitRevealed(true);
+                System.out.println("Exit revealed!");
+            } else if (currentAppearance.equals(Textures.BLASTRADIUSPLUS)) {
+                Bomb.setExplosionRadius(Bomb.getExplosionRadius() + 1);
+                System.out.println("Explosion radius increased!");
+            } else if (currentAppearance.equals(Textures.EXTRABOMBS)) {
+                Bomb.setMaxBombs(Bomb.getMaxBombs() + 5);
+                System.out.println("Extra bombs granted!");
+            } else if (currentAppearance.equals(Textures.LESSBOMBS)) {
+                Bomb.setMaxBombs(Bomb.getMaxBombs() - 5);
+                System.out.println("Fewer bombs available!");
+            }
+        }
+    }
 
     private Body createHitbox(World world) {
         // BodyDef is like a blueprint for the movement properties of the body.
@@ -256,12 +237,12 @@ public class Tile implements Drawable {
         PowerupRedeemed = powerupRedeemed;
     }
 
-    public static boolean isPowerupFound() {
+    public boolean isPowerupFound() {
         return PowerupFound;
     }
 
-    public static void setPowerupFound(boolean powerupFound) {
-        PowerupFound = powerupFound;
+    public void setPowerupFound(boolean powerupFound) {
+        this.PowerupFound = powerupFound;
     }
 }
 

@@ -61,10 +61,16 @@ public class CollisionDetector implements ContactListener {
             player.PlayerGrantedPowerUP();
         }*/
 
+        // Player and Power-Up Tile interaction
         if ((UserA instanceof Player && UserB instanceof Tile && ((Tile) UserB).getTileType() == 9) ||
                 (UserA instanceof Tile && ((Tile) UserA).getTileType() == 9 && UserB instanceof Player)) {
-            Tile.setPowerupFound(true);
-
+            Tile tile = (UserA instanceof Tile) ? (Tile) UserA : (Tile) UserB;
+            Player player = (UserA instanceof Player) ? (Player) UserA : (Player) UserB;
+            System.out.println("you found a powerup");
+            if (!tile.isPowerupRedeemed()) {
+                tile.setPowerupFound(true);
+                tile.grantPowerup(player);
+            }
         }
     }
 
