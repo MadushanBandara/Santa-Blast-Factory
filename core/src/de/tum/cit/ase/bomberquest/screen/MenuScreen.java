@@ -16,6 +16,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import de.tum.cit.ase.bomberquest.BomberQuestGame;
+import de.tum.cit.ase.bomberquest.audio.MusicTrack;
 
 /**
  * The MenuScreen class is responsible for displaying the main menu of the game.
@@ -35,13 +36,14 @@ public class MenuScreen implements Screen {
      */
     public MenuScreen(BomberQuestGame game) {
         var camera = new OrthographicCamera();
-        camera.zoom = 2f; // Set camera zoom for a closer view
+        camera.zoom = 1f; // Set camera zoom for a closer view
 
         Viewport viewport = new ScreenViewport(camera); // Create a viewport with the camera
         stage = new Stage(viewport, game.getSpriteBatch()); // Create a stage for UI elements
 
         batch = game.getSpriteBatch();
         background = new Texture(Gdx.files.internal("texture/santa blast.png"));
+
 
         Table table = new Table(); // Create a table for layout
         table.setFillParent(true); // Make the table fill the stage
