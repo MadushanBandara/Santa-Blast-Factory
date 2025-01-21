@@ -40,6 +40,7 @@ public class GameOverScreen implements Screen {
         Viewport viewport = new ScreenViewport(camera); // Create a viewport with the camera
         stage = new Stage(viewport, game.getSpriteBatch()); // Create a stage for UI elements
 
+        MusicTrack.GAMEOVER.stopMusic();
         MusicTrack.BACKGROUND.stopMusic();
         MusicTrack.GAMEOVERMUSIC.play();
 

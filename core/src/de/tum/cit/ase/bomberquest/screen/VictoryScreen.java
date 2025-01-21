@@ -38,7 +38,7 @@ public class VictoryScreen implements Screen {
         stage = new Stage(viewport, game.getSpriteBatch()); // Create a stage for UI elements
 
         MusicTrack.BACKGROUND.stopMusic();
-        MusicTrack.GAMEOVERMUSIC.play();
+        MusicTrack.GAMEVICTORYMUSIC.play();
 
         Table table = new Table(); // Create a table for layout
         table.setFillParent(true); // Make the table fill the stage
@@ -55,7 +55,7 @@ public class VictoryScreen implements Screen {
         goToMenuButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                MusicTrack.GAMEOVERMUSIC.stopMusic();
+                MusicTrack.GAMEVICTORYMUSIC.stopMusic();
                 game.setScreen(new MenuScreen(game)); // Restart the game
             }
         });
@@ -67,7 +67,7 @@ public class VictoryScreen implements Screen {
         exitButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                MusicTrack.GAMEOVERMUSIC.stopMusic();
+                MusicTrack.GAMEVICTORYMUSIC.stopMusic();
                 Gdx.app.exit(); // Exit the game
             }
         });

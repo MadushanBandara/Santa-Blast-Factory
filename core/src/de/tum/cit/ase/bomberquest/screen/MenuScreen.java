@@ -45,7 +45,7 @@ public class MenuScreen implements Screen {
         background = new Texture(Gdx.files.internal("texture/santa blast.png"));
 
         MusicTrack.BACKGROUND.stopMusic();
-        MusicTrack.GAMEOVERMUSIC.play();
+        MusicTrack.GAMEMENUMUSIC.play();
 
 
         Table table = new Table(); // Create a table for layout
@@ -64,7 +64,7 @@ public class MenuScreen implements Screen {
         goToGameButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                MusicTrack.GAMEOVERMUSIC.stopMusic();
+                MusicTrack.GAMEMENUMUSIC.stopMusic();
                 MusicTrack.BACKGROUND.play();
                 game.goToGame(); // Change to the game screen when button is pressed
             }
