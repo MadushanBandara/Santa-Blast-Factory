@@ -87,9 +87,9 @@ public class Bomb implements Drawable {
                     int enemyX = Math.round(enemy.getX());
                     int enemyY = Math.round(enemy.getY());
 
-                    if (Math.abs(enemyX - centerX) <= EXPLOSION_RADIUS &&
-                            Math.abs(enemyY - centerY) <= EXPLOSION_RADIUS) {
-                        enemy.killEnemy();
+                    if ((enemyX == centerX && Math.abs(enemyY - centerY) <= EXPLOSION_RADIUS) ||
+                            (enemyY == centerY && Math.abs(enemyX - centerX) <= EXPLOSION_RADIUS)) {
+                        enemy.killEnemy(); // Kill the enemy
                         System.out.println("Enemy killed by the bomb at (" + enemyX + ", " + enemyY + ")");
                     }
                 }
@@ -100,13 +100,8 @@ public class Bomb implements Drawable {
     }
 
     private void tileExplosion(GameMap map, int centerX, int centerY) {
-        System.out.println("Handling tile explosions around: (" + centerX + ", " + centerY + ")");
-
         int[][] directions = {
-                {0, 1},  // Up
-                {0, -1}, // Down
-                {1, 0},  // Right
-                {-1, 0}  // Left
+                {0, 1}, {0, -1}, {1, 0}, {-1, 0}
         };
 
         for (int[] direction : directions) {
@@ -118,17 +113,13 @@ public class Bomb implements Drawable {
                 if (tile != null) {
                     if (tile.isBreakable()) {
                         tile.explode();
-                        System.out.println("Tile at (" + x + ", " + y + ") exploded.");
-                        break; // Stop further propagation in this direction
                     } else if (tile.getTileType() == Tile.INDESTRUCTIBLE_WALL) {
-                        System.out.println("Indestructible wall at (" + x + ", " + y + "). Stopping propagation.");
-                        break; // Stop at an indestructible wall
+                        break;
                     }
                 }
             }
         }
     }
-
 
         @Override
         public TextureRegion getCurrentAppearance () {
