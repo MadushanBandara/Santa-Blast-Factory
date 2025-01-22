@@ -100,6 +100,7 @@ public class Tile implements Drawable {
                 currentAppearance = Textures.RandomSurprise();// Assign the random texture
                 if (currentAppearance.equals(Textures.EXIT)){
                     Textures.removeExit();
+                    setExitRevealed(true);
                 }
                 setTileType(EMPTY);
                 System.out.println("Random texture assigned: " + currentAppearance);
@@ -120,7 +121,7 @@ public class Tile implements Drawable {
                 System.out.println("Player gained an extra life!");
             } else if (currentAppearance.equals(Textures.EXIT)) {
                 setTileType(EXIT);// Remove EXIT from surprise list so it is not selected again
-                setExitRevealed(true);
+
                 System.out.println("Exit revealed!");
             } else if (currentAppearance.equals(Textures.BLASTRADIUSPLUS)) {
                 Bomb.setExplosionRadius(Bomb.getExplosionRadius() + 1);
