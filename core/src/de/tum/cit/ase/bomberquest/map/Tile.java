@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.*;
 import de.tum.cit.ase.bomberquest.Actors.Bomb;
 import de.tum.cit.ase.bomberquest.Actors.Player;
 import de.tum.cit.ase.bomberquest.BomberQuestGame;
+import de.tum.cit.ase.bomberquest.audio.MusicTrack;
 import de.tum.cit.ase.bomberquest.texture.Animations;
 import de.tum.cit.ase.bomberquest.texture.Drawable;
 import de.tum.cit.ase.bomberquest.texture.Textures;
@@ -118,19 +119,23 @@ public class Tile implements Drawable {
                 if (player.getLifeCounter() == 3) {
                     removeLife(); // Ensure maximum of 3 lives total
                 }
+                MusicTrack.COLLECTING.play();
                 System.out.println("Player gained an extra life!");
             } else if (currentAppearance.equals(Textures.EXIT)) {
                 setTileType(EXIT);// Remove EXIT from surprise list so it is not selected again
 
+                MusicTrack.COLLECTING.play();
                 System.out.println("Exit revealed!");
             } else if (currentAppearance.equals(Textures.BLASTRADIUSPLUS)) {
                 Bomb.setExplosionRadius(Bomb.getExplosionRadius() + 1);
                 if(Bomb.getExplosionRadius()==8) {
                     Textures.removeBlastRadius();// Remove BlastRadius from surprise list so it is not selected again
                 }
+                MusicTrack.COLLECTING.play();
                 System.out.println("Explosion radius increased!");
             } else if (currentAppearance.equals(Textures.EXTRABOMBS)) {
                 Bomb.setMaxBombs(Bomb.getMaxBombs() + 5);
+                MusicTrack.COLLECTING.play();
                 System.out.println("Extra bombs granted!");
             } else if (currentAppearance.equals(Textures.LESSBOMBS)) {
                 Bomb.setMaxBombs(Bomb.getMaxBombs() - 5);

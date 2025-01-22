@@ -59,16 +59,27 @@ public class MenuScreen implements Screen {
         // Create and add a button to go to the game screen
         TextButton goToGameButton = new TextButton("Start New Game", game.getSkin());
         table.add(goToGameButton).width(300).row();
-        TextButton ContinueButton = new TextButton("Continue Game", game.getSkin());
-        table.add(ContinueButton).width(300).row();
         goToGameButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                MusicTrack.CLICKSOUND.play();
                 MusicTrack.GAMEMENUMUSIC.stopMusic();
                 MusicTrack.BACKGROUND.play();
                 game.goToGame(); // Change to the game screen when button is pressed
             }
         });
+        TextButton ContinueButton = new TextButton("Continue Game", game.getSkin());
+        table.add(ContinueButton).width(300).row();
+        ContinueButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                MusicTrack.CLICKSOUND.play();
+                MusicTrack.GAMEMENUMUSIC.stopMusic();
+                MusicTrack.BACKGROUND.play();
+                game.goToGame(); // Change to the game screen when button is pressed
+            }
+        });
+
 
         // Create and add the Exit button
         TextButton exitButton = new TextButton("Exit", game.getSkin());
@@ -77,6 +88,7 @@ public class MenuScreen implements Screen {
         exitButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                MusicTrack.CLICKSOUND.play();
                 MusicTrack.GAMEOVERMUSIC.stopMusic();
                 Gdx.app.exit();
             }

@@ -59,6 +59,7 @@ public class GameOverScreen implements Screen {
         goToMenuButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                MusicTrack.CLICKSOUND.play();
                 MusicTrack.GAMEOVERMUSIC.stopMusic();
                 game.setScreen(new MenuScreen(game)); // Restart the game
             }
@@ -71,6 +72,7 @@ public class GameOverScreen implements Screen {
         exitButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                MusicTrack.CLICKSOUND.play();
                 Gdx.app.exit(); // Exit the game
             }
         });
