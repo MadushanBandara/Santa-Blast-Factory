@@ -28,8 +28,8 @@ public class Hud {
     public Stage stage;
 
     // Game state variables
-    private Integer worldTimer;
-    private float timeCount;
+    private static Integer worldTimer;
+    private static float timeCount;
     private static Integer bomber;
     private static Integer enemy;
     private static boolean timeUp;
@@ -135,4 +135,11 @@ public class Hud {
         return timeUp;
     }
 
+    public static Integer getWorldTimer() {
+        return worldTimer;
+    }
+
+    public static void setWorldTimer(Integer worldTimer) {
+        Hud.worldTimer = worldTimer;
+    }
 }

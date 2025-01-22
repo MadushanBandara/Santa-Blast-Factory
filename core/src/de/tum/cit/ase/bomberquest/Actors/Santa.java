@@ -17,6 +17,7 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import de.tum.cit.ase.bomberquest.audio.MusicTrack;
 import de.tum.cit.ase.bomberquest.screen.GameScreen;
+import de.tum.cit.ase.bomberquest.screen.Hud;
 import de.tum.cit.ase.bomberquest.texture.Animations;
 import de.tum.cit.ase.bomberquest.texture.Drawable;
 import java.util.ArrayList;
@@ -121,6 +122,7 @@ public class Santa implements Drawable {
 
     public void SantaSaved(){
         isSaved=true;
+        Hud.setWorldTimer(Hud.getWorldTimer()+50);//get Some Extra time when you save Santa
         System.out.println("Woohoo, you Saved Santa");
     }
 
