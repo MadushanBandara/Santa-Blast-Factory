@@ -222,6 +222,7 @@ public class Player implements Drawable {
     // Method to handle key presses (you already have this in the tick method)
     public void handleKeyPress(GameMap map) {
         if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER) && canDropBomb) {
+            MusicTrack.BOMBDROPSOUND.play();
             dropBomb(map);
         }
     }
