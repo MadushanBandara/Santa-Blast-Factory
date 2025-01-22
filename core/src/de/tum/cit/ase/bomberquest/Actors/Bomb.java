@@ -87,9 +87,9 @@ public class Bomb implements Drawable {
                     int enemyX = Math.round(enemy.getX());
                     int enemyY = Math.round(enemy.getY());
 
-                    if (Math.abs(enemyX - centerX) <= EXPLOSION_RADIUS &&
-                            Math.abs(enemyY - centerY) <= EXPLOSION_RADIUS) {
-                        enemy.killEnemy();
+                    if ((enemyX == centerX && Math.abs(enemyY - centerY) <= EXPLOSION_RADIUS) ||
+                            (enemyY == centerY && Math.abs(enemyX - centerX) <= EXPLOSION_RADIUS)) {
+                        enemy.killEnemy(); // Kill the enemy
                         System.out.println("Enemy killed by the bomb at (" + enemyX + ", " + enemyY + ")");
                     }
                 }
