@@ -133,7 +133,7 @@ public class Tile implements Drawable {
                 Bomb.setMaxBombs(Bomb.getMaxBombs() - 5);
                 System.out.println("Fewer bombs available!");
             }
-            if(!currentAppearance.equals(Textures.EXIT)){
+            if(!currentAppearance.equals(Textures.EXIT) && !Textures.randomNonPU.contains(currentAppearance)){
                 currentAppearance =Textures.randomNonPU();
             }
 
