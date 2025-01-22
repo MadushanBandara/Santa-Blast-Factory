@@ -97,7 +97,10 @@ public class Tile implements Drawable {
         if (!animationFinished) {
             if (Animations.WALLEXPLOSION.isAnimationFinished(elapsedTime)) {
                 animationFinished = true;
-                currentAppearance = Textures.RandomSurprise(); // Assign the random texture
+                currentAppearance = Textures.RandomSurprise();// Assign the random texture
+                if (currentAppearance.equals(Textures.EXIT)){
+                    Textures.removeExit();
+                }
                 setTileType(EMPTY);
                 System.out.println("Random texture assigned: " + currentAppearance);
             }
@@ -116,14 +119,13 @@ public class Tile implements Drawable {
                 }
                 System.out.println("Player gained an extra life!");
             } else if (currentAppearance.equals(Textures.EXIT)) {
-                setTileType(EXIT);
-                Textures.removeExit(); // Remove EXIT from surprise list
+                setTileType(EXIT);// Remove EXIT from surprise list so it is not selected again
                 setExitRevealed(true);
                 System.out.println("Exit revealed!");
             } else if (currentAppearance.equals(Textures.BLASTRADIUSPLUS)) {
                 Bomb.setExplosionRadius(Bomb.getExplosionRadius() + 1);
                 if(Bomb.getExplosionRadius()==8) {
-                    Textures.removeBlastRadius();
+                    Textures.removeBlastRadius();// Remove BlastRadius from surprise list so it is not selected again
                 }
                 System.out.println("Explosion radius increased!");
             } else if (currentAppearance.equals(Textures.EXTRABOMBS)) {

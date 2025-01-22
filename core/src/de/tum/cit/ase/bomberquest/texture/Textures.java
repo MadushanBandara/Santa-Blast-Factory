@@ -111,6 +111,8 @@ public class Textures {
 
    public static void removeExit(){
         randomSurprise.remove(EXIT);
+        System.out.println("Exit removed");
+
     }
     public static void removeLife(){
         randomSurprise.remove(LIFE);

@@ -106,18 +106,26 @@ public class GameMap {
         }
     }
 
-    static void updateLifeCounter(){
-        int plives=Player.getLifeCounter();
-        while (lives.size()<plives){
-            int x=lives.size()+1;
-            int y=0;
-            lives.add(new Life(x,y));
-        }
-        while (lives.size()>plives){
-            lives.remove(lives.size()-1);
+    static void updateLifeCounter() {
+        int plives = Player.getLifeCounter();
+
+        // Only update if life counter is more than 1
+        if (plives < 1) {
+            System.out.println("Life counter is 1 or less; no update needed.");
+            return; // Exit the method early
         }
 
+        // Add lives if the player's life counter increases
+        while (lives.size() < plives) {
+            int x = lives.size() + 1;
+            int y = 0;
+            lives.add(new Life(x, y));
+        }
 
+        // Remove lives if the player's life counter decreases
+        while (lives.size() > plives) {
+            lives.remove(lives.size() - 1);
+        }
     }
 
     /**
