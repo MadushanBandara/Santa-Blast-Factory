@@ -1,4 +1,4 @@
-# Santa Blast factory - SSF
+# Santa Blast factory - SBF
 
 **Santa Blast factory** is a game where you play as a hero on a mission to save Santa Claus. The goal is to navigate through a maze, destroy enemies using bombs, and uncover hidden power-ups in destructible tiles. Save Santa by reaching his location, and the time will increase to help you in your quest!
 
