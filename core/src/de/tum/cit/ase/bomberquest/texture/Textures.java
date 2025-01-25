@@ -51,15 +51,16 @@ public class Textures {
     public static final TextureRegion HOUSE=SpriteSheet.HOUSES.at(1,1);
     //public static final TextureRegion INDESTRUCTIBLEWALLS = SpriteSheet.WALLS.at(4, 5);
 
+
     //powerups
     public static final TextureRegion LIFE = SpriteSheet.ORIGINALBOMBERMAN.at(15, 5);
     public static final TextureRegion BLASTRADIUSPLUS= SpriteSheet.ORIGINALBOMBERMAN.at(15, 7);
-    public static final TextureRegion KILLENEMY= SpriteSheet.ORIGINALBOMBERMAN.at(15, 6);
-    public static final TextureRegion EXTRABOMBS= SpriteSheet.ORIGINALBOMBERMAN.at(15, 3);
+    public static final TextureRegion RUN= SpriteSheet.ORIGINALBOMBERMAN.at(15, 3);
+    public static final TextureRegion EXTRABOMBS= SpriteSheet.ORIGINALBOMBERMAN.at(15, 6);
 
     //powerdown
     public static final TextureRegion MOREENEMIES= SpriteSheet.ORIGINALBOMBERMAN.at(15, 2);
-    public static final TextureRegion LESSBOMBS=SpriteSheet.ORIGINALBOMBERMAN.at(15, 3);
+    public static final TextureRegion LESSBOMBS=SpriteSheet.ORIGINALBOMBERMAN.at(15, 1);
 
 
 
@@ -90,8 +91,8 @@ public class Textures {
     }
 
     public static List<TextureRegion> randomSurprise = new ArrayList<>(List.of(
-            LIFE, BLASTRADIUSPLUS, KILLENEMY, MOREENEMIES,EXIT, SPECIAL,BAK_TILE,DEFAULT,EXTRABOMBS,SNOWMAN, LESSBOMBS,
-            BENCH,REINDEER,GIFT,LAMP,HOUSE
+            LIFE, BLASTRADIUSPLUS, MOREENEMIES,EXIT, SPECIAL,BAK_TILE,DEFAULT,EXTRABOMBS,SNOWMAN, LESSBOMBS,
+            BENCH,REINDEER,GIFT,LAMP,HOUSE,RUN
     ));
 
     public static List<TextureRegion> randomNonPU = new ArrayList<>(List.of(
@@ -119,6 +120,10 @@ public class Textures {
     }
     public static void removeBlastRadius(){
         randomSurprise.remove(BLASTRADIUSPLUS);
+    }
+
+    public static void removeSpeedRun(){
+        randomSurprise.remove(RUN);
     }
 
 

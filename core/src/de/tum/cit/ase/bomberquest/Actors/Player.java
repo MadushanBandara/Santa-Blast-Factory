@@ -45,6 +45,9 @@ public class Player implements Drawable {
     private static float WinAnimationTime = 0f;
     private static boolean playerWon=false;
 
+    private float speed = 4.0f;
+    private boolean runPowerupActive = false;
+
     public Player(World world, float x, float y) {
         this.hitbox = createHitbox(world, x, y);
         this.isAlive = true;
@@ -195,22 +198,22 @@ public class Player implements Drawable {
 
 
     public void moveUp() {
-        hitbox.setLinearVelocity(0, 4f);
+        hitbox.setLinearVelocity(0, speed);
         currentDirection = Direction.UP;// Move upwards
     }
 
     public void moveDown() {
-        hitbox.setLinearVelocity(0, -4f);
+        hitbox.setLinearVelocity(0, -speed);
         currentDirection = Direction.DOWN;// Move downwards
     }
 
     public void moveLeft() {
-        hitbox.setLinearVelocity(-3f, 0);
+        hitbox.setLinearVelocity(-speed, 0);
         currentDirection = Direction.LEFT;// Move left
     }
 
     public void moveRight() {
-        hitbox.setLinearVelocity(3f, 0);
+        hitbox.setLinearVelocity(speed, 0);
         currentDirection = Direction.RIGHT;// Move right
     }
 
@@ -255,6 +258,7 @@ public class Player implements Drawable {
     public void PlayerDied(){
         setIsAlive(false);
         lifeCounter--;
+        removeSpeedRun();
         System.out.println("Game Over Player Has died at "+getHitbox() );
         deathAnimationTime = 5f;
 
@@ -262,7 +266,16 @@ public class Player implements Drawable {
 
     public void PlayerSurvives(){
         lifeCounter--;
+        removeSpeedRun();
         System.out.println("Game Over Player Has survived an enemy attack thanks to additional life power up"+getHitbox() );;
+    }
+
+    public void removeSpeedRun() {
+        if (lifeCounter > 0) {
+            setSpeed(4f);
+            setRunPowerupActive(false);// Deactivate the speed power-up
+            System.out.println("Speed run power-up has been removed.");
+        }
     }
 
     public static void PlayerWon(){
@@ -312,19 +325,31 @@ public class Player implements Drawable {
         return deathAnimationTime;
     }
 
+    public float getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(float speed) {
+        this.speed = speed;
+    }
+
+    public void setRunPowerupActive(boolean runPowerupActive) {
+        this.runPowerupActive = runPowerupActive;
+    }
+
     public void reset(World world, float startX, float startY) {
         this.isAlive = true;
         this.bombs.clear();
         Bomb.resetBombs();
         this.deathAnimationTime = 0;
-        this.canDropBomb = true; // Reset bomb-dropping ability
+        this.canDropBomb = true;
         this.enemiesDefeated = 0;
         this.isExitUnlocked = false;
 
         GameStatus.reset();
 
 
-        // Reset life counter //not yet functional
+        // Reset life counter
         this.lifeCounter = 1;
 
         // Reset hitbox position

@@ -128,11 +128,21 @@ public class Tile implements Drawable {
                 System.out.println("Exit revealed!");
             } else if (currentAppearance.equals(Textures.BLASTRADIUSPLUS)) {
                 Bomb.setExplosionRadius(Bomb.getExplosionRadius() + 1);
-                if(Bomb.getExplosionRadius()==8) {
+                if (Bomb.getExplosionRadius() == 8) {
                     Textures.removeBlastRadius();// Remove BlastRadius from surprise list so it is not selected again
                 }
                 MusicTrack.COLLECTING.play();
                 System.out.println("Explosion radius increased!");
+
+            } else if (currentAppearance.equals(Textures.RUN)) {
+                player.setSpeed(player.getSpeed() + 2);
+                if (player.getSpeed() == 8) {
+                    Textures.removeSpeedRun();
+                }
+                MusicTrack.COLLECTING.play();
+                System.out.println("Player speed increased!");
+
+
             } else if (currentAppearance.equals(Textures.EXTRABOMBS)) {
                 Bomb.setMaxBombs(Bomb.getMaxBombs() + 5);
                 MusicTrack.COLLECTING.play();
