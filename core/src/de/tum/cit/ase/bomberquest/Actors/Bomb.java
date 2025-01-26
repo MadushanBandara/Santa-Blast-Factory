@@ -136,7 +136,7 @@ public class Bomb implements Drawable {
                     if (tile.isBreakable()) {
                         tile.explode();
                     } else if (tile.getTileType() == Tile.INDESTRUCTIBLE_WALL) {
-                        break; // Stop explosion propagation at indestructible wall
+                        break;
                     }
                 } else {
                     break;
