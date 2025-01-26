@@ -168,7 +168,9 @@ public class GameScreen implements Screen {
             spriteBatch.draw(currentFrame, messageX, messageY, messageWidth, messageHeight);
         }
 
+
     }
+
 
     public static void renderLifeCounter(SpriteBatch spriteBatch){
         // Render hearts from GameMap

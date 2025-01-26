@@ -36,11 +36,13 @@ public class Santa implements Drawable {
     private boolean isAlive;
     private float elapsedTime;
     private float timer;
+    private float santaSaveElapsedTime = 0f;
 
     public Santa(World world, float x, float y){
         this.hitbox = createHitbox(world, x, y);
         this.isAlive = true;
         this.isSaved = false;
+        this.santaSaveElapsedTime = 0f;
 
     }
 
@@ -112,10 +114,11 @@ public class Santa implements Drawable {
     public void tick(float deltaTime) {
         elapsedTime += deltaTime; // Increment elapsed time for animations or timed logic
 
+
         if (!isSaved()) {
             timer -= deltaTime; // Decrease timer using delta time
             if (timer <= 0) {
-                // Add relevant behavior here if needed, e.g., a warning or state change
+
             }
         }
     }
@@ -124,6 +127,7 @@ public class Santa implements Drawable {
         isSaved=true;
         Hud.setWorldTimer(Hud.getWorldTimer()+50);//get Some Extra time when you save Santa
         System.out.println("Woohoo, you Saved Santa");
+
     }
 
     public float getElapsedTime() {
@@ -134,8 +138,7 @@ public class Santa implements Drawable {
         this.elapsedTime = elapsedTime;
     }
 
-
-
-
-
+    public float getSantaSaveElapsedTime() {
+        return santaSaveElapsedTime;
+    }
 }

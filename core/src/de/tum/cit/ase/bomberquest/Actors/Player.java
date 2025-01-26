@@ -345,6 +345,7 @@ public class Player implements Drawable {
         this.canDropBomb = true;
         this.enemiesDefeated = 0;
         this.isExitUnlocked = false;
+        this.setSpeed(4);
 
         GameStatus.reset();
 
