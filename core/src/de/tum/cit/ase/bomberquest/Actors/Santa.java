@@ -135,6 +135,7 @@ public class Santa implements Drawable {
         Hud.setWorldTimer(Hud.getWorldTimer()+50);//get Some Extra time when you save Santa
         hitbox.setLinearVelocity(2f, 1f);
         MusicTrack.HOHOHO.play(false);
+        Player.setTrackScore(Player.getTrackScore()+10);
         System.out.println("Woohoo, you Saved Santa");
     }
 

@@ -164,7 +164,7 @@ public class Enemy implements Drawable{
             case 3:
                 return Move.RIGHT;
             default:
-                throw new IllegalStateException("Unexpected value: " + pick);
+                throw new IllegalStateException("Unexpected value");
         }
     }
 
@@ -237,6 +237,7 @@ public class Enemy implements Drawable{
         this.isDead=true;
         this.elapsedTime = 0;
         countEnemies--;
+        Player.setTrackScore(Player.getTrackScore()+5);
 
         GameMap.setEnemiesGenerated(GameMap.getEnemiesGenerated() - 1);
     }

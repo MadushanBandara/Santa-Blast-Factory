@@ -51,6 +51,8 @@ public class Player implements Drawable {
     private float speed = 4f;
     private boolean runPowerupActive = false;
 
+    private static int trackScore=0;
+
     public Player(World world, float x, float y) {
         this.hitbox = createHitbox(world, x, y);
         this.isAlive = true;
@@ -59,6 +61,7 @@ public class Player implements Drawable {
         this.enemiesDefeated = 0;
         this.isExitUnlocked = false;
         this.map = GameMap.getMap();
+        trackScore=0;
     }
 
     public static int getLifeCounter() {
@@ -67,6 +70,14 @@ public class Player implements Drawable {
 
     public static void setLifeCounter(int lifeCounter) {
         Player.lifeCounter = lifeCounter;
+    }
+
+    public static int getTrackScore() {
+        return trackScore;
+    }
+
+    public static void setTrackScore(int trackScore) {
+        Player.trackScore = trackScore;
     }
 
     /**
@@ -282,6 +293,7 @@ public class Player implements Drawable {
             MusicTrack.GAMEOVER.play(false);
             lifeCounter--;
             removeSpeedRun();
+            trackScore=0;
         }
 
     }
@@ -374,7 +386,8 @@ public class Player implements Drawable {
         this.canDropBomb = true; // Reset bomb-dropping ability
         this.enemiesDefeated = 0;
         this.isExitUnlocked = false;
-        this.setSpeed(4);
+        this.setSpeed(3);
+        trackScore=0;
 
         GameStatus.reset();
 
@@ -406,4 +419,6 @@ public class Player implements Drawable {
     }
 
     //public void setSurvivalTime(float survivalTime) {this.survivalTime = survivalTime; }
+
+
 }
