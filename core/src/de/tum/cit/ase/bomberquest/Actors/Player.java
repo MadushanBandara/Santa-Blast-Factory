@@ -48,7 +48,7 @@ public class Player implements Drawable {
     private float survivalTime = 0f;
     private final GameMap map;
 
-    private float speed = 2.0f;
+    private float speed = 4f;
     private boolean runPowerupActive = false;
 
     public Player(World world, float x, float y) {
