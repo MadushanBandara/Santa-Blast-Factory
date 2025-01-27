@@ -72,11 +72,15 @@ public class Bomb implements Drawable {
             int playerX = Math.round(player.getX());
             int playerY = Math.round(player.getY());
 
-            // Ensure the player is within the radius and aligned horizontally or vertically
+            // Check if player is in direct line and explosion is not blocked by unbreakable tile
             if ((playerX == centerX && Math.abs(playerY - centerY) <= EXPLOSION_RADIUS) ||
                     (playerY == centerY && Math.abs(playerX - centerX) <= EXPLOSION_RADIUS)) {
-                player.PlayerDied(); // Kill the player
-                System.out.println("Player killed by the bomb at (" + playerX + ", " + playerY + ")");
+                // Additional check to ensure no unbreakable tile between bomb and player
+                if (!isExplosionBlockedByWall(map, centerX, centerY, playerX, playerY)) {
+                    player.PlayerDied(); // Kill the player
+                    System.out.println("Player killed by the bomb at (" + playerX + ", " + playerY + ")");
+                }
+
             }
         }
 
@@ -99,6 +103,25 @@ public class Bomb implements Drawable {
         }
     }
 
+    private boolean isExplosionBlockedByWall(GameMap map, int bombX, int bombY, int targetX, int targetY) {
+        // Determine direction
+        int dx = Integer.compare(targetX, bombX);
+        int dy = Integer.compare(targetY, bombY);
+
+        // Check tiles between bomb and target
+        int x = bombX + dx;
+        int y = bombY + dy;
+        while (x != targetX || y != targetY) {
+            Tile tile = map.getTileAt(x, y);
+            if (tile != null && tile.getTileType() == Tile.INDESTRUCTIBLE_WALL) {
+                return true; // Explosion is blocked
+            }
+            x += dx;
+            y += dy;
+        }
+        return false; // No blocking wall found
+    }
+
     private void tileExplosion(GameMap map, int centerX, int centerY) {
         int[][] directions = {
                 {0, 1}, {0, -1}, {1, 0}, {-1, 0}
@@ -116,6 +139,8 @@ public class Bomb implements Drawable {
                     } else if (tile.getTileType() == Tile.INDESTRUCTIBLE_WALL) {
                         break;
                     }
+                } else {
+                    break;
                 }
             }
         }
@@ -134,46 +159,46 @@ public class Bomb implements Drawable {
         return null; // No texture after explosion finishes
     }
 
-    public float getX () {
-        return position.x;
-    }
+        public float getX () {
+            return position.x;
+        }
 
-    public float getY () {
-        return position.y;
-    }
+        public float getY () {
+            return position.y;
+        }
 
-    public boolean isExpired () {
-        // The bomb is expired after the explosion animation ends
-        return exploded && explosionTimer <= 0;
-    }
+        public boolean isExpired () {
+            // The bomb is expired after the explosion animation ends
+            return exploded && explosionTimer <= 0;
+        }
 
-    public static boolean isExploded () {
-        return exploded;
-    }
+        public static boolean isExploded () {
+            return exploded;
+        }
 
-    public static int getMaxBombs () {
-        return maxBombs;
-    }
+        public static int getMaxBombs () {
+            return maxBombs;
+        }
 
-    public static Vector2 getPosition () {
-        return position;
-    }
+        public static Vector2 getPosition () {
+            return position;
+        }
 
-    public static int getExplosionRadius () {
-        return EXPLOSION_RADIUS;
-    }
+        public static int getExplosionRadius () {
+            return EXPLOSION_RADIUS;
+        }
 
-    public static void setExplosionRadius ( int explosionRadius){
-        EXPLOSION_RADIUS = explosionRadius;
-    }
+        public static void setExplosionRadius ( int explosionRadius){
+            EXPLOSION_RADIUS = explosionRadius;
+        }
 
-    public static void setMaxBombs ( int maxBombs){
-        Bomb.maxBombs = maxBombs;
-    }
+        public static void setMaxBombs ( int maxBombs){
+            Bomb.maxBombs = maxBombs;
+        }
 
     public static void resetBombs() {
 
-        maxBombs =50 ;// Reset the bomb count
+        maxBombs = 50;// Reset the bomb count
         setExplosionRadius(1);
     }
 }

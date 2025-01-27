@@ -56,7 +56,7 @@ public class Textures {
     public static final TextureRegion BLASTRADIUSPLUS= SpriteSheet.ORIGINALBOMBERMAN.at(15, 7);
     public static final TextureRegion CONCURRENTBOMB= SpriteSheet.ORIGINALBOMBERMAN.at(15, 6);
     public static final TextureRegion EXTRABOMBS= SpriteSheet.BOMBER.at(1, 1);
-
+    public static final TextureRegion RUN= SpriteSheet.ORIGINALBOMBERMAN.at(15, 3);
     //powerdown
     public static final TextureRegion MOREENEMIES= SpriteSheet.ORIGINALBOMBERMAN.at(15, 2);
     public static final TextureRegion LESSBOMBS=SpriteSheet.BOMBER.at(1, 2);
@@ -91,7 +91,7 @@ public class Textures {
 
     public static List<TextureRegion> randomSurprise = new ArrayList<>(List.of(
             LIFE, BLASTRADIUSPLUS, CONCURRENTBOMB, MOREENEMIES,EXIT, SPECIAL,BAK_TILE,DEFAULT,EXTRABOMBS,SNOWMAN, LESSBOMBS,
-            BENCH,REINDEER,GIFT,LAMP,HOUSE
+            BENCH,REINDEER,GIFT,LAMP,HOUSE,RUN
     ));
 
     public static List<TextureRegion> randomNonPU = new ArrayList<>(List.of(
@@ -121,6 +121,10 @@ public class Textures {
     public static void removeBlastRadius(){
         randomSurprise.remove(BLASTRADIUSPLUS);
         System.out.println("Blast removed");
+    }
+
+    public static void removeSpeedRun(){
+        randomSurprise.remove(RUN);
     }
 
 
