@@ -142,7 +142,7 @@ public class GameMap {
         //find suitable tiles for enemy generation on the map
         for(Tile tile: tiles){
             int type=tile.getTileType();
-            if(type != 0 && type != 1 && type != 2 && type != 5 && type != 6){
+            if(type != 0 && type != 1 && type != 2 && type != 5 && type != 6 && tile.getX()!=2 && tile.getY()!=2 && tile.getX()!=10 && tile.getY()!=10){
                 freetiles.add(tile);
             }
         }
