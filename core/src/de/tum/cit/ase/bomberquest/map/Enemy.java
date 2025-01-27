@@ -12,7 +12,6 @@ import de.tum.cit.ase.bomberquest.texture.Drawable;
 import de.tum.cit.ase.bomberquest.texture.SpriteSheet;
 
 
-/*Source code* https://github.com/Gaspared/Bomberman/blob/main/src/game/Enemy.java */
 
 /**
  * Represents an enemy character in the game.
@@ -26,14 +25,13 @@ public class Enemy implements Drawable{
     private boolean isDead;
     public static int countEnemies;
 
-    /** The Box2D hitbox of the player, used for position and collision detection. */
+    /** The Box2D hitbox of the Enemy, used for position and collision detection. */
     private final Body hitbox;
     /**
      * Constructs an Enemy instance with an initial position and direction.
      *
      * @param x         Initial X-coordinate in the grid.
      * @param y         Initial Y-coordinate in the grid.
-     * @param vertical  If true, restricts movement to vertical directions (UP, DOWN).
      */
     public Enemy(World world, float x, float y) {
         this.x = x;
@@ -47,49 +45,6 @@ public class Enemy implements Drawable{
     /**
      * Changes the direction to the opposite of the current direction.
      */
-/*
-   public void changeDirection() {
-        if (currentDirection == Move.DOWN) {
-            double rand = Math.random();
-            currentDirection = rand < 0.25 ? Move.UP
-                    : rand < 0.5 ? Move.RIGHT
-                    : rand < 0.75 ? Move.LEFT
-                    : Move.DOWN;
-        } else if (currentDirection == Move.UP) {
-            double rand = Math.random();
-            currentDirection = rand < 0.25 ? Move.UP
-                    : rand < 0.5 ? Move.RIGHT
-                    : rand < 0.75 ? Move.LEFT
-                    : Move.DOWN;
-        } else if (currentDirection == Move.LEFT) {
-            double rand = Math.random();
-            currentDirection = rand < 0.25 ? Move.UP
-                    : rand < 0.5 ? Move.RIGHT
-                    : rand < 0.75 ? Move.LEFT
-                    : Move.DOWN;
-        } else {
-            double rand = Math.random();
-            currentDirection = rand < 0.25 ? Move.UP
-                    : rand < 0.5 ? Move.RIGHT
-                    : rand < 0.75 ? Move.LEFT
-                    : Move.DOWN;
-        }
-    }
-    */
-/*
-    public void changeDirection() {
-
-        if (currentDirection == Move.DOWN) {
-            currentDirection = Move.UP;
-        } else if (currentDirection == Move.UP) {
-            currentDirection = Move.DOWN;
-        } else if (currentDirection == Move.LEFT) {
-            currentDirection = Move.RIGHT;
-        } else {
-            currentDirection = Move.LEFT;
-        }
-    }
-    */
 
     public  void changeDirection() {
         Move newDirection;
@@ -102,15 +57,6 @@ public class Enemy implements Drawable{
 
 
 
-    /* public void changeDirection() {
-        Move[] directions = Move.values(); // All possible directions
-        Move newDirection;
-        do {
-            int randomIndex = (int) (Math.random() * directions.length);
-            newDirection = directions[randomIndex];
-        } while (newDirection == currentDirection); // Ensure it's a new direction
-        currentDirection = newDirection;
-    }
 
     /**
      * Returns the current movement direction of the enemy.
@@ -171,33 +117,6 @@ public class Enemy implements Drawable{
 
 
 
-
-    /*Updates the enemy's position based on its current direction.
-            */
-    /*
-    public void update() {
-        // Move the enemy based on its current direction
-        switch (currentDirection) {
-            case UP:
-                y++;
-                break;
-            case DOWN:
-                y--;
-                break;
-            case LEFT:
-                x--;
-                break;
-            case RIGHT:
-                x++;
-                break;
-        }
-
-        // Randomly change direction with a 10% chance
-        if (Math.random() < 0.1) {
-            changeDirection();
-        }
-    }
-    */
     public void update(float deltaTime) {
         elapsedTime += deltaTime; // Update animation time
         // Set velocity based on current direction
@@ -279,6 +198,9 @@ public class Enemy implements Drawable{
     public void setCurrentDirection(Move currentDirection) {
         this.currentDirection = currentDirection;
     }
+
+
+    /*code Inspired from Source code* https://github.com/Gaspared/Bomberman/blob/main/src/game/Enemy.java */
 
 }
 

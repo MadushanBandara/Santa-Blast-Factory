@@ -8,6 +8,7 @@ import de.tum.cit.ase.bomberquest.audio.MusicTrack;
 import de.tum.cit.ase.bomberquest.map.GameMap;
 import de.tum.cit.ase.bomberquest.map.GameStatus;
 import de.tum.cit.ase.bomberquest.map.Tile;
+import de.tum.cit.ase.bomberquest.screen.Hud;
 import de.tum.cit.ase.bomberquest.texture.Animations;
 import de.tum.cit.ase.bomberquest.texture.Drawable;
 import java.util.ArrayList;
@@ -299,9 +300,10 @@ public class Player implements Drawable {
     }
 
     public void playerSurvived(GameMap map) {
-        // Ensure any physics modifications are deferred to avoid conflicts
+
         map=GameMap.getMap();
-        map.addDeferredAction(() -> { //ChatGpt help only with the deferred action method
+        // Ensure any physics modifications are deferred to avoid conflicts
+        map.addDeferredAction(() -> { //ChatGpt help ONLY with the deferred action method
             //Same methods as reset method
             hitbox.setTransform(10, 10, 0); // Reset position to starting coordinates
             hitbox.setLinearVelocity(0, 0); // Stop movement
@@ -313,15 +315,17 @@ public class Player implements Drawable {
 
     public void removeSpeedRun() {
         if (lifeCounter > 0) {
-            setSpeed(4f);
+            setSpeed(3f);
             setRunPowerupActive(false);// Deactivate the speed power-up
             System.out.println("Speed run power-up has been removed.");
         }
     }
 
-    public static void PlayerWon(){
+    public static void PlayerWon()
+    {
         playerWon=true;
         WinAnimationTime = 5f;
+        Player.setTrackScore(Player.getTrackScore()+Hud.getWorldTimer());
     }
 
     public static void setIsAlive(boolean isAlive) {
