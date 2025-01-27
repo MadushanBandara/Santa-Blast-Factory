@@ -45,16 +45,57 @@ public class Enemy implements Drawable{
     /**
      * Changes the direction to the opposite of the current direction.
      */
-    public void changeDirection() {
+/*
+   public void changeDirection() {
         if (currentDirection == Move.DOWN) {
-            currentDirection = Move.UP;
+            double rand = Math.random();
+            currentDirection = rand < 0.25 ? Move.UP
+                    : rand < 0.5 ? Move.RIGHT
+                    : rand < 0.75 ? Move.LEFT
+                    : Move.DOWN;
         } else if (currentDirection == Move.UP) {
-            currentDirection = Move.DOWN;
+            double rand = Math.random();
+            currentDirection = rand < 0.25 ? Move.UP
+                    : rand < 0.5 ? Move.RIGHT
+                    : rand < 0.75 ? Move.LEFT
+                    : Move.DOWN;
         } else if (currentDirection == Move.LEFT) {
-            currentDirection = Move.RIGHT;
+            double rand = Math.random();
+            currentDirection = rand < 0.25 ? Move.UP
+                    : rand < 0.5 ? Move.RIGHT
+                    : rand < 0.75 ? Move.LEFT
+                    : Move.DOWN;
         } else {
-            currentDirection = Move.LEFT;
+            double rand = Math.random();
+            currentDirection = rand < 0.25 ? Move.UP
+                    : rand < 0.5 ? Move.RIGHT
+                    : rand < 0.75 ? Move.LEFT
+                    : Move.DOWN;
         }
+    }
+    */
+
+    public void changeDirection() {
+       boolean vertical = true;
+        if (currentDirection == Move.DOWN) {
+            currentDirection = randomDirection(vertical);
+        } else if (currentDirection == Move.UP) {
+            currentDirection = randomDirection(vertical);
+        } else if (currentDirection == Move.LEFT) {
+            currentDirection = randomDirection(vertical);
+        } else {
+            currentDirection = randomDirection(vertical);
+        }
+    }
+
+    /* public void changeDirection() {
+        Move[] directions = Move.values(); // All possible directions
+        Move newDirection;
+        do {
+            int randomIndex = (int) (Math.random() * directions.length);
+            newDirection = directions[randomIndex];
+        } while (newDirection == currentDirection); // Ensure it's a new direction
+        currentDirection = newDirection;
     }
 
     /**
@@ -154,8 +195,8 @@ public class Enemy implements Drawable{
                 break;
         }
 
-        // Randomly change direction with a small chance
-        if (Math.random() < 0.01) {
+        // Randomly change direction with probability
+        if (Math.random() < 0.1) {
             changeDirection();
         }
     }

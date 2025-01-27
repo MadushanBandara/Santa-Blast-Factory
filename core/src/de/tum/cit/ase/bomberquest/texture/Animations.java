@@ -133,6 +133,18 @@ public class Animations {
 
     );
 
+    public static final Animation<TextureRegion> SANTAEXIT= new Animation<>(0.5f,
+            SpriteSheet.SANTAEXIT.at(1, 1),
+            SpriteSheet.SANTAEXIT.at(1, 2),
+            SpriteSheet.SANTAEXIT.at(1, 3),
+            SpriteSheet.SANTAEXIT.at(1, 4),
+            SpriteSheet.SANTAEXIT.at(2, 1),
+            SpriteSheet.SANTAEXIT.at(2, 2),
+            SpriteSheet.SANTAEXIT.at(2, 3),
+            SpriteSheet.SANTAEXIT.at(2, 4)
+
+    );
+
 
 
 

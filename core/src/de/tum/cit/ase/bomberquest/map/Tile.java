@@ -1,5 +1,4 @@
 package de.tum.cit.ase.bomberquest.map;
-
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -103,8 +102,12 @@ public class Tile implements Drawable {
                     Textures.removeExit();
                     setExitRevealed(true);
                 }
+                if (currentAppearance.equals(Textures.LESSBOMBS)) {
+                    Bomb.setMaxBombs(Bomb.getMaxBombs() - 5);
+                    MusicTrack.GAMEOVER.play(false);
+                    System.out.println("Fewer bombs available!");
+                }
                 setTileType(EMPTY);
-                System.out.println("Random texture assigned: " + currentAppearance);
             }
         }
     }
@@ -112,36 +115,44 @@ public class Tile implements Drawable {
     public void grantPowerup(Player player) {
         if (!isPowerupRedeemed()&& isPowerupFound()) {
             PowerupRedeemed = true;
-
+            Animations.WALLEXPLOSION.getKeyFrame(elapsedTime, false);
             if (currentAppearance.equals(Textures.LIFE)) {
-                player.setLifeCounter(player.getLifeCounter() + 1);
-                GameMap.updateLifeCounter();
+                if (player.getLifeCounter() < 3) { // Only increase if below the max
+                    player.setLifeCounter(player.getLifeCounter() + 1);
+                    GameMap.updateLifeCounter();
+                }
                 if (player.getLifeCounter() == 3) {
                     removeLife(); // Ensure maximum of 3 lives total
                 }
-                MusicTrack.COLLECTING.play();
+                MusicTrack.COLLECTING.play(false);
                 System.out.println("Player gained an extra life!");
             } else if (currentAppearance.equals(Textures.EXIT)) {
                 setTileType(EXIT);// Remove EXIT from surprise list so it is not selected again
 
-                MusicTrack.COLLECTING.play();
+                MusicTrack.COLLECTING.play(false);
                 System.out.println("Exit revealed!");
             } else if (currentAppearance.equals(Textures.BLASTRADIUSPLUS)) {
-                Bomb.setExplosionRadius(Bomb.getExplosionRadius() + 1);
-                if(Bomb.getExplosionRadius()==8) {
-                    Textures.removeBlastRadius();// Remove BlastRadius from surprise list so it is not selected again
+                if (Bomb.getExplosionRadius() < 8) { // Only increase if below the max
+                    Bomb.setExplosionRadius(Bomb.getExplosionRadius() + 1);
+                    System.out.println("Explosion radius increased!");
                 }
-                MusicTrack.COLLECTING.play();
+
+                if (Bomb.getExplosionRadius() == 8) { //
+                    Textures.removeBlastRadius(); // Remove blast radius powerup
+                }
+                MusicTrack.COLLECTING.play(false);
                 System.out.println("Explosion radius increased!");
             } else if (currentAppearance.equals(Textures.EXTRABOMBS)) {
                 Bomb.setMaxBombs(Bomb.getMaxBombs() + 5);
-                MusicTrack.COLLECTING.play();
+                MusicTrack.COLLECTING.play(false);
                 System.out.println("Extra bombs granted!");
-            } else if (currentAppearance.equals(Textures.LESSBOMBS)) {
-                Bomb.setMaxBombs(Bomb.getMaxBombs() - 5);
-                System.out.println("Fewer bombs available!");
             }
-            if(!currentAppearance.equals(Textures.EXIT) && !Textures.randomNonPU.contains(currentAppearance)){
+            if (currentAppearance.equals(CONCURRENTBOMB)) {
+                   //add logic here
+                MusicTrack.COLLECTING.play(false);
+                System.out.println("concuretbomb");
+            }
+            if(!currentAppearance.equals(Textures.EXIT) && !Textures.randomNonPU.contains(currentAppearance)){ //make sure EXIT and Random non PU are not changed if they are stepped on
                 currentAppearance =Textures.randomNonPU();
             }
 
@@ -239,6 +250,10 @@ public class Tile implements Drawable {
 
     public static void setExitRevealed(boolean exitRevealed) {
         Tile.exitRevealed = exitRevealed;
+    }
+
+    public static boolean isExitRevealed() {
+        return exitRevealed;
     }
 
     public boolean isPowerupRedeemed() {

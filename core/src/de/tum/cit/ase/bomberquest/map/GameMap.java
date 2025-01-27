@@ -51,7 +51,7 @@ public class GameMap {
 
     private static final Random random = new Random(); // Random number generator
     private float physicsTime = 0; // Accumulated time since the last physics step
-
+    private static GameMap map;
     /**
      * Constructor for GameMap.
      *
@@ -86,7 +86,9 @@ public class GameMap {
         // Uses mapWidth and mapHeight
         this.santa=new Santa(this.world, 10, 8);
 
-        this.world.setContactListener(new CollisionDetector());
+        this.world.setContactListener(new CollisionDetector(map));
+        GameMap.map = this;
+
     }
 
     public World getWorld() {
@@ -106,7 +108,7 @@ public class GameMap {
         }
     }
 
-    static void updateLifeCounter() {
+    public static void updateLifeCounter() {
         int plives = Player.getLifeCounter();
 
         // Only update if life counter is more than 1
@@ -195,6 +197,8 @@ public class GameMap {
      */
     public void tick(float frameTime, GameMap map) {
         doPhysicsStep(frameTime);
+        // Physics step
+        applyDeferredActions();     // Apply actions after the physics step
         // Update player
         this.player.tick(frameTime, map);
         for (Tile tile : tiles) {
@@ -329,4 +333,20 @@ public class GameMap {
         return lives;
     }
 
+    private final List<Runnable> deferredActions = new ArrayList<>();
+
+    public void addDeferredAction(Runnable action) {
+        deferredActions.add(action);
+    }
+
+    public void applyDeferredActions() {
+        for (Runnable action : deferredActions) {
+            action.run();
+        }
+        deferredActions.clear();
+    }
+
+    public static GameMap getMap() {
+        return map;
+    }
 }

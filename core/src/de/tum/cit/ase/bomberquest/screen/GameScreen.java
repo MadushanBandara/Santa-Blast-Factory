@@ -43,9 +43,9 @@ public class GameScreen implements Screen {
         this.spriteBatch = game.getSpriteBatch();
 
         // Initialize game map
-        int mapselection = MathUtils.random(1,5);
+        int mapselection = MathUtils.random(1,4);
         this.map = new GameMap(game, "maps/map-"+mapselection+".properties");
-
+        System.out.println("the generated map is number"+mapselection);
         this.player = map.getPlayer();
         this.player.reset(player.getHitbox().getWorld(), player.getX(), player.getY());
 
@@ -101,6 +101,11 @@ public class GameScreen implements Screen {
             game.setScreen(new VictoryScreen(game)); // Show Victory Screen
             dispose();
         }
+        if (player.isPlayerSurvived() && player.getSurvivalTime() <= 0) {
+            player.setPlayerSurvived(false);
+            System.out.println("Player survival completed. Game resuming...");
+
+        }
 
     }
 
@@ -112,7 +117,7 @@ public class GameScreen implements Screen {
         // Set the camera's position to center on the player
         mapCamera.position.set(playerX, playerY, 0);
 
-        // Update the camera to apply the changes
+        // Update the camera
         mapCamera.update();
     }
 
@@ -129,8 +134,8 @@ public class GameScreen implements Screen {
                 game.getSpriteBatch().draw(bomb.getCurrentAppearance(), x, y, width, height);
         }
             else{
-                float explosionWidth = (TILE_SIZE_PX * SCALE)*4;
-                float explosionHeight = (TILE_SIZE_PX * SCALE)*4;
+                float explosionWidth = (float) ((TILE_SIZE_PX * SCALE)*4);
+                float explosionHeight = (float) ((TILE_SIZE_PX * SCALE)*4);
                 //explosion is offset so that appears where the bomb was exploded because the bomb explosion animation is bigger than the bomb
                 float offsetX = (explosionWidth - TILE_SIZE_PX * SCALE) / 2f;
                 float offsetY = (explosionHeight - TILE_SIZE_PX * SCALE) / 2f;
@@ -152,8 +157,8 @@ public class GameScreen implements Screen {
         // If saved, draw the animation near Santa
         if (Santa.isSaved()) {
             TextureRegion currentFrame = Animations.SANTAMESSAGE.getKeyFrame(santa.getElapsedTime(), false);
-//Chatgpt help to make image smaller
-            // Scale factor for the message animation
+
+            // Scale
             float scale = 0.15f;
 
             // Calculate scaled dimensions

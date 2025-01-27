@@ -38,7 +38,7 @@ public class VictoryScreen implements Screen {
         stage = new Stage(viewport, game.getSpriteBatch()); // Create a stage for UI elements
 
         MusicTrack.BACKGROUND.stopMusic();
-        MusicTrack.GAMEVICTORYMUSIC.play();
+        MusicTrack.GAMEVICTORYMUSIC.play(true);
 
         Table table = new Table(); // Create a table for layout
         table.setFillParent(true); // Make the table fill the stage

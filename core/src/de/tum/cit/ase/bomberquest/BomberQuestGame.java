@@ -51,7 +51,7 @@ public class BomberQuestGame extends Game {
         this.spriteBatch = new SpriteBatch(); // Create SpriteBatch for rendering
         this.skin = new Skin(Gdx.files.internal("skin/craftacular/craftacular-ui.json")); // Load UI skin
         this.gameStatus=gameStatus;
-        MusicTrack.BACKGROUND.play(); // Play background music
+        MusicTrack.BACKGROUND.play(true); // Play background music
         goToMenu(); // Navigate to the menu screen
 
     }

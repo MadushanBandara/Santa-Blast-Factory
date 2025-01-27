@@ -11,6 +11,11 @@ import de.tum.cit.ase.bomberquest.Actors.Santa;
 
 public class CollisionDetector implements ContactListener {
 
+    private GameMap map;
+
+    public CollisionDetector(GameMap map) {
+        this.map = map;
+    }
 
     @Override
     public void beginContact(Contact contact) {
@@ -22,11 +27,8 @@ public class CollisionDetector implements ContactListener {
         // Player and Enemy interaction
         if ((UserA instanceof Player && UserB instanceof Enemy) || (UserA instanceof Enemy && UserB instanceof Player)) {
             Player player = (UserA instanceof Player) ? (Player) UserA : (Player) UserB;
-            if (player.getLifeCounter() == 1) {
-                player.PlayerDied();
-                GameMap.updateLifeCounter();
-            } else {
-                player.PlayerSurvives();
+             {
+                player.PlayerDied(); // Player dies if no extra lives
                 GameMap.updateLifeCounter();
             }
         }
@@ -67,6 +69,7 @@ public class CollisionDetector implements ContactListener {
             Tile tile = (UserA instanceof Tile) ? (Tile) UserA : (Tile) UserB;
             Player player = (UserA instanceof Player) ? (Player) UserA : (Player) UserB;
             System.out.println("you found a powerup");
+
             if (!tile.isPowerupRedeemed()) {
                 tile.setPowerupFound(true);
                 tile.grantPowerup(player);

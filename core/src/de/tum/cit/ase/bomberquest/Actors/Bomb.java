@@ -121,59 +121,59 @@ public class Bomb implements Drawable {
         }
     }
 
-        @Override
-        public TextureRegion getCurrentAppearance () {
-            if (!exploded) {
-                // Render bomb animation before explosion
-                return Animations.BOMB.getKeyFrame(timer, false);
-            } else if (explosionTimer > 0) {
-                // Render explosion animation during its timer
-                MusicTrack.EXPLOSION.play();
-                return Animations.EXPLOSION.getKeyFrame(EXPLOSION_LIFETIME - explosionTimer, true);
-            }
-            return null; // No texture after explosion finishes
+    @Override
+    public TextureRegion getCurrentAppearance () {
+        if (!exploded) {
+            // Render bomb animation before explosion
+            return Animations.BOMB.getKeyFrame(timer, false);
+        } else if (explosionTimer > 0) {
+            // Render explosion animation during its timer
+            MusicTrack.EXPLOSION.play(false);
+            return Animations.EXPLOSION.getKeyFrame(EXPLOSION_LIFETIME - explosionTimer, true);
         }
+        return null; // No texture after explosion finishes
+    }
 
-        public float getX () {
-            return position.x;
-        }
+    public float getX () {
+        return position.x;
+    }
 
-        public float getY () {
-            return position.y;
-        }
+    public float getY () {
+        return position.y;
+    }
 
-        public boolean isExpired () {
-            // The bomb is expired after the explosion animation ends
-            return exploded && explosionTimer <= 0;
-        }
+    public boolean isExpired () {
+        // The bomb is expired after the explosion animation ends
+        return exploded && explosionTimer <= 0;
+    }
 
-        public static boolean isExploded () {
-            return exploded;
-        }
+    public static boolean isExploded () {
+        return exploded;
+    }
 
-        public static int getMaxBombs () {
-            return maxBombs;
-        }
+    public static int getMaxBombs () {
+        return maxBombs;
+    }
 
-        public static Vector2 getPosition () {
-            return position;
-        }
+    public static Vector2 getPosition () {
+        return position;
+    }
 
-        public static int getExplosionRadius () {
-            return EXPLOSION_RADIUS;
-        }
+    public static int getExplosionRadius () {
+        return EXPLOSION_RADIUS;
+    }
 
-        public static void setExplosionRadius ( int explosionRadius){
-            EXPLOSION_RADIUS = explosionRadius;
-        }
+    public static void setExplosionRadius ( int explosionRadius){
+        EXPLOSION_RADIUS = explosionRadius;
+    }
 
-        public static void setMaxBombs ( int maxBombs){
-            Bomb.maxBombs = maxBombs;
-        }
+    public static void setMaxBombs ( int maxBombs){
+        Bomb.maxBombs = maxBombs;
+    }
 
     public static void resetBombs() {
 
-        maxBombs = 50;// Reset the bomb count
+        maxBombs =50 ;// Reset the bomb count
         setExplosionRadius(1);
     }
-    }
+}

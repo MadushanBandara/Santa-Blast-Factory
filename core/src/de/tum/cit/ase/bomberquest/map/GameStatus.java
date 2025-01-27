@@ -1,5 +1,6 @@
 package de.tum.cit.ase.bomberquest.map;
 
+import de.tum.cit.ase.bomberquest.Actors.Bomb;
 import de.tum.cit.ase.bomberquest.Actors.Santa;
 import de.tum.cit.ase.bomberquest.Actors.Player;
 import de.tum.cit.ase.bomberquest.screen.Hud;
@@ -24,7 +25,7 @@ public class GameStatus {
     }
 
     public static boolean GameOver(){
-        if(!Player.isAlive() || Hud.isTimeUp()){
+        if(!Player.isAlive() || Hud.isTimeUp() || Bomb.getMaxBombs()==0 && GameMap.getEnemiesGenerated()>0 ||  Bomb.getMaxBombs()==0 && !Tile.isExitRevealed() || Bomb.getMaxBombs()==0 && !Santa.isSaved()  ){
             setGameOver(true);
         }
         return gameOver;

@@ -45,7 +45,7 @@ public class MenuScreen implements Screen {
         background = new Texture(Gdx.files.internal("texture/santa blast.png"));
 
         MusicTrack.BACKGROUND.stopMusic();
-        MusicTrack.GAMEMENUMUSIC.play();
+        MusicTrack.GAMEMENUMUSIC.play(true);
 
 
         Table table = new Table(); // Create a table for layout
@@ -62,9 +62,9 @@ public class MenuScreen implements Screen {
         goToGameButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                MusicTrack.CLICKSOUND.play();
+                MusicTrack.CLICKSOUND.play(false);
                 MusicTrack.GAMEMENUMUSIC.stopMusic();
-                MusicTrack.BACKGROUND.play();
+                MusicTrack.BACKGROUND.play(true);
                 game.goToGame(); // Change to the game screen when button is pressed
             }
         });
@@ -73,9 +73,9 @@ public class MenuScreen implements Screen {
         ContinueButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                MusicTrack.CLICKSOUND.play();
+                MusicTrack.CLICKSOUND.play(false);
                 MusicTrack.GAMEMENUMUSIC.stopMusic();
-                MusicTrack.BACKGROUND.play();
+                MusicTrack.BACKGROUND.play(true);
                 game.goToGame(); // Change to the game screen when button is pressed
             }
         });
@@ -88,7 +88,7 @@ public class MenuScreen implements Screen {
         exitButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                MusicTrack.CLICKSOUND.play();
+                MusicTrack.CLICKSOUND.play(false);
                 MusicTrack.GAMEOVERMUSIC.stopMusic();
                 Gdx.app.exit();
             }

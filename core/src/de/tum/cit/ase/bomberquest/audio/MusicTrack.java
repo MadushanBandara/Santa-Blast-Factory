@@ -13,14 +13,17 @@ import com.badlogic.gdx.audio.Music;
  */
 public enum MusicTrack {
 
-    BACKGROUND("DecktheHalls.mp3", 0.1f, true),
+    BACKGROUND("DecktheHalls.mp3", 0.2f, true),
     EXPLOSION("explosion.mp3", 0.2f, false),
     GAMEOVER("game_over.mp3", 0.02f, false),
     GAMEOVERMUSIC("Death Is Just Another Path.mp3",0.5f,false),
     GAMEMENUMUSIC("wintery loop.wav",0.1f,false),
     GAMEVICTORYMUSIC("JingleBells.mp3",0.2f,false),
     COLLECTING("completetask_0.mp3",2f,false),
-    BOMBDROPSOUND("8bit_bomb_explosion.wav", 0.3f,false),
+    HOHOHO("hohoho.mp3",0.1f,false),
+    BOMBDROPSOUND("appear-online.mp3", 0.3f,false),
+
+    WIN("win.mp3", 0.2f,false),
     CLICKSOUND("click_sound_5.mp3",1.5f,false);
 
     /** The music file owned by this variant. */
@@ -36,8 +39,9 @@ public enum MusicTrack {
      * Play this music track.
      * This will not stop other music from playing - if you add more tracks, you will have to handle that yourself.
      */
-    public void play() {
+    public void play(boolean loop) {
         this.music.play();
+        this.music.setLooping(loop);
     }
 
     public void stopMusic(){

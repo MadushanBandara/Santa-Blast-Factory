@@ -44,6 +44,9 @@ public class Player implements Drawable {
     private float deathAnimationTime = 0f;
     private static float WinAnimationTime = 0f;
     private static boolean playerWon=false;
+    private static boolean playerSurvived=false;
+    private float survivalTime = 0f;
+    private final GameMap map;
 
     public Player(World world, float x, float y) {
         this.hitbox = createHitbox(world, x, y);
@@ -52,6 +55,7 @@ public class Player implements Drawable {
         this.canDropBomb = true; // Starts with the ability to drop one bomb
         this.enemiesDefeated = 0;
         this.isExitUnlocked = false;
+        this.map = GameMap.getMap();
     }
 
     public static int getLifeCounter() {
@@ -109,6 +113,7 @@ public class Player implements Drawable {
         }
         if(GameStatus.GameWon() && WinAnimationTime > 0){
             WinAnimationTime -= frameTime;
+
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
@@ -126,6 +131,12 @@ public class Player implements Drawable {
         if (!isAlive) {
             stopMovement();
         }
+        /*
+        if(isPlayerSurvived()  && survivalTime>0){
+            survivalTime-=frameTime;
+            if (survivalTime <= 0) {
+                setPlayerSurvived(false);}
+        }*/
 
         // Handle key press for bomb drop
         handleKeyPress(map);
@@ -153,10 +164,11 @@ public class Player implements Drawable {
     @Override
     public TextureRegion getCurrentAppearance() {
         if(!isAlive()){
-            MusicTrack.GAMEOVER.play();
+            MusicTrack.GAMEOVER.play(false);
             return Animations.CHARACTER_DEATH.getKeyFrame(elapsedTime, true);
         }
         else if(GameStatus.GameWon()){
+            MusicTrack.WIN.play(false);
             return Animations.CHARACTER_WIN.getKeyFrame(WinAnimationTime, true);
         }
         else {
@@ -222,7 +234,8 @@ public class Player implements Drawable {
     // Method to handle key presses (you already have this in the tick method)
     public void handleKeyPress(GameMap map) {
         if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER) && canDropBomb) {
-            MusicTrack.BOMBDROPSOUND.play();
+            MusicTrack.BOMBDROPSOUND.play(false);
+
             dropBomb(map);
         }
     }
@@ -252,19 +265,48 @@ public class Player implements Drawable {
         return bombs;
     }
 
-    public void PlayerDied(){
-        setIsAlive(false);
-        lifeCounter--;
-        System.out.println("Game Over Player Has died at "+getHitbox() );
-        deathAnimationTime = 5f;
+    public void PlayerDied() {
+
+        if (lifeCounter > 1) {
+            lifeCounter--;
+            playerSurvived(map); // Reset player position
+            System.out.println("Player died. Lives remaining: " + lifeCounter);
+
+        } else {
+            System.out.println("Game Over! No extra lives left.");
+            setIsAlive(false); // Mark the player as dead
+            deathAnimationTime = 5f; // Trigger the death animation
+            MusicTrack.GAMEOVER.play(false);
+            lifeCounter--;
+        }
 
     }
 
-    public void PlayerSurvives(){
+    /*
+    public void PlayerSurvives() {
+        setPlayerSurvived(true);
+        setSurvivalTime(5f);
         lifeCounter--;
-        System.out.println("Game Over Player Has survived an enemy attack thanks to additional life power up"+getHitbox() );;
+        this.isAlive = true;
+        hitbox.setTransform(10, 10, 0);
+        hitbox.setLinearVelocity(0, 0);
+        hitbox.setAngularVelocity(0);
+        System.out.println("Player reset after survival.");
     }
+    */
 
+    public void playerSurvived(GameMap map) {
+        // Ensure any physics modifications are deferred to avoid conflicts
+        map=GameMap.getMap();
+        map.addDeferredAction(() -> { //ChatGpt help only with the deferred action method
+            //Same methods as reset method
+            hitbox.setTransform(10, 10, 0); // Reset position to starting coordinates
+            hitbox.setLinearVelocity(0, 0); // Stop movement
+            hitbox.setAngularVelocity(0);  // Stop rotation
+        } );
+
+        System.out.println("Player position reset");
+    }
     public static void PlayerWon(){
         playerWon=true;
         WinAnimationTime = 5f;
@@ -333,4 +375,22 @@ public class Player implements Drawable {
         hitbox.setAngularVelocity(0);
         System.out.println("Player has been reset.");
     }
+
+    public static boolean isPlayerSurvived() {
+        return playerSurvived;
+    }
+
+    public float getSurvivalTime() {
+        return survivalTime;
+    }
+
+    public void setElapsedTime(float elapsedTime) {
+        this.elapsedTime = elapsedTime;
+    }
+
+    public static void setPlayerSurvived(boolean playerSurvived) {
+        Player.playerSurvived = playerSurvived;
+    }
+
+    //public void setSurvivalTime(float survivalTime) {this.survivalTime = survivalTime; }
 }

@@ -48,9 +48,9 @@ public class Santa implements Drawable {
         // BodyDef is like a blueprint for the movement properties of the body.
         BodyDef bodyDef = new BodyDef();
         // Dynamic bodies are affected by forces and collisions.
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.type = BodyDef.BodyType.KinematicBody;
         // Set the initial position of the body.
-        bodyDef.position.set(startX, startY);
+        bodyDef.position.set(2,2 );
         // Create the body in the world using the body definition.
         Body body = world.createBody(bodyDef);
         // Now we need to give the body a shape so the physics engine knows how to collide with it.
@@ -71,8 +71,12 @@ public class Santa implements Drawable {
     @Override
     public TextureRegion getCurrentAppearance() {
         if(!isAlive()){
-            MusicTrack.GAMEOVER.play();
+            MusicTrack.GAMEOVER.play(false);
             return Textures.SANTA;
+        }
+        if(isSaved()){
+
+            return Animations.SANTAEXIT.getKeyFrame(getElapsedTime(), true);
         }
         else {
         return  Textures.SANTA;
@@ -110,12 +114,18 @@ public class Santa implements Drawable {
     }
 
     public void tick(float deltaTime) {
-        elapsedTime += deltaTime; // Increment elapsed time for animations or timed logic
+        elapsedTime += deltaTime; //
 
-        if (!isSaved()) {
+        if (isSaved()) {
             timer -= deltaTime; // Decrease timer using delta time
             if (timer <= 0) {
-                // Add relevant behavior here if needed, e.g., a warning or state change
+                float X = hitbox.getPosition().x;
+                // Stop when Santa is out of th map
+                if (X >= 30) {
+                    hitbox.setLinearVelocity(0, 0); // Stop movement
+
+                }
+
             }
         }
     }
@@ -123,8 +133,11 @@ public class Santa implements Drawable {
     public void SantaSaved(){
         isSaved=true;
         Hud.setWorldTimer(Hud.getWorldTimer()+50);//get Some Extra time when you save Santa
+        hitbox.setLinearVelocity(2f, 1f);
+        MusicTrack.HOHOHO.play(false);
         System.out.println("Woohoo, you Saved Santa");
     }
+
 
     public float getElapsedTime() {
         return elapsedTime;

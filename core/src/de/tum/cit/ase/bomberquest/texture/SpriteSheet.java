@@ -28,6 +28,7 @@ public enum SpriteSheet {
     TREE("basictiles.png",16,16),
     /** The basic tiles spritesheet, which has a grid size of 16x16. */
     SANTA("christmasobjects.png",16,16),
+    SANTAEXIT("SANTAEXIT.png",48,25),
     SANTAMESSAGE("speech.png",68,70),
 
     SNOWMAN("snowman1.png",16,16),
@@ -42,6 +43,7 @@ public enum SpriteSheet {
 
 
     HEART("objects.png",16,16),
+    BOMBER("objects2.png",16,16),
 
 
 
