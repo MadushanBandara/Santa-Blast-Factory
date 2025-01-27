@@ -41,32 +41,6 @@ public class Enemy implements Drawable{
         this.hitbox = createHitbox(world, x, y);
         countEnemies=GameMap.getEnemiesGenerated();
     }
-
-    /**
-     * Changes the direction to the opposite of the current direction.
-     */
-
-    public  void changeDirection() {
-        Move newDirection;
-        do {
-            newDirection = randomDirection(); // Generate a random direction
-        } while (newDirection == getCurrentDirection()); // ensure it is different from current enemy direction
-
-        setCurrentDirection(newDirection); // Set the new direction
-    }
-
-
-
-
-    /**
-     * Returns the current movement direction of the enemy.
-     *
-     * @return The current direction (UP, DOWN, LEFT, or RIGHT).
-     */
-    public Move getCurrentDirection() {
-        return currentDirection;
-    }
-
     private Body createHitbox(World world, float startX, float startY) {
         // BodyDef is like a blueprint for the movement properties of the body.
         BodyDef bodyDef = new BodyDef();
@@ -91,6 +65,31 @@ public class Enemy implements Drawable{
         body.setUserData(this);
         return body;
     }
+
+
+    /**
+     * Changes the direction to the opposite of the current direction.
+     */
+
+    public  void changeDirection() {
+        Move newDirection;
+        do {
+            newDirection = randomDirection(); // Generate a random direction
+        } while (newDirection == getCurrentDirection()); // ensure it is different from current enemy direction
+
+        setCurrentDirection(newDirection); // Set the new direction
+    }
+
+
+    /**
+     * Returns the current movement direction of the enemy.
+     *
+     * @return The current direction (UP, DOWN, LEFT, or RIGHT).
+     */
+    public Move getCurrentDirection() {
+        return currentDirection;
+    }
+
 
     /**
      * Chooses a random initial direction for the enemy.
