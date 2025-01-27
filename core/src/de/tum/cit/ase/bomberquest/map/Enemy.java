@@ -91,10 +91,14 @@ public class Enemy implements Drawable{
     */
 
     public  void changeDirection() {
+        Move newDirection;
+        do {
+            newDirection = randomDirection(); // Generate a random direction
+        } while (newDirection == getCurrentDirection()); // ensure it is different from current enemy direction
 
-        currentDirection = randomDirection();
+        setCurrentDirection(newDirection); // Set the new direction
+    }
 
-        }
 
 
     /* public void changeDirection() {
@@ -212,7 +216,7 @@ public class Enemy implements Drawable{
         }
 
         // Randomly change direction with probability
-        if (Math.random() < 0.001) {
+        if (Math.random() < 0.005) {
             changeDirection();
         }
     }
