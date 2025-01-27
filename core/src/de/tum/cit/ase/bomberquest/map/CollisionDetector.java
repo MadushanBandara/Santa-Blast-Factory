@@ -33,17 +33,26 @@ public class CollisionDetector implements ContactListener {
             }
         }
 
-        if ((UserA instanceof Enemy && UserB instanceof Enemy) || (UserA instanceof Enemy && UserB instanceof Enemy)) {
-            Enemy enemy = (UserA instanceof Enemy) ? (Enemy) UserA : (Enemy) UserB;
-                enemy.changeDirection(); // Player dies if no extra lives
+        //enemy and enemy collision
 
+        if (UserA instanceof Enemy && UserB instanceof Enemy) {
+            Enemy enemy1 = (Enemy) UserA;
+            Enemy enemy2 = (Enemy) UserB;
+            enemy1.changeDirection(); // make both Change direction as they may be stuck in a corner which happened often
+            enemy2.changeDirection();
+        }
+
+        // enemy collision with destructible tiles and indestructible tiles
+        if (UserA instanceof Enemy && UserB instanceof Tile) {
+            Tile tile = (Tile) UserB;
+            if (tile.getTileType() == 1 || tile.getTileType() == 0) {
+                ((Enemy) UserA).changeDirection();
             }
-
-        if ((UserA instanceof Enemy && UserB instanceof Tile && ((Tile) UserB).getTileType() == 1) ||
-                (UserA instanceof Tile && ((Tile) UserA).getTileType() == 1 && UserB instanceof Enemy) ||(UserA instanceof Enemy && UserB instanceof Tile && ((Tile) UserB).getTileType() == 0) ||
-                (UserA instanceof Tile && ((Tile) UserA).getTileType() == 0 && UserB instanceof Enemy) ) {
-            Enemy enemy = (UserA instanceof Enemy) ? (Enemy) UserA : (Enemy) UserB;
-            enemy.changeDirection();
+        } else if (UserA instanceof Tile && UserB instanceof Enemy) {
+            Tile tile = (Tile) UserA;
+            if (tile.getTileType() == 1 || tile.getTileType() == 0) {
+                ((Enemy) UserB).changeDirection();
+            }
         }
 
 
