@@ -60,8 +60,7 @@ public class Textures {
     //powerdown
     public static final TextureRegion MOREENEMIES= SpriteSheet.ORIGINALBOMBERMAN.at(15, 2);
     public static final TextureRegion LESSBOMBS=SpriteSheet.BOMBER.at(1, 2);
-
-
+    public static final TextureRegion SANTABLAST=SpriteSheet.SANTABLAST.at(1, 1);
 
 
 
