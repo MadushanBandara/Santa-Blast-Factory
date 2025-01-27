@@ -152,7 +152,7 @@ public class GameMap {
         for (int i = 0; i < numberOfEnemies; i++) {
             int x = random.nextInt(freetiles.size()); // select number of enemies according to free tiles
             Tile y = freetiles.remove(x); //get the corresponding tiles from tiles table and remove sequentially to avoid position reuse
-            enemies.add(new Enemy(this.world, y.getX() , y.getY(), random.nextBoolean()));
+            enemies.add(new Enemy(this.world, y.getX() , y.getY()));
             countenemies++;
         }
         System.out.println("Number of enemies generated: " + countenemies);

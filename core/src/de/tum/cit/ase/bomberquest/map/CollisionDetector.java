@@ -33,6 +33,20 @@ public class CollisionDetector implements ContactListener {
             }
         }
 
+        if ((UserA instanceof Enemy && UserB instanceof Enemy) || (UserA instanceof Enemy && UserB instanceof Enemy)) {
+            Enemy enemy = (UserA instanceof Enemy) ? (Enemy) UserA : (Enemy) UserB;
+                enemy.changeDirection(); // Player dies if no extra lives
+
+            }
+
+        if ((UserA instanceof Enemy && UserB instanceof Tile && ((Tile) UserB).getTileType() == 1) ||
+                (UserA instanceof Tile && ((Tile) UserA).getTileType() == 1 && UserB instanceof Enemy) ||(UserA instanceof Enemy && UserB instanceof Tile && ((Tile) UserB).getTileType() == 0) ||
+                (UserA instanceof Tile && ((Tile) UserA).getTileType() == 0 && UserB instanceof Enemy) ) {
+            Enemy enemy = (UserA instanceof Enemy) ? (Enemy) UserA : (Enemy) UserB;
+            enemy.changeDirection();
+        }
+
+
         // Player and Santa interaction
         if ((UserA instanceof Player && UserB instanceof Santa) || (UserA instanceof Santa && UserB instanceof Player)) {
             Santa santa = (UserA instanceof Santa) ? (Santa) UserA : (Santa) UserB;
