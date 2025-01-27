@@ -286,11 +286,17 @@ public class Player implements Drawable {
 
     }
 
-    public void PlayerSurvives(){
-        lifeCounter--;
+    public void playerSurvived(GameMap map) {
+        // Ensure any physics modifications are deferred to avoid conflicts
+        map=GameMap.getMap();
+        map.addDeferredAction(() -> { //ChatGpt help only with the deferred action method
+            //Same methods as reset method
+            hitbox.setTransform(10, 10, 0); // Reset position to starting coordinates
+            hitbox.setLinearVelocity(0, 0); // Stop movement
+            hitbox.setAngularVelocity(0);  // Stop rotation
+        } );
 
-        removeSpeedRun();
-        System.out.println("Game Over Player Has survived an enemy attack thanks to additional life power up"+getHitbox() );;
+        System.out.println("Player position reset");
     }
 
     public void removeSpeedRun() {

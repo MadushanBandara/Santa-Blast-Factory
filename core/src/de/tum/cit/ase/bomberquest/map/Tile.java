@@ -148,7 +148,7 @@ public class Tile implements Drawable {
                 if (player.getSpeed() == 8) {
                     Textures.removeSpeedRun();
                 }
-                MusicTrack.COLLECTING.play();
+                MusicTrack.COLLECTING.play(false);
                 System.out.println("Player speed increased!");
 
 
