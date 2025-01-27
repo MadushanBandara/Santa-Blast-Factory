@@ -40,7 +40,7 @@ public class Santa implements Drawable {
     public Santa(World world, float x, float y){
         this.hitbox = createHitbox(world, x, y);
         this.isAlive = true;
-        this.isSaved = false;
+        isSaved = false;
 
     }
 

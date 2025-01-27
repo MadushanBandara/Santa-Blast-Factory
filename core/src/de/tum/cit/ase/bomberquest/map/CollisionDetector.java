@@ -59,7 +59,9 @@ public class CollisionDetector implements ContactListener {
         // Player and Santa interaction
         if ((UserA instanceof Player && UserB instanceof Santa) || (UserA instanceof Santa && UserB instanceof Player)) {
             Santa santa = (UserA instanceof Santa) ? (Santa) UserA : (Santa) UserB;
-            santa.SantaSaved();
+            if(!santa.isSaved()) {
+                santa.SantaSaved();
+            }
         }
 
         // Player and Exit interaction//

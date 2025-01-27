@@ -76,12 +76,12 @@ public class Hud {
         table.setFillParent(true);
 
         countDownLabel = new Label(String.format("%3d", worldTimer), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        christmasStartLabel = new Label("Christmas Start: ", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        christmasStartLabel = new Label("ChristmasStart: ", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         bomberLabel = new Label(String.format("%2d", bomber), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         amountOfBomberLabel = new Label("Bombs: ", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         enamyLabel = new Label(String.format("%2d", enemy), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         numberOfEnamyLabel = new Label("Enemies: ", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        blastRadiusLabel = new Label("Blast Radius: ", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        blastRadiusLabel = new Label("BlastRadius: ", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         numBlastRadius = new Label(String.format("%2d", blastRadius), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         ScoreLabel = new Label("Score: ", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         Scoretr= new Label(String.format("%2d", score), new Label.LabelStyle(new BitmapFont(), Color.WHITE));

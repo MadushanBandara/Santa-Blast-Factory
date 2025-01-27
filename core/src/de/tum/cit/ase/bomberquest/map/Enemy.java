@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.World;
 import de.tum.cit.ase.bomberquest.Actors.Player;
+import de.tum.cit.ase.bomberquest.audio.MusicTrack;
 import de.tum.cit.ase.bomberquest.texture.Animations;
 import de.tum.cit.ase.bomberquest.texture.Drawable;
 import de.tum.cit.ase.bomberquest.texture.SpriteSheet;
@@ -227,7 +228,9 @@ public class Enemy implements Drawable{
             return Animations.ENEMY_WALK_DOWN.getKeyFrame(this.elapsedTime, true);
         }
         // Get the frame of the walk down animation that corresponds to the current time.
-        else return Animations.ENEMY_DEATH.getKeyFrame(this.elapsedTime, true);
+        else
+            MusicTrack.COLLECTING.play(false);
+            return Animations.ENEMY_DEATH.getKeyFrame(this.elapsedTime, true);
 
         }
 
