@@ -155,8 +155,6 @@ public class Enemy implements Drawable{
 
         }
 
-
-
     public void killEnemy(){
         this.isDead=true;
         this.elapsedTime = 0;

@@ -15,12 +15,13 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  */
 public enum SpriteSheet {
 
-    /** The character spritesheet, which has a grid size of 16x32. */
+    /** The character spritesheet,*/
     CHARACTER("character.png", 16, 32),
+    /** The character death spritesheet,for when player dies*/
     CHARACTERDEATH("characterdeath.png", 16, 32),
     /** The enemies spritesheet the grinch. */
     ENEMIES("grinchbomberman.png", 16, 16),
-    /** The bombs spritesheet, gifts as bombs */
+
     HOUSE("house2.png", 16, 16),
     ORIGINALBOMBERMAN("original-bomberman.png", 16, 16),
     EXPLOSION("explosion.png", 80, 80),
@@ -37,7 +38,7 @@ public enum SpriteSheet {
 
     //additional randoms to appear as the player destroys tiles
     BENCH("bench.png",16,16),
-    CHAIR("chair.png",16,16),
+
     LAMP("lamp-post.png",16,32),
     HOUSES("house1.png",65,64),
 
@@ -45,7 +46,7 @@ public enum SpriteSheet {
     HEART("objects.png",16,16),
     BOMBER("objects2.png",16,16),
 
-    SANTABLAST("santa blast.png",1200,1200),
+
 
 
 

@@ -1,12 +1,8 @@
 package de.tum.cit.ase.bomberquest.map;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.*;
 import de.tum.cit.ase.bomberquest.Actors.Bomb;
-import de.tum.cit.ase.bomberquest.Actors.Enemy;
 import de.tum.cit.ase.bomberquest.Actors.Player;
-import de.tum.cit.ase.bomberquest.BomberQuestGame;
 import de.tum.cit.ase.bomberquest.audio.MusicTrack;
 import de.tum.cit.ase.bomberquest.texture.Animations;
 import de.tum.cit.ase.bomberquest.texture.Drawable;
@@ -15,10 +11,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import de.tum.cit.ase.bomberquest.screen.GameScreen;
-
 import java.util.List;
-
 import static de.tum.cit.ase.bomberquest.texture.Textures.*;
 
 
@@ -35,11 +28,9 @@ public class Tile implements Drawable {
     public static final int EMPTY = 9;
     public static final int ENTRANCE = 2;
     public static final int SPECIAL = 5;
-    public static final int POWERUP = 6;
-    public static final int POWERDOWN=3;
+    public static final int SPECIAL2 = 6;
     public static final int EXIT = 8;
     private float elapsedTime;
-
     private final float x;
     private final float y;
     private int tileType;
@@ -51,21 +42,12 @@ public class Tile implements Drawable {
     private static boolean exitRevealed=false;
     private boolean PowerupRedeemed;
     private boolean PowerupFound;
-    private List<Tile> tiles;
-    private World world;
-
     private static int powerdowncountbombs=0;
     private static int powerdownenemies=0;
-
     private static int powerlife=0;
-
     private static int powerspeed=0;
     private static int powerblast=0;
     private static int powerconcurrent=0;
-
-
-
-
 
 
     public Tile(World world,float x, float y, int tileType) {

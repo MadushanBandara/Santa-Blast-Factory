@@ -9,23 +9,11 @@ import de.tum.cit.ase.bomberquest.audio.MusicTrack;
 import de.tum.cit.ase.bomberquest.texture.Animations;
 import de.tum.cit.ase.bomberquest.texture.Drawable;
 import de.tum.cit.ase.bomberquest.texture.Textures;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.physics.box2d.*;
-import com.badlogic.gdx.utils.Array;
-import de.tum.cit.ase.bomberquest.audio.MusicTrack;
-import de.tum.cit.ase.bomberquest.screen.GameScreen;
-import de.tum.cit.ase.bomberquest.screen.Hud;
-import de.tum.cit.ase.bomberquest.texture.Animations;
-import de.tum.cit.ase.bomberquest.texture.Drawable;
-import java.util.ArrayList;
-import static com.badlogic.gdx.math.Interpolation.circle;
-import static de.tum.cit.ase.bomberquest.screen.GameScreen.SCALE;
-import static de.tum.cit.ase.bomberquest.screen.GameScreen.TILE_SIZE_PX;
 
-import java.util.ArrayList;
+import de.tum.cit.ase.bomberquest.screen.Hud;
+
+
+//https://libgdx.com/wiki/extensions/physics/box2d
 
 
 

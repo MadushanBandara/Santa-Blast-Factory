@@ -66,7 +66,7 @@ public class Textures {
                 return ENTRANCE;
             case Tile.SPECIAL:
                 return SPECIAL; // Replaced with tree as not needed
-            case Tile.POWERUP:
+            case Tile.SPECIAL2:
                 return SNOWMAN; // Replaced with SNOWMAN as no longer needed
             default:
                 return DEFAULT; // Default texture for unknown tile types

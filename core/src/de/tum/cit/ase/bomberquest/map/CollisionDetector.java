@@ -66,6 +66,7 @@ public class CollisionDetector implements ContactListener {
         }
 
 
+        //Player and Exit interaction
         if ((UserA instanceof Player && UserB instanceof Tile && ((Tile) UserB).getTileType() == 8) ||
                 (UserA instanceof Tile && ((Tile) UserA).getTileType() == 8 && UserB instanceof Player)) {
             Tile.setExitFound(true);
@@ -81,9 +82,9 @@ public class CollisionDetector implements ContactListener {
             Player player = (UserA instanceof Player) ? (Player) UserA : (Player) UserB;
             System.out.println("you found a powerup");
 
-            if (!tile.isPowerupRedeemed()) {
+            if (!tile.isPowerupRedeemed()) {//ensure only redeemed once
                 tile.setPowerupFound(true);
-                tile.grantPowerup(player);
+                tile.grantPowerup(player);//get rewarc
             }
         }
     }

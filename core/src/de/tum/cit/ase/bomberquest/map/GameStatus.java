@@ -4,7 +4,7 @@ import de.tum.cit.ase.bomberquest.Actors.Bomb;
 import de.tum.cit.ase.bomberquest.Actors.Santa;
 import de.tum.cit.ase.bomberquest.Actors.Player;
 import de.tum.cit.ase.bomberquest.screen.Hud;
-//import de.tum.cit.ase.bomberquest.map.Exit;//
+
 
 
 public class GameStatus {
