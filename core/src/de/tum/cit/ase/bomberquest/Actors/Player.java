@@ -53,6 +53,7 @@ public class Player implements Drawable {
     private boolean runPowerupActive = false;
 
     private static int trackScore=0;
+    private static boolean scoreCalculated=false;
 
     public Player(World world, float x, float y) {
         this.hitbox = createHitbox(world, x, y);
@@ -313,7 +314,19 @@ public class Player implements Drawable {
     {
         playerWon=true;
         WinAnimationTime = 5f;
-        Player.setTrackScore(Player.getTrackScore()+Hud.getWorldTimer()/100);
+        if(!scoreCalculated){
+            int score=finalScore();
+            Player.setTrackScore(score);
+        }
+
+    }
+
+
+    public static int finalScore(){
+        int score;
+        score=(Player.getTrackScore()+Hud.getWorldTimer());
+        setScoreCalculated(true);
+        return score;
     }
 
     public static void setIsAlive(boolean isAlive) {
@@ -410,5 +423,11 @@ public class Player implements Drawable {
         Player.playerSurvived = playerSurvived;
     }
 
+    public static boolean isScoreCalculated() {
+        return scoreCalculated;
+    }
 
+    public static void setScoreCalculated(boolean scoreCalculated) {
+        Player.scoreCalculated = scoreCalculated;
+    }
 }
