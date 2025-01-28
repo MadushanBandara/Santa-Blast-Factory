@@ -114,57 +114,71 @@ public class Tile implements Drawable {
         if (!animationFinished) {
             if (Animations.WALLEXPLOSION.isAnimationFinished(elapsedTime)) {
                 animationFinished = true;
-                currentAppearance = Textures.RandomSurprise();// Assign the random texture
-                if (currentAppearance.equals(Textures.EXIT)){
+                currentAppearance = Textures.RandomSurprise(); // Assign the random texture
+
+                // Handle exit reveal
+                if (currentAppearance.equals(Textures.EXIT)) {
                     Textures.removeExit();
                     setExitRevealed(true);
                 }
+
+
                 if (currentAppearance.equals(Textures.LESSBOMBS)) {
                     Bomb.setMaxBombs(Bomb.getMaxBombs() - 5);
                     MusicTrack.GAMEOVER.play(false);
                     powerdowncountbombs++;
-                    if(powerdowncountbombs==2){
-                        removeLessBombs();  //ensure this powerdown is only executed twice maximum
+                    if (powerdowncountbombs == 1) {
+                        removeLessBombs(); // Ensure this power-down is executed a maximum once
                     }
                     System.out.println("Fewer bombs available!");
                 }
-                if (currentAppearance.equals(MOREENEMIES)) {
+
+
+                if (currentAppearance.equals(Textures.MOREENEMIES)) {
                     GameMap.addEnemy();
                     MusicTrack.GAMEOVER.play(false);
                     powerdownenemies++;
-                    if(powerdownenemies==2){
-                        removeMoreEnemies();//ensure this powerdown is only executed twice maximum
-                    }
-                if((currentAppearance.equals(LIFE))){
-                    powerlife++;
-                        if(powerlife==2){
-                            removeLife();//ensure this powerup is only executed twice maximum (MAX 3 lives)
-                        }
-                    }
-                if((currentAppearance.equals(BLASTRADIUSPLUS))){
-                    powerblast++;
-                    if(powerblast==7){
-                        removeBlastRadius();//ensure this powerup is only executed 7 times maximum (max blast radius 8)
-                    }
-                }
-                if((currentAppearance.equals(RUN))){
-                    powerspeed++;
-                    if(powerspeed==2){
-                        removeSpeedRun();;//ensure this powerup is only executed twice maximum
-                    }
-                }
-                if((currentAppearance.equals(CONCURRENTBOMB))){
-                    powerconcurrent++;
-                    if(powerconcurrent==8){
-                        removeConcurrent();//ensure this powerup is only executed 8 times maximum (max concurrent bombs 8)
+                    if (powerdownenemies == 2) {
+                        Textures.removeMoreEnemies(); // Ensure this power-down is executed a maximum of twice
                     }
                 }
 
+                if (currentAppearance.equals(Textures.LIFE)) {
+                    powerlife++;
+                    if (powerlife == 2) {
+                        Textures.removeLife(); // Ensure this power-up is executed a maximum of twice (max 3 lives)
+                    }
                 }
+
+
+                if (currentAppearance.equals(Textures.BLASTRADIUSPLUS)) {
+                    powerblast++;
+                    if (powerblast == 7) {
+                        Textures.removeBlastRadius(); // Ensure this power-up is executed a maximum of 7 times
+                    }
+                }
+
+
+                if (currentAppearance.equals(Textures.RUN)) {
+                    powerspeed++;
+                    if (powerspeed == 2) {
+                        Textures.removeSpeedRun(); // Ensure this power-up is executed a maximum of twice
+                    }
+                }
+
+
+                if (currentAppearance.equals(Textures.CONCURRENTBOMB)) {
+                    powerconcurrent++;
+                    if (powerconcurrent == 8) {
+                        Textures.removeConcurrent(); // Ensure this power-up is executed a maximum of 8 times
+                    }
+                }
+
                 setTileType(EMPTY);
             }
         }
     }
+
 
     public void grantPowerup(Player player) {
         if (!isPowerupRedeemed()&& isPowerupFound()) {

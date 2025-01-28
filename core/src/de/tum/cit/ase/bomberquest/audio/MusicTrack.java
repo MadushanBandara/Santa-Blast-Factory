@@ -16,7 +16,7 @@ public enum MusicTrack {
     BACKGROUND("DecktheHalls.mp3", 0.2f, true),
     EXPLOSION("explosion.mp3", 0.2f, false),
     GAMEOVER("game_over.mp3", 0.02f, false),
-    GAMEOVERMUSIC("Death Is Just Another Path.mp3",0.5f,false),
+    GAMEOVERMUSIC("sadgameover.mp3",0.5f,false),
     GAMEMENUMUSIC("wintery loop.wav",0.1f,false),
     GAMEVICTORYMUSIC("JingleBells.mp3",0.2f,false),
     COLLECTING("completetask_0.mp3",2f,false),
@@ -25,6 +25,8 @@ public enum MusicTrack {
 
     WIN("win.mp3", 0.2f,false),
     CLICKSOUND("click_sound_5.mp3",1.5f,false);
+
+
 
     /** The music file owned by this variant. */
     private final Music music;
