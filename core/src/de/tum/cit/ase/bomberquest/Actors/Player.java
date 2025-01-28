@@ -49,7 +49,7 @@ public class Player implements Drawable {
     private float survivalTime = 0f;
     private final GameMap map;
 
-    private float speed = 4f;
+    private float speed = 3f;
     private boolean runPowerupActive = false;
 
     private static int trackScore=0;

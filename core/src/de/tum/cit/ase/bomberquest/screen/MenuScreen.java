@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Null;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -76,7 +77,9 @@ public class MenuScreen implements Screen {
                 MusicTrack.CLICKSOUND.play(false);
                 MusicTrack.GAMEMENUMUSIC.stopMusic();
                 MusicTrack.BACKGROUND.play(true);
-                game.goToGame(); // Change to the game screen when button is pressed
+                if(game.getSavedState()!= null){
+                    game.setScreen(game.getSavedState());
+                }
             }
         });
 

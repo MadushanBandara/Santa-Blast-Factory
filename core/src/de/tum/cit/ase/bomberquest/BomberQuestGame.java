@@ -34,6 +34,10 @@ public class BomberQuestGame extends Game {
     private GameMap map;
     private GameStatus gameStatus;
 
+    private boolean pause;
+
+    private GameScreen savedState;
+
     /**
      * Constructor for BomberQuestGame.
      *
@@ -97,6 +101,22 @@ public class BomberQuestGame extends Game {
         if (previousScreen != null) {
             previousScreen.dispose();
         }
+    }
+
+    public boolean isPause() {
+        return pause;
+    }
+
+    public GameScreen getSavedState() {
+        return savedState;
+    }
+
+    public void setPause(boolean pause) {
+        this.pause = pause;
+    }
+
+    public void setSavedState(GameScreen savedState) {
+        this.savedState = savedState;
     }
 
     /** Cleans up resources when the game is disposed. */

@@ -69,6 +69,7 @@ public class GameScreen implements Screen {
         map.getSanta().tick(deltaTime);
         // Handle input to go back to the menu
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            saveGame();
             game.goToMenu();
         }
 
@@ -89,7 +90,6 @@ public class GameScreen implements Screen {
         // Render the HUD
         hud.render(); // HUD manages its own SpriteBatch
 
-
         GameStatus.GameWon();
         GameStatus.GameOver();
 
@@ -101,11 +101,7 @@ public class GameScreen implements Screen {
             game.setScreen(new VictoryScreen(game)); // Show Victory Screen
             dispose();
         }
-        if (player.isPlayerSurvived() && player.getSurvivalTime() <= 0) {
-            player.setPlayerSurvived(false);
-            System.out.println("Player survival completed. Game resuming...");
 
-        }
 
     }
 
@@ -154,7 +150,7 @@ public class GameScreen implements Screen {
         // Draw Santa
         draw(spriteBatch, santa);
 
-        // If saved, draw the animation near Santa
+        // If Santa saved, draw the message animation near Santa
         if (Santa.isSaved()) {
             TextureRegion currentFrame = Animations.SANTAMESSAGE.getKeyFrame(santa.getElapsedTime(), false);
 
@@ -187,26 +183,14 @@ public class GameScreen implements Screen {
         for (Flowers flowers : map.getFlowers()) {
             draw(spriteBatch, flowers);
         }
-
-
         renderTiles(spriteBatch);
-        //draw(spriteBatch, map.getExit());//render exit after tiles
-
-
-       /*for (IndestructibleWalls wall : map.getIndestructibleWalls()) {
-            draw(spriteBatch, wall);
-        }*/
-
         for (Enemy enemy : map.getEnemies()) {
             draw(spriteBatch, enemy);
         }
         GameStatus.GameWon();
         GameStatus.GameOver();
         draw(spriteBatch, map.getPlayer());
-       // draw(spriteBatch, map.getChest());
         renderSanta(spriteBatch);
-
-        //draw(spriteBatch, map.getLife());
         for (Bomb bomb : map.getPlayer().getBombs()) {
            renderBombs();
         }
@@ -232,6 +216,11 @@ public class GameScreen implements Screen {
             float height = TILE_SIZE_PX * SCALE;
             spriteBatch.draw(tile.getCurrentAppearance(), x, y, width, height);
         }
+    }
+
+    public void saveGame(){
+        game.setSavedState(this);
+        game.setPause(true);
     }
 
     @Override
