@@ -146,12 +146,6 @@ public class Player implements Drawable {
         if (!isAlive) {
             stopMovement();
         }
-        /*
-        if(isPlayerSurvived()  && survivalTime>0){
-            survivalTime-=frameTime;
-            if (survivalTime <= 0) {
-                setPlayerSurvived(false);}
-        }*/
 
         // Handle key press for bomb drop
         handleKeyPress(map);
@@ -168,12 +162,6 @@ public class Player implements Drawable {
         bombs.removeIf(Bomb::isExpired);
 
 
-        // Make the player move in a circle with radius 2 tiles
-        // You can change this to make the player move differently, e.g. in response to user input.
-        // See Gdx.input.isKeyPressed() for keyboard input
-        //float xVelocity = (float) Math.sin(this.elapsedTime) * 2;
-        //float yVelocity = (float) Math.cos(this.elapsedTime) * 2;
-        //this.hitbox.setLinearVelocity(xVelocity, yVelocity);
     }
 
     @Override
@@ -325,7 +313,7 @@ public class Player implements Drawable {
     {
         playerWon=true;
         WinAnimationTime = 5f;
-        Player.setTrackScore(Player.getTrackScore()+Hud.getWorldTimer());
+        Player.setTrackScore(Player.getTrackScore()+Hud.getWorldTimer()/100);
     }
 
     public static void setIsAlive(boolean isAlive) {
@@ -421,8 +409,6 @@ public class Player implements Drawable {
     public static void setPlayerSurvived(boolean playerSurvived) {
         Player.playerSurvived = playerSurvived;
     }
-
-    //public void setSurvivalTime(float survivalTime) {this.survivalTime = survivalTime; }
 
 
 }

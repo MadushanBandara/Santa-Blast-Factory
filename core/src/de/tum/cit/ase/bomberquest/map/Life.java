@@ -6,9 +6,11 @@ import de.tum.cit.ase.bomberquest.texture.Drawable;
 import de.tum.cit.ase.bomberquest.texture.Textures;
 
 /**
- * Flowers are a static object without any special properties.
- * They do not have a hitbox, so the player does not collide with them.
- * They are purely decorative and serve as a nice floor decoration.
+ * Lives are a static object without any special properties.
+ * they are rendered as hearts on the edges of map to represent the life counter of the player
+ * and do not collide or interact with other elements.
+ * the Lives counter is made to be dynamic same as its map representation that will update
+ * everytime a player loses or gains a life/
  */
 
 public class Life implements Drawable {
