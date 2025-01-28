@@ -12,6 +12,8 @@ import de.tum.cit.ase.bomberquest.map.Tile;
 import de.tum.cit.ase.bomberquest.screen.Hud;
 import de.tum.cit.ase.bomberquest.texture.Animations;
 import de.tum.cit.ase.bomberquest.texture.Drawable;
+import de.tum.cit.ase.bomberquest.texture.Textures;
+
 import java.util.ArrayList;
 
 /**
@@ -396,6 +398,7 @@ public class Player implements Drawable {
         trackScore=0;
 
         GameStatus.reset();
+        Textures.addBackRemoved();
 
 
         // Reset life counter //not yet functional
@@ -406,6 +409,9 @@ public class Player implements Drawable {
         hitbox.setLinearVelocity(0, 0);
         hitbox.setAngularVelocity(0);
         System.out.println("Player has been reset.");
+
+
+
     }
 
 

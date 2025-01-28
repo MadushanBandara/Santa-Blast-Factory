@@ -138,7 +138,7 @@ public class Tile implements Drawable {
                     GameMap.addEnemy();
                     MusicTrack.GAMEOVER.play(false);
                     powerdownenemies++;
-                    if (powerdownenemies == 2) {
+                    if (powerdownenemies == 1) {
                         Textures.removeMoreEnemies(); // Ensure this power-down is executed a maximum of twice
                     }
                 }
