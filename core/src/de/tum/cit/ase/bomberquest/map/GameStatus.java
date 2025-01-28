@@ -18,6 +18,7 @@ public class GameStatus {
         if(Player.isAlive() && GameMap.getEnemiesGenerated()==0 && Santa.isSaved() && Tile.isExitFound()){
             setVictory(true);
             Player.PlayerWon();
+
             System.out.println("Congratulations! You have won the game!");
         }
         return victory;

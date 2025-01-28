@@ -40,7 +40,7 @@ public class Santa implements Drawable {
     public Santa(World world, float x, float y){
         this.hitbox = createHitbox(world, x, y);
         this.isAlive = true;
-        this.isSaved = false;
+        isSaved = false;
 
     }
 
@@ -135,6 +135,7 @@ public class Santa implements Drawable {
         Hud.setWorldTimer(Hud.getWorldTimer()+50);//get Some Extra time when you save Santa
         hitbox.setLinearVelocity(2f, 1f);
         MusicTrack.HOHOHO.play(false);
+        Player.setTrackScore(Player.getTrackScore()+10);
         System.out.println("Woohoo, you Saved Santa");
     }
 

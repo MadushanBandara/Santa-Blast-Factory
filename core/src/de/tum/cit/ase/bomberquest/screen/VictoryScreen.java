@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import de.tum.cit.ase.bomberquest.Actors.Player;
 import de.tum.cit.ase.bomberquest.BomberQuestGame;
 import de.tum.cit.ase.bomberquest.audio.MusicTrack;
 
@@ -45,7 +46,7 @@ public class VictoryScreen implements Screen {
         stage.addActor(table); // Add the table to the stage
 
         // Add a label as a title
-        table.add(new Label("You Saved Christmas! You win!!", game.getSkin(), "title")).padBottom(40).row();
+        table.add(new Label("You Saved Christmas! You win!! Your Score is "+ Player.getTrackScore(), game.getSkin(), "title")).padBottom(40).row();
 
         // Create and add a button to go to the menu
         TextButton goToMenuButton = new TextButton("Home", game.getSkin());

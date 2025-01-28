@@ -5,12 +5,13 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.World;
+import de.tum.cit.ase.bomberquest.Actors.Player;
+import de.tum.cit.ase.bomberquest.audio.MusicTrack;
 import de.tum.cit.ase.bomberquest.texture.Animations;
 import de.tum.cit.ase.bomberquest.texture.Drawable;
 import de.tum.cit.ase.bomberquest.texture.SpriteSheet;
 
 
-/*Source code* https://github.com/Gaspared/Bomberman/blob/main/src/game/Enemy.java */
 
 /**
  * Represents an enemy character in the game.
@@ -24,89 +25,22 @@ public class Enemy implements Drawable{
     private boolean isDead;
     public static int countEnemies;
 
-    /** The Box2D hitbox of the player, used for position and collision detection. */
+    /** The Box2D hitbox of the Enemy, used for position and collision detection. */
     private final Body hitbox;
     /**
      * Constructs an Enemy instance with an initial position and direction.
      *
      * @param x         Initial X-coordinate in the grid.
      * @param y         Initial Y-coordinate in the grid.
-     * @param vertical  If true, restricts movement to vertical directions (UP, DOWN).
      */
-    public Enemy(World world, float x, float y, boolean vertical) {
+    public Enemy(World world, float x, float y) {
         this.x = x;
         this.y = y;
         this.texture = SpriteSheet.ENEMIES.at(1, 1); // Default Grinch sprite
-        this.currentDirection = randomDirection(vertical);
+        this.currentDirection = randomDirection();
         this.hitbox = createHitbox(world, x, y);
         countEnemies=GameMap.getEnemiesGenerated();
     }
-
-    /**
-     * Changes the direction to the opposite of the current direction.
-     */
-/*
-   public void changeDirection() {
-        if (currentDirection == Move.DOWN) {
-            double rand = Math.random();
-            currentDirection = rand < 0.25 ? Move.UP
-                    : rand < 0.5 ? Move.RIGHT
-                    : rand < 0.75 ? Move.LEFT
-                    : Move.DOWN;
-        } else if (currentDirection == Move.UP) {
-            double rand = Math.random();
-            currentDirection = rand < 0.25 ? Move.UP
-                    : rand < 0.5 ? Move.RIGHT
-                    : rand < 0.75 ? Move.LEFT
-                    : Move.DOWN;
-        } else if (currentDirection == Move.LEFT) {
-            double rand = Math.random();
-            currentDirection = rand < 0.25 ? Move.UP
-                    : rand < 0.5 ? Move.RIGHT
-                    : rand < 0.75 ? Move.LEFT
-                    : Move.DOWN;
-        } else {
-            double rand = Math.random();
-            currentDirection = rand < 0.25 ? Move.UP
-                    : rand < 0.5 ? Move.RIGHT
-                    : rand < 0.75 ? Move.LEFT
-                    : Move.DOWN;
-        }
-    }
-    */
-
-    public void changeDirection() {
-       boolean vertical = true;
-        if (currentDirection == Move.DOWN) {
-            currentDirection = randomDirection(vertical);
-        } else if (currentDirection == Move.UP) {
-            currentDirection = randomDirection(vertical);
-        } else if (currentDirection == Move.LEFT) {
-            currentDirection = randomDirection(vertical);
-        } else {
-            currentDirection = randomDirection(vertical);
-        }
-    }
-
-    /* public void changeDirection() {
-        Move[] directions = Move.values(); // All possible directions
-        Move newDirection;
-        do {
-            int randomIndex = (int) (Math.random() * directions.length);
-            newDirection = directions[randomIndex];
-        } while (newDirection == currentDirection); // Ensure it's a new direction
-        currentDirection = newDirection;
-    }
-
-    /**
-     * Returns the current movement direction of the enemy.
-     *
-     * @return The current direction (UP, DOWN, LEFT, or RIGHT).
-     */
-    public Move getCurrentDirection() {
-        return currentDirection;
-    }
-
     private Body createHitbox(World world, float startX, float startY) {
         // BodyDef is like a blueprint for the movement properties of the body.
         BodyDef bodyDef = new BodyDef();
@@ -127,58 +61,63 @@ public class Enemy implements Drawable{
         // We're done with the shape, so we should dispose of it to free up memory.
         circle.dispose();
         // Set the player as the user data of the body so we can look up the player from the body later.
+
         body.setUserData(this);
         return body;
     }
 
+
+    /**
+     * Changes the direction to the opposite of the current direction.
+     */
+
+    public  void changeDirection() {
+        Move newDirection;
+        do {
+            newDirection = randomDirection(); // Generate a random direction
+        } while (newDirection == getCurrentDirection()); // ensure it is different from current enemy direction
+
+        setCurrentDirection(newDirection); // Set the new direction
+    }
+
+
+    /**
+     * Returns the current movement direction of the enemy.
+     *
+     * @return The current direction (UP, DOWN, LEFT, or RIGHT).
+     */
+    public Move getCurrentDirection() {
+        return currentDirection;
+    }
+
+
     /**
      * Chooses a random initial direction for the enemy.
      *
-     * @param vertical If true, restricts movement to UP and DOWN; otherwise, LEFT and RIGHT.
+     //* @param vertical If true, restricts movement to UP and DOWN; otherwise, LEFT and RIGHT.
      * @return A random direction based on the vertical flag.
      */
 
-    private Move randomDirection(boolean vertical) {
-        int pick = (int) (Math.random() * 2); // Randomly pick 0 or 1
-        if (vertical) {
-            return pick == 0 ? Move.UP : Move.DOWN;
-        } else {
-            return pick == 0 ? Move.LEFT : Move.RIGHT;
+    private Move randomDirection() {
+        int pick = (int) (Math.random() * 4); // Randomly pick 0-3
+        switch (pick) {
+            case 0:
+                return Move.UP;
+            case 1:
+                return Move.DOWN;
+            case 2:
+                return Move.LEFT;
+            case 3:
+                return Move.RIGHT;
+            default:
+                throw new IllegalStateException("Unexpected value");
         }
     }
 
 
 
-
-    /*Updates the enemy's position based on its current direction.
-            */
-    /*
-    public void update() {
-        // Move the enemy based on its current direction
-        switch (currentDirection) {
-            case UP:
-                y++;
-                break;
-            case DOWN:
-                y--;
-                break;
-            case LEFT:
-                x--;
-                break;
-            case RIGHT:
-                x++;
-                break;
-        }
-
-        // Randomly change direction with a 10% chance
-        if (Math.random() < 0.1) {
-            changeDirection();
-        }
-    }
-    */
     public void update(float deltaTime) {
         elapsedTime += deltaTime; // Update animation time
-
         // Set velocity based on current direction
         switch (currentDirection) {
             case UP:
@@ -196,7 +135,7 @@ public class Enemy implements Drawable{
         }
 
         // Randomly change direction with probability
-        if (Math.random() < 0.1) {
+        if (Math.random() < 0.001) {
             changeDirection();
         }
     }
@@ -207,7 +146,9 @@ public class Enemy implements Drawable{
             return Animations.ENEMY_WALK_DOWN.getKeyFrame(this.elapsedTime, true);
         }
         // Get the frame of the walk down animation that corresponds to the current time.
-        else return Animations.ENEMY_DEATH.getKeyFrame(this.elapsedTime, true);
+        else
+            MusicTrack.COLLECTING.play(false);
+            return Animations.ENEMY_DEATH.getKeyFrame(this.elapsedTime, true);
 
         }
 
@@ -217,6 +158,7 @@ public class Enemy implements Drawable{
         this.isDead=true;
         this.elapsedTime = 0;
         countEnemies--;
+        Player.setTrackScore(Player.getTrackScore()+5);
 
         GameMap.setEnemiesGenerated(GameMap.getEnemiesGenerated() - 1);
     }
@@ -225,6 +167,11 @@ public class Enemy implements Drawable{
         return isDead && Animations.ENEMY_DEATH.isAnimationFinished(elapsedTime);
     }
 
+
+
+    public void stopMovement() {
+        hitbox.setLinearVelocity(0, 0);// Stop any movement when no keys are pressed
+    }
     @Override
     public float getX() {
         // The x-coordinate of the player is the x-coordinate of the hitbox (this can change every frame).
@@ -247,8 +194,12 @@ public class Enemy implements Drawable{
         return hitbox;
     }
 
+    public void setCurrentDirection(Move currentDirection) {
+        this.currentDirection = currentDirection;
+    }
 
 
+    /*code Inspired from Source code* https://github.com/Gaspared/Bomberman/blob/main/src/game/Enemy.java */
 
 }
 

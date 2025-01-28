@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import de.tum.cit.ase.bomberquest.Actors.Player;
 import de.tum.cit.ase.bomberquest.BomberQuestGame;
 import de.tum.cit.ase.bomberquest.Actors.Bomb;
 import de.tum.cit.ase.bomberquest.map.GameMap;
@@ -35,6 +36,9 @@ public class Hud {
     private static boolean timeUp;
     private static Integer blastRadius;
 
+    private static int score;
+
+
 
     // UI Labels
     private Label christmasStartLabel;
@@ -46,6 +50,9 @@ public class Hud {
     private Label blastRadiusLabel;
     private Label numBlastRadius;
 
+    private Label ScoreLabel;
+
+    private Label Scoretr;
     public Hud(SpriteBatch spriteBatch) {
         this.camera = new OrthographicCamera();
         this.viewport = new FitViewport(
@@ -61,6 +68,7 @@ public class Hud {
         bomber = Bomb.getMaxBombs();
         enemy =Enemy.countEnemies;
         blastRadius=Bomb.getExplosionRadius();
+        score=Player.getTrackScore();
 
         // Set up UI Table
         Table table = new Table();
@@ -68,13 +76,15 @@ public class Hud {
         table.setFillParent(true);
 
         countDownLabel = new Label(String.format("%3d", worldTimer), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        christmasStartLabel = new Label("Christmas Start: ", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        christmasStartLabel = new Label("ChristmasStart: ", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         bomberLabel = new Label(String.format("%2d", bomber), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         amountOfBomberLabel = new Label("Bombs: ", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         enamyLabel = new Label(String.format("%2d", enemy), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         numberOfEnamyLabel = new Label("Enemies: ", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        blastRadiusLabel = new Label("Blast Radius: ", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        blastRadiusLabel = new Label("BlastRadius: ", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         numBlastRadius = new Label(String.format("%2d", blastRadius), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        ScoreLabel = new Label("Score: ", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        Scoretr= new Label(String.format("%2d", score), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
 
         table.add(christmasStartLabel).expandX().padBottom(0);
@@ -85,6 +95,8 @@ public class Hud {
         table.add(enamyLabel).expandX();
         table.add(blastRadiusLabel).expandX().padBottom(0);
         table.add(numBlastRadius).expandX();
+        table.add(ScoreLabel).expandX().padBottom(0);
+        table.add(Scoretr).expandX();
 
 
 
@@ -112,6 +124,7 @@ public class Hud {
         setRemainingBombs(Bomb.getMaxBombs());
         setEnemyCount(GameMap.getEnemiesGenerated());
         setBlastRadius(Bomb.getExplosionRadius());
+        setScore(Player.getTrackScore());
 
     }
 
@@ -125,7 +138,9 @@ public class Hud {
     public void setBlastRadius(int blastRadius) {
         numBlastRadius.setText(String.format("%02d", blastRadius));
     }
-
+    public void setScore(int score) {
+        Scoretr.setText(String.format("%02d", score));
+    }
 
     public void resize(int width, int height) {
         viewport.update(width, height);

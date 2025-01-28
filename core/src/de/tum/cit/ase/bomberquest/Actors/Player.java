@@ -8,6 +8,7 @@ import de.tum.cit.ase.bomberquest.audio.MusicTrack;
 import de.tum.cit.ase.bomberquest.map.GameMap;
 import de.tum.cit.ase.bomberquest.map.GameStatus;
 import de.tum.cit.ase.bomberquest.map.Tile;
+import de.tum.cit.ase.bomberquest.screen.Hud;
 import de.tum.cit.ase.bomberquest.texture.Animations;
 import de.tum.cit.ase.bomberquest.texture.Drawable;
 import java.util.ArrayList;
@@ -51,6 +52,9 @@ public class Player implements Drawable {
     private float speed = 4f;
     private boolean runPowerupActive = false;
 
+    private static int trackScore=0;
+    private static boolean scoreCalculated=false;
+
     public Player(World world, float x, float y) {
         this.hitbox = createHitbox(world, x, y);
         this.isAlive = true;
@@ -59,6 +63,7 @@ public class Player implements Drawable {
         this.enemiesDefeated = 0;
         this.isExitUnlocked = false;
         this.map = GameMap.getMap();
+        trackScore=0;
     }
 
     public static int getLifeCounter() {
@@ -67,6 +72,14 @@ public class Player implements Drawable {
 
     public static void setLifeCounter(int lifeCounter) {
         Player.lifeCounter = lifeCounter;
+    }
+
+    public static int getTrackScore() {
+        return trackScore;
+    }
+
+    public static void setTrackScore(int trackScore) {
+        Player.trackScore = trackScore;
     }
 
     /**
@@ -134,12 +147,6 @@ public class Player implements Drawable {
         if (!isAlive) {
             stopMovement();
         }
-        /*
-        if(isPlayerSurvived()  && survivalTime>0){
-            survivalTime-=frameTime;
-            if (survivalTime <= 0) {
-                setPlayerSurvived(false);}
-        }*/
 
         // Handle key press for bomb drop
         handleKeyPress(map);
@@ -156,12 +163,6 @@ public class Player implements Drawable {
         bombs.removeIf(Bomb::isExpired);
 
 
-        // Make the player move in a circle with radius 2 tiles
-        // You can change this to make the player move differently, e.g. in response to user input.
-        // See Gdx.input.isKeyPressed() for keyboard input
-        //float xVelocity = (float) Math.sin(this.elapsedTime) * 2;
-        //float yVelocity = (float) Math.cos(this.elapsedTime) * 2;
-        //this.hitbox.setLinearVelocity(xVelocity, yVelocity);
     }
 
     @Override
@@ -282,14 +283,16 @@ public class Player implements Drawable {
             MusicTrack.GAMEOVER.play(false);
             lifeCounter--;
             removeSpeedRun();
+            trackScore=0;
         }
 
     }
 
     public void playerSurvived(GameMap map) {
-        // Ensure any physics modifications are deferred to avoid conflicts
+
         map=GameMap.getMap();
-        map.addDeferredAction(() -> { //ChatGpt help only with the deferred action method
+        // Ensure any physics modifications are deferred to avoid conflicts
+        map.addDeferredAction(() -> { //ChatGpt help ONLY with the deferred action method
             //Same methods as reset method
             hitbox.setTransform(10, 10, 0); // Reset position to starting coordinates
             hitbox.setLinearVelocity(0, 0); // Stop movement
@@ -301,15 +304,29 @@ public class Player implements Drawable {
 
     public void removeSpeedRun() {
         if (lifeCounter > 0) {
-            setSpeed(4f);
+            setSpeed(3f);
             setRunPowerupActive(false);// Deactivate the speed power-up
             System.out.println("Speed run power-up has been removed.");
         }
     }
 
-    public static void PlayerWon(){
+    public static void PlayerWon()
+    {
         playerWon=true;
         WinAnimationTime = 5f;
+        if(!scoreCalculated){
+            int score=finalScore();
+            Player.setTrackScore(score);
+        }
+
+    }
+
+
+    public static int finalScore(){
+        int score;
+        score=(Player.getTrackScore()+Hud.getWorldTimer());
+        setScoreCalculated(true);
+        return score;
     }
 
     public static void setIsAlive(boolean isAlive) {
@@ -374,7 +391,8 @@ public class Player implements Drawable {
         this.canDropBomb = true; // Reset bomb-dropping ability
         this.enemiesDefeated = 0;
         this.isExitUnlocked = false;
-        this.setSpeed(4);
+        this.setSpeed(3);
+        trackScore=0;
 
         GameStatus.reset();
 
@@ -405,5 +423,11 @@ public class Player implements Drawable {
         Player.playerSurvived = playerSurvived;
     }
 
-    //public void setSurvivalTime(float survivalTime) {this.survivalTime = survivalTime; }
+    public static boolean isScoreCalculated() {
+        return scoreCalculated;
+    }
+
+    public static void setScoreCalculated(boolean scoreCalculated) {
+        Player.scoreCalculated = scoreCalculated;
+    }
 }

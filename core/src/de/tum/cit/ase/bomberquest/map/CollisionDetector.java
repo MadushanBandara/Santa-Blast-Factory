@@ -33,10 +33,35 @@ public class CollisionDetector implements ContactListener {
             }
         }
 
+        //enemy and enemy collision
+
+        if (UserA instanceof Enemy && UserB instanceof Enemy) {
+            Enemy enemy1 = (Enemy) UserA;
+            Enemy enemy2 = (Enemy) UserB;
+            enemy1.changeDirection(); // make both Change direction as they may be stuck in a corner which happened often
+            enemy2.changeDirection();
+        }
+
+        // enemy collision with destructible tiles and indestructible tiles
+        if (UserA instanceof Enemy && UserB instanceof Tile) {
+            Tile tile = (Tile) UserB;
+            if (tile.getTileType() == 1 || tile.getTileType() == 0) {
+                ((Enemy) UserA).changeDirection();
+            }
+        } else if (UserA instanceof Tile && UserB instanceof Enemy) {
+            Tile tile = (Tile) UserA;
+            if (tile.getTileType() == 1 || tile.getTileType() == 0) {
+                ((Enemy) UserB).changeDirection();
+            }
+        }
+
+
         // Player and Santa interaction
         if ((UserA instanceof Player && UserB instanceof Santa) || (UserA instanceof Santa && UserB instanceof Player)) {
             Santa santa = (UserA instanceof Santa) ? (Santa) UserA : (Santa) UserB;
-            santa.SantaSaved();
+            if(!santa.isSaved()) {
+                santa.SantaSaved();
+            }
         }
 
         // Player and Exit interaction//
