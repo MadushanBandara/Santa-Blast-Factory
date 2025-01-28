@@ -60,6 +60,8 @@ public class Player implements Drawable {
 
     private static int concurrentBombLimit = 1;
 
+    private Santa santa;
+
     public Player(World world, float x, float y) {
         this.hitbox = createHitbox(world, x, y);
         this.isAlive = true;
@@ -405,7 +407,7 @@ public class Player implements Drawable {
         Textures.addBackRemoved();
 
 
-        // Reset life counter //not yet functional
+        // Reset life counter
         this.lifeCounter = 1;
 
         resetConcurrentBombLimit();
