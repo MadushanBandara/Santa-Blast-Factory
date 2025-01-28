@@ -220,7 +220,7 @@ public class Tile implements Drawable {
                 System.out.println("Extra bombs granted!");
             }
             if (currentAppearance.equals(CONCURRENTBOMB)) {
-                   //add logic here
+                Player.collectConcurrentBombPowerUp();
                 MusicTrack.COLLECTING.play(false);
                 System.out.println("concuretbomb");
             }

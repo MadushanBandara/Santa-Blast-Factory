@@ -11,12 +11,12 @@ import de.tum.cit.ase.bomberquest.texture.Drawable;
 
 public class Bomb implements Drawable {
 
-    private static Vector2 position;
+    private Vector2 position;
     private float timer;
     private float explosionTimer;
     private static final float BOMB_LIFETIME = 3f; // Time until the bomb explodes
     private static final float EXPLOSION_LIFETIME = 1f; // Duration of explosion animation
-    private static boolean exploded;
+    private boolean exploded;
     private static int maxBombs = 50;
     private static int EXPLOSION_RADIUS = 1; // Tiles affected in each direction
     private GameMap map;
@@ -47,7 +47,6 @@ public class Bomb implements Drawable {
     public void explode(GameMap map) {
         if (getMaxBombs() == 0) {
             Player.outOfBombs();
-            System.out.println("No bombs left to drop!");
             return;
         }
 
@@ -169,7 +168,7 @@ public class Bomb implements Drawable {
             return exploded && explosionTimer <= 0;
         }
 
-        public static boolean isExploded () {
+        public boolean isExploded () {
             return exploded;
         }
 
@@ -177,7 +176,7 @@ public class Bomb implements Drawable {
             return maxBombs;
         }
 
-        public static Vector2 getPosition () {
+        public Vector2 getPosition () {
             return position;
         }
 
