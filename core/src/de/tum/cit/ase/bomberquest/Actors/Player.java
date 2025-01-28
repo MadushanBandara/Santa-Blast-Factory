@@ -58,6 +58,8 @@ public class Player implements Drawable {
     private static int trackScore=0;
     private static boolean scoreCalculated=false;
 
+    private static int concurrentBombLimit = 1;
+
     public Player(World world, float x, float y) {
         this.hitbox = createHitbox(world, x, y);
         this.isAlive = true;
@@ -156,11 +158,6 @@ public class Player implements Drawable {
 
         // Update all bombs
         bombs.forEach(bomb -> bomb.tick(frameTime));
-        bombs.removeIf(bomb -> {
-            boolean expired = bomb.isExpired();
-            if (expired) canDropBomb = true;
-            return expired;
-        });
 
         // Remove expired bombs
         bombs.removeIf(Bomb::isExpired);
@@ -240,7 +237,7 @@ public class Player implements Drawable {
 
     // Method to handle key presses
     public void handleKeyPress(GameMap map) {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER) && canDropBomb) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
             MusicTrack.BOMBDROPSOUND.play(false);
 
             dropBomb(map);
@@ -249,15 +246,22 @@ public class Player implements Drawable {
 
 
     private void dropBomb(GameMap map) {
-        if(Bomb.getMaxBombs()>0) {
-            // Create a new bomb at the player's position
-            Bomb bomb = new Bomb(getX(), getY(), map);
-            bombs.add(bomb);
+        if (Bomb.getMaxBombs() > 0 && bombs.size() < concurrentBombLimit) {
 
-            // Set canDropBomb to false until the bomb is dropped and exploded
-            canDropBomb = false;
+            float currentX = getX();
+            float currentY = getY();
+
+            // Create a new bomb at the current position
+            Bomb newBomb = new Bomb(currentX, currentY, map);
+            bombs.add(newBomb);
+
+            // Play the bomb drop sound
+            MusicTrack.BOMBDROPSOUND.play(false);
+        } else if (bombs.size() >= concurrentBombLimit) {
+            System.out.println("Maximum concurrent bombs reached! Wait for one to explode.");
+        } else {
+            System.out.println("No bombs left to drop!");
         }
-        else return;
     }
 
     public void render(SpriteBatch spriteBatch) {
@@ -404,6 +408,8 @@ public class Player implements Drawable {
         // Reset life counter //not yet functional
         this.lifeCounter = 1;
 
+        resetConcurrentBombLimit();
+
         // Reset hitbox position
         hitbox.setTransform(startX, startY, 0);
         hitbox.setLinearVelocity(0, 0);
@@ -439,4 +445,27 @@ public class Player implements Drawable {
     public static void setScoreCalculated(boolean scoreCalculated) {
         Player.scoreCalculated = scoreCalculated;
     }
+
+    public static int getConcurrentBombLimit() {
+        return concurrentBombLimit;
+    }
+
+    public static void increaseConcurrentBombLimit() {
+        if (concurrentBombLimit < 8) { // Max limit is 8
+            concurrentBombLimit++;
+            System.out.println("Concurrent bomb limit increased to: " + concurrentBombLimit);
+        } else {
+            System.out.println("Concurrent bomb limit is already at the maximum.");
+        }
+    }
+
+    public static void collectConcurrentBombPowerUp() {
+        increaseConcurrentBombLimit();
+        System.out.println("Collected Concurrent Bomb Power-Up!");
+    }
+
+    public static void resetConcurrentBombLimit() {
+        concurrentBombLimit = 1; // Reset to the initial value
+    }
+
 }

@@ -119,7 +119,7 @@ public class GameScreen implements Screen {
     private void renderBombs() {
 
         for (Bomb bomb : map.getPlayer().getBombs()) {
-            if (!Bomb.isExploded()){
+            if (!bomb.isExploded()) {
                 float x = bomb.getX() * TILE_SIZE_PX * SCALE;
                 float y = bomb.getY() * TILE_SIZE_PX * SCALE;
                 float width = bomb.getCurrentAppearance().getRegionWidth() * SCALE;
@@ -188,9 +188,7 @@ public class GameScreen implements Screen {
         GameStatus.GameOver();
         draw(spriteBatch, map.getPlayer());
         renderSanta(spriteBatch);
-        for (Bomb bomb : map.getPlayer().getBombs()) {
-           renderBombs();
-        }
+        renderBombs();
         renderLifeCounter(spriteBatch);
 
     }
