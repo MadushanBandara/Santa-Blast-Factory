@@ -53,9 +53,6 @@ public class MenuScreen implements Screen {
         table.setFillParent(true); // Make the table fill the stage
         stage.addActor(table); // Add the table to the stage
 
-        // Add a label as a title
-       //table.add(new Label("Welcome to Santa´s Blast Factory!", game.getSkin(), "title")).padBottom(40).row();
-
 
         // Create and add a button to go to the game screen
         TextButton goToGameButton = new TextButton("Start New Game", game.getSkin());
@@ -67,6 +64,7 @@ public class MenuScreen implements Screen {
                 MusicTrack.GAMEMENUMUSIC.stopMusic();
                 MusicTrack.BACKGROUND.play(true);
                 game.goToGame(); // Change to the game screen when button is pressed
+
             }
         });
         TextButton ContinueButton = new TextButton("Continue Game", game.getSkin());
@@ -80,17 +78,32 @@ public class MenuScreen implements Screen {
                 if(game.getSavedState()!= null){
                     game.setScreen(game.getSavedState());
                 }
+
             }
         });
 
 
-        TextButton Setting = new TextButton("Setting", game.getSkin());
-        table.add(Setting).width(300).padBottom(10).row();
+        TextButton Mute = new TextButton("Mute", game.getSkin());
+        table.add(Mute).width(300).padBottom(10).row();
 
-        Setting.addListener(new ChangeListener() {
+        Mute.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 MusicTrack.CLICKSOUND.play(false);
+                MusicTrack.GAMEMENUMUSIC.play(true);
+                BomberQuestGame.muteMusic();
+            }
+        });
+
+        TextButton unmute = new TextButton("unmute", game.getSkin());
+        table.add(unmute).width(300).padBottom(10).row();
+
+        unmute.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                MusicTrack.CLICKSOUND.play(false);
+                MusicTrack.GAMEMENUMUSIC.play(true);
+                BomberQuestGame.setMuted(false);
                 MusicTrack.GAMEMENUMUSIC.play(true);
             }
         });

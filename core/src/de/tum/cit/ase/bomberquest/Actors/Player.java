@@ -235,7 +235,7 @@ public class Player implements Drawable {
         currentDirection = Direction.IDLE;// Stop any movement when no keys are pressed
     }
 
-    // Method to handle key presses (you already have this in the tick method)
+    // Method to handle key presses
     public void handleKeyPress(GameMap map) {
         if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER) && canDropBomb) {
             MusicTrack.BOMBDROPSOUND.play(false);

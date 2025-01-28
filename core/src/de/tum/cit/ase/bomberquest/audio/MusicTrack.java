@@ -2,6 +2,7 @@ package de.tum.cit.ase.bomberquest.audio;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import de.tum.cit.ase.bomberquest.BomberQuestGame;
 
 /**
  * This enum is used to manage the music tracks in the game.
@@ -28,27 +29,39 @@ public enum MusicTrack {
     /** The music file owned by this variant. */
     private final Music music;
 
+
+
     MusicTrack(String fileName, float volume, boolean loop) {
         this.music = Gdx.audio.newMusic(Gdx.files.internal("audio/" + fileName));
         this.music.setLooping(loop);
         this.music.setVolume(volume);
     }
 
+
+
     /**
      * Play this music track.
      * This will not stop other music from playing - if you add more tracks, you will have to handle that yourself.
      */
     public void play(boolean loop) {
-        this.music.play();
-        this.music.setLooping(loop);
+        if(!BomberQuestGame.isMuted()){
+            this.music.play();
+            this.music.setLooping(loop);
+        }
+
     }
 
     public void stopMusic(){
         this.music.stop();
     }
 
+
+
+
     public Music getMusic() {
         return music;
     }
+
+
 
 }

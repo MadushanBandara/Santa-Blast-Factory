@@ -37,6 +37,7 @@ public class BomberQuestGame extends Game {
     private boolean pause;
 
     private GameScreen savedState;
+    private static boolean muted=false;
 
     /**
      * Constructor for BomberQuestGame.
@@ -117,6 +118,21 @@ public class BomberQuestGame extends Game {
 
     public void setSavedState(GameScreen savedState) {
         this.savedState = savedState;
+    }
+
+    public static boolean isMuted() {
+        return muted;
+    }
+
+    public static void setMuted(boolean muted) {
+        BomberQuestGame.muted = muted;
+    }
+
+    public static void muteMusic(){
+        setMuted(true);
+        for (MusicTrack track : MusicTrack.values()) {
+            track.stopMusic();
+        }
     }
 
     /** Cleans up resources when the game is disposed. */
