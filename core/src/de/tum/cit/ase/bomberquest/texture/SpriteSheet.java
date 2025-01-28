@@ -39,7 +39,7 @@ public enum SpriteSheet {
     BENCH("bench.png",16,16),
     CHAIR("chair.png",16,16),
     LAMP("lamp-post.png",16,32),
-    HOUSES("house.png",16,16),
+    HOUSES("house1.png",65,64),
 
 
     HEART("objects.png",16,16),

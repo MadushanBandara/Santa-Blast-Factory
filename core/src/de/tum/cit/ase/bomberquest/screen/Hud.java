@@ -14,7 +14,7 @@ import de.tum.cit.ase.bomberquest.Actors.Player;
 import de.tum.cit.ase.bomberquest.BomberQuestGame;
 import de.tum.cit.ase.bomberquest.Actors.Bomb;
 import de.tum.cit.ase.bomberquest.map.GameMap;
-import de.tum.cit.ase.bomberquest.map.Enemy;
+import de.tum.cit.ase.bomberquest.Actors.Enemy;
 
 
 /**
@@ -45,7 +45,7 @@ public class Hud {
     private Label countDownLabel;
     private Label bomberLabel;
     private Label amountOfBomberLabel;
-    private Label enamyLabel;
+    private static Label enamyLabel;
     private Label numberOfEnamyLabel;
     private Label blastRadiusLabel;
     private Label numBlastRadius;
@@ -131,8 +131,8 @@ public class Hud {
     public void setRemainingBombs(int remainingBombs) {
         bomberLabel.setText(String.format("%02d", remainingBombs));
     }
-    public void setEnemyCount(int enemyCount) {
-        this.enemy = enemyCount; // Update the HUD's enemy count variable
+    public static void setEnemyCount(int enemyCount) {
+        enemy = enemyCount; // Update the HUD's enemy count variable
         enamyLabel.setText(String.format("%02d", enemyCount)); // Update the label text
     }
     public void setBlastRadius(int blastRadius) {

@@ -4,13 +4,10 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import de.tum.cit.ase.bomberquest.audio.MusicTrack;
-import de.tum.cit.ase.bomberquest.map.Enemy;
 import de.tum.cit.ase.bomberquest.map.GameMap;
 import de.tum.cit.ase.bomberquest.map.Tile;
 import de.tum.cit.ase.bomberquest.texture.Animations;
 import de.tum.cit.ase.bomberquest.texture.Drawable;
-
-import static de.tum.cit.ase.bomberquest.Actors.Player.*;
 
 public class Bomb implements Drawable {
 

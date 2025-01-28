@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import de.tum.cit.ase.bomberquest.Actors.Bomb;
+import de.tum.cit.ase.bomberquest.Actors.Enemy;
 import de.tum.cit.ase.bomberquest.Actors.Player;
 import de.tum.cit.ase.bomberquest.Actors.Santa;
 import de.tum.cit.ase.bomberquest.BomberQuestGame;
@@ -35,7 +36,7 @@ public class GameMap {
 
     private static List<Life> lives = new ArrayList<>();
     private final Flowers[][] flowers; // Decorative flowers
-    private final List<Enemy> enemies; // List of enemies
+    private static  List<Enemy> enemies; // List of enemies
     private final Santa santa;
     public static int enemiesGenerated;
     private List<Tile> tiles;
@@ -126,7 +127,7 @@ public class GameMap {
             }
         }
         System.out.println("Free tiles available: " + freetiles.size());
-        int numberOfEnemies = random.nextInt(Math.min(freetiles.size(), 10)) + 1;
+       int numberOfEnemies = random.nextInt(Math.min(freetiles.size(), 10)) + 1; //Maximum 10, minimum 1
 
         for (int i = 0; i < numberOfEnemies; i++) {
             int x = random.nextInt(freetiles.size()); // select number of enemies according to free tiles
@@ -154,6 +155,22 @@ public class GameMap {
             }
         }
     }
+    public static void addEnemy() {
+        map=GameMap.getMap();
+        map.addDeferredAction(() -> { //3 selected positions that are always empty
+            Enemy enemy1 = new Enemy(GameMap.map.getWorld(), 5, 6);
+            Enemy enemy2= new Enemy(GameMap.map.getWorld(), 2, 18);
+        Enemy enemy3= new Enemy(GameMap.map.getWorld(), 18, 18);
+        enemies.add(enemy1);
+        enemies.add(enemy2);
+        enemies.add(enemy3);
+                });
+        setEnemiesGenerated(getEnemiesGenerated()+3);
+        System.out.println("Enemy added at position");
+    }
+
+
+
 
 
     /**

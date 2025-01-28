@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.*;
 import de.tum.cit.ase.bomberquest.Actors.Bomb;
+import de.tum.cit.ase.bomberquest.Actors.Enemy;
 import de.tum.cit.ase.bomberquest.Actors.Player;
 import de.tum.cit.ase.bomberquest.BomberQuestGame;
 import de.tum.cit.ase.bomberquest.audio.MusicTrack;
@@ -50,7 +51,8 @@ public class Tile implements Drawable {
     private static boolean exitRevealed=false;
     private boolean PowerupRedeemed;
     private boolean PowerupFound;
-
+    private List<Tile> tiles;
+    private World world;
 
 
     public Tile(World world,float x, float y, int tileType) {
@@ -109,6 +111,11 @@ public class Tile implements Drawable {
                     MusicTrack.GAMEOVER.play(false);
                     System.out.println("Fewer bombs available!");
                 }
+                if (currentAppearance.equals(MOREENEMIES)) {
+                    GameMap.addEnemy();
+                    MusicTrack.GAMEOVER.play(false);
+
+                }
                 setTileType(EMPTY);
             }
         }
@@ -147,7 +154,7 @@ public class Tile implements Drawable {
 
             } else if (currentAppearance.equals(Textures.RUN)) {
                 player.setSpeed(player.getSpeed() + 2);
-                if (player.getSpeed() == 8) {
+                if (player.getSpeed() == 6) {
                     Textures.removeSpeedRun();
                 }
                 MusicTrack.COLLECTING.play(false);
@@ -158,15 +165,13 @@ public class Tile implements Drawable {
                 Bomb.setMaxBombs(Bomb.getMaxBombs() + 5);
                 MusicTrack.COLLECTING.play(false);
                 System.out.println("Extra bombs granted!");
-            } else if (currentAppearance.equals(Textures.LESSBOMBS)) {
-                Bomb.setMaxBombs(Bomb.getMaxBombs() - 5);
-                System.out.println("Fewer bombs available!");
             }
             if (currentAppearance.equals(CONCURRENTBOMB)) {
                    //add logic here
                 MusicTrack.COLLECTING.play(false);
                 System.out.println("concuretbomb");
             }
+
             if(!currentAppearance.equals(Textures.EXIT) && !Textures.randomNonPU.contains(currentAppearance)){ //make sure EXIT and Random non PU are not changed if they are stepped on
                 currentAppearance =Textures.randomNonPU();
             }

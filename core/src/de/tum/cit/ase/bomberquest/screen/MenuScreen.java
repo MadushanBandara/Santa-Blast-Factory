@@ -55,7 +55,7 @@ public class MenuScreen implements Screen {
 
 
         // Create and add a button to go to the game screen
-        TextButton goToGameButton = new TextButton("Start New Game", game.getSkin());
+        TextButton goToGameButton = new TextButton("Start New Game" , game.getSkin());
         table.add(goToGameButton).width(300).padBottom(10).row();
         goToGameButton.addListener(new ChangeListener() {
             @Override
@@ -95,7 +95,7 @@ public class MenuScreen implements Screen {
             }
         });
 
-        TextButton unmute = new TextButton("unmute", game.getSkin());
+        TextButton unmute = new TextButton("Unmute", game.getSkin());
         table.add(unmute).width(300).padBottom(10).row();
 
         unmute.addListener(new ChangeListener() {

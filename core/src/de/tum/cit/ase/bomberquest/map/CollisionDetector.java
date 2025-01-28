@@ -1,6 +1,7 @@
 package de.tum.cit.ase.bomberquest.map;
 
 import com.badlogic.gdx.physics.box2d.*;
+import de.tum.cit.ase.bomberquest.Actors.Enemy;
 import de.tum.cit.ase.bomberquest.Actors.Player;
 import de.tum.cit.ase.bomberquest.Actors.Santa;
 //import de.tum.cit.ase.bomberquest.map.Chest;//
@@ -64,12 +65,6 @@ public class CollisionDetector implements ContactListener {
             }
         }
 
-        // Player and Exit interaction//
-        /*removed
-        if ((UserA instanceof Player && UserB instanceof Exit) || (UserA instanceof Exit && UserB instanceof Player)) {
-            Exit exit = (UserA instanceof Exit) ? (Exit) UserA : (Exit) UserB;
-            exit.exitFound();
-        }*/
 
         if ((UserA instanceof Player && UserB instanceof Tile && ((Tile) UserB).getTileType() == 8) ||
                 (UserA instanceof Tile && ((Tile) UserA).getTileType() == 8 && UserB instanceof Player)) {
@@ -78,15 +73,6 @@ public class CollisionDetector implements ContactListener {
         } else {
             Tile.setExitFound(false);
         }
-
-        // Player and Power-Up Tile interaction
-        //this will be removed as powerup will be granted as they are revealed by explosion under the breakable tile
-        /*
-        if ((UserA instanceof Player && UserB instanceof Tile && ((Tile) UserB).getTileType() == Tile.POWERUP) ||
-                (UserA instanceof Tile && ((Tile) UserA).getTileType() == Tile.POWERUP && UserB instanceof Player)) {
-            Player player = (UserA instanceof Player) ? (Player) UserA : (Player) UserB;
-            player.PlayerGrantedPowerUP();
-        }*/
 
         // Player and Power-Up Tile interaction
         if ((UserA instanceof Player && UserB instanceof Tile && ((Tile) UserB).getTileType() == 9) ||

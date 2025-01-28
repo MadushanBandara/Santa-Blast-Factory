@@ -1,4 +1,4 @@
-package de.tum.cit.ase.bomberquest.map;
+package de.tum.cit.ase.bomberquest.Actors;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -7,6 +7,8 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.World;
 import de.tum.cit.ase.bomberquest.Actors.Player;
 import de.tum.cit.ase.bomberquest.audio.MusicTrack;
+import de.tum.cit.ase.bomberquest.map.GameMap;
+import de.tum.cit.ase.bomberquest.map.Move;
 import de.tum.cit.ase.bomberquest.texture.Animations;
 import de.tum.cit.ase.bomberquest.texture.Drawable;
 import de.tum.cit.ase.bomberquest.texture.SpriteSheet;
@@ -39,7 +41,7 @@ public class Enemy implements Drawable{
         this.texture = SpriteSheet.ENEMIES.at(1, 1); // Default Grinch sprite
         this.currentDirection = randomDirection();
         this.hitbox = createHitbox(world, x, y);
-        countEnemies=GameMap.getEnemiesGenerated();
+        countEnemies= GameMap.getEnemiesGenerated();
     }
     private Body createHitbox(World world, float startX, float startY) {
         // BodyDef is like a blueprint for the movement properties of the body.
@@ -139,6 +141,7 @@ public class Enemy implements Drawable{
             changeDirection();
         }
     }
+
 
     @Override
     public TextureRegion getCurrentAppearance() {
