@@ -122,6 +122,20 @@ public class Textures {
         randomSurprise.remove(CONCURRENTBOMB);
     }
 
+    public static void addBackRemoved() {
+
+        List<TextureRegion> requiredTextures = List.of(
+                RUN, LIFE, BLASTRADIUSPLUS, CONCURRENTBOMB, MOREENEMIES, EXIT, LESSBOMBS
+        );
+
+        // Add each texture if it doesn't already exist in the list
+        for (TextureRegion texture : requiredTextures) {
+            if (!randomSurprise.contains(texture)) {
+                randomSurprise.add(texture);
+            }
+        }
+    }
+
 
 
 
