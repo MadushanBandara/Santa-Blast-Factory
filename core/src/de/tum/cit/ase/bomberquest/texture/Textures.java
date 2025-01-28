@@ -17,17 +17,7 @@ import static com.badlogic.gdx.math.MathUtils.random;
 public class Textures {
 
     public static final TextureRegion FLOWERS = SpriteSheet.BASIC_TILES.at(2, 4);
-    //Hear counter it would look cute appearing on the map as heart :)
     public static final TextureRegion HEART = SpriteSheet.HEART.at(1, 5);
-
-    /*
-    public static final int INDESTRUCTIBLE_WALL = 0;
-    public static final int DESTRUCTIBLE_WALL = 1;
-    public static final int EMPTY = 9;
-    public static final int ENTRANCE = 2;
-    public static final int SPECIAL = 5;
-    public static final int POWERUP = 6;
-    */
 
     public static final TextureRegion ENTRANCE = SpriteSheet.BASIC_TILES.at(4, 8);
     public static final TextureRegion EXIT = SpriteSheet.ORIGINALBOMBERMAN.at(4, 12);
@@ -39,17 +29,13 @@ public class Textures {
 
     public static final TextureRegion SPECIAL = SpriteSheet.TREE.at(4,7);
 
-    public static final TextureRegion CHEST = SpriteSheet.BASIC_TILES.at(5,5);
-    public static final TextureRegion OPENEDCHEST = SpriteSheet.BASIC_TILES.at(5,4);
     public static final TextureRegion SANTA = SpriteSheet.SANTA.at(5,1);
     public static final TextureRegion SNOWMAN=SpriteSheet.SNOWMAN.at(1,1);
-    public static final TextureRegion CHAIR=SpriteSheet.CHAIR.at(1,1);
     public static final TextureRegion BENCH=SpriteSheet.BENCH.at(1,1);
     public static final TextureRegion LAMP=SpriteSheet.LAMP.at(1,1);
     public static final TextureRegion REINDEER=SpriteSheet.SANTA.at(2,1);
     public static final TextureRegion GIFT=SpriteSheet.SANTA.at(1,5);
     public static final TextureRegion HOUSE=SpriteSheet.HOUSES.at(1,1);
-    //public static final TextureRegion INDESTRUCTIBLEWALLS = SpriteSheet.WALLS.at(4, 5);
 
     //powerups
     public static final TextureRegion LIFE = SpriteSheet.ORIGINALBOMBERMAN.at(15, 5);
@@ -60,7 +46,6 @@ public class Textures {
     //powerdown
     public static final TextureRegion MOREENEMIES= SpriteSheet.ORIGINALBOMBERMAN.at(15, 2);
     public static final TextureRegion LESSBOMBS=SpriteSheet.BOMBER.at(1, 2);
-    public static final TextureRegion SANTABLAST=SpriteSheet.SANTABLAST.at(1, 1);
 
 
 
@@ -124,6 +109,17 @@ public class Textures {
 
     public static void removeSpeedRun(){
         randomSurprise.remove(RUN);
+    }
+
+    public static void removeMoreEnemies(){
+        randomSurprise.remove(MOREENEMIES);
+    }
+
+    public static void removeLessBombs(){
+        randomSurprise.remove(LESSBOMBS);
+    }
+    public static void removeConcurrent(){
+        randomSurprise.remove(CONCURRENTBOMB);
     }
 
 

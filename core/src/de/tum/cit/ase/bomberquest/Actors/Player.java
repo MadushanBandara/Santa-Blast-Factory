@@ -4,6 +4,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.*;
+import de.tum.cit.ase.bomberquest.BomberQuestGame;
 import de.tum.cit.ase.bomberquest.audio.MusicTrack;
 import de.tum.cit.ase.bomberquest.map.GameMap;
 import de.tum.cit.ase.bomberquest.map.GameStatus;
@@ -406,6 +407,8 @@ public class Player implements Drawable {
         hitbox.setAngularVelocity(0);
         System.out.println("Player has been reset.");
     }
+
+
 
     public static boolean isPlayerSurvived() {
         return playerSurvived;

@@ -54,6 +54,19 @@ public class Tile implements Drawable {
     private List<Tile> tiles;
     private World world;
 
+    private static int powerdowncountbombs=0;
+    private static int powerdownenemies=0;
+
+    private static int powerlife=0;
+
+    private static int powerspeed=0;
+    private static int powerblast=0;
+    private static int powerconcurrent=0;
+
+
+
+
+
 
     public Tile(World world,float x, float y, int tileType) {
         this.x = x;
@@ -109,11 +122,43 @@ public class Tile implements Drawable {
                 if (currentAppearance.equals(Textures.LESSBOMBS)) {
                     Bomb.setMaxBombs(Bomb.getMaxBombs() - 5);
                     MusicTrack.GAMEOVER.play(false);
+                    powerdowncountbombs++;
+                    if(powerdowncountbombs==2){
+                        removeLessBombs();  //ensure this powerdown is only executed twice maximum
+                    }
                     System.out.println("Fewer bombs available!");
                 }
                 if (currentAppearance.equals(MOREENEMIES)) {
                     GameMap.addEnemy();
                     MusicTrack.GAMEOVER.play(false);
+                    powerdownenemies++;
+                    if(powerdownenemies==2){
+                        removeMoreEnemies();//ensure this powerdown is only executed twice maximum
+                    }
+                if((currentAppearance.equals(LIFE))){
+                    powerlife++;
+                        if(powerlife==2){
+                            removeLife();//ensure this powerup is only executed twice maximum (MAX 3 lives)
+                        }
+                    }
+                if((currentAppearance.equals(BLASTRADIUSPLUS))){
+                    powerblast++;
+                    if(powerblast==7){
+                        removeBlastRadius();//ensure this powerup is only executed 7 times maximum (max blast radius 8)
+                    }
+                }
+                if((currentAppearance.equals(RUN))){
+                    powerspeed++;
+                    if(powerspeed==2){
+                        removeSpeedRun();;//ensure this powerup is only executed twice maximum
+                    }
+                }
+                if((currentAppearance.equals(CONCURRENTBOMB))){
+                    powerconcurrent++;
+                    if(powerconcurrent==8){
+                        removeConcurrent();//ensure this powerup is only executed 8 times maximum (max concurrent bombs 8)
+                    }
+                }
 
                 }
                 setTileType(EMPTY);
@@ -130,14 +175,11 @@ public class Tile implements Drawable {
                     player.setLifeCounter(player.getLifeCounter() + 1);
                     GameMap.updateLifeCounter();
                 }
-                if (player.getLifeCounter() == 3) {
-                    removeLife(); // Ensure maximum of 3 lives total
-                }
+
                 MusicTrack.COLLECTING.play(false);
                 System.out.println("Player gained an extra life!");
             } else if (currentAppearance.equals(Textures.EXIT)) {
                 setTileType(EXIT);// Remove EXIT from surprise list so it is not selected again
-
                 MusicTrack.COLLECTING.play(false);
                 System.out.println("Exit revealed!");
             } else if (currentAppearance.equals(Textures.BLASTRADIUSPLUS)) {
@@ -146,17 +188,14 @@ public class Tile implements Drawable {
                     System.out.println("Explosion radius increased!");
                 }
 
-                if (Bomb.getExplosionRadius() == 8) { //
-                    Textures.removeBlastRadius(); // Remove blast radius powerup
-                }
                 MusicTrack.COLLECTING.play(false);
                 System.out.println("Explosion radius increased!");
 
             } else if (currentAppearance.equals(Textures.RUN)) {
-                player.setSpeed(player.getSpeed() + 2);
-                if (player.getSpeed() == 6) {
-                    Textures.removeSpeedRun();
+                if (player.getSpeed() < 7) {
+                    player.setSpeed(player.getSpeed() + 2);
                 }
+
                 MusicTrack.COLLECTING.play(false);
                 System.out.println("Player speed increased!");
 

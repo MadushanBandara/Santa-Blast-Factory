@@ -63,6 +63,7 @@ public class MenuScreen implements Screen {
                 MusicTrack.CLICKSOUND.play(false);
                 MusicTrack.GAMEMENUMUSIC.stopMusic();
                 MusicTrack.BACKGROUND.play(true);
+
                 game.goToGame(); // Change to the game screen when button is pressed
 
             }
