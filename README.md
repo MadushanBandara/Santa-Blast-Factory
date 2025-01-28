@@ -9,6 +9,8 @@
 - Save Santa and he will reward you with some extra time
 - Find the exit under the tiles, after defeating all enemies and saving Santa the Exit will be unlocked.
 - on the screen track your score, number of bombs, your concurrent bombs, blast radius, number of enemies left on the map, the time left and your lives.
+- you can mute and unmute the game
+- you can start new game or pause and continue your game
 
 ## POWERUPS:
 You need to collect the Powerups from the tiles
