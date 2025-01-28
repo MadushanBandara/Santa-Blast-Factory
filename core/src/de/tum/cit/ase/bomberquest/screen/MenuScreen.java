@@ -84,28 +84,14 @@ public class MenuScreen implements Screen {
         });
 
 
-        TextButton Mute = new TextButton("Mute", game.getSkin());
-        table.add(Mute).width(300).padBottom(10).row();
+        TextButton settingsButton = new TextButton("Settings", game.getSkin());
+        table.add(settingsButton).width(300).padBottom(10).row();
 
-        Mute.addListener(new ChangeListener() {
+        settingsButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 MusicTrack.CLICKSOUND.play(false);
-                MusicTrack.GAMEMENUMUSIC.play(true);
-                BomberQuestGame.muteMusic();
-            }
-        });
-
-        TextButton unmute = new TextButton("Unmute", game.getSkin());
-        table.add(unmute).width(300).padBottom(10).row();
-
-        unmute.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                MusicTrack.CLICKSOUND.play(false);
-                MusicTrack.GAMEMENUMUSIC.play(true);
-                BomberQuestGame.setMuted(false);
-                MusicTrack.GAMEMENUMUSIC.play(true);
+                game.setScreen(new SettingsScreen(game)); // Navigate to the Settings screen
             }
         });
 
