@@ -58,7 +58,7 @@ public class MenuScreen implements Screen {
 
         // Create and add a button to go to the game screen
         TextButton goToGameButton = new TextButton("Start New Game", game.getSkin());
-        table.add(goToGameButton).width(300).row();
+        table.add(goToGameButton).width(300).padBottom(10).row();
         goToGameButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -69,7 +69,7 @@ public class MenuScreen implements Screen {
             }
         });
         TextButton ContinueButton = new TextButton("Continue Game", game.getSkin());
-        table.add(ContinueButton).width(300).row();
+        table.add(ContinueButton).width(300).padBottom(10).row();
         ContinueButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -77,6 +77,18 @@ public class MenuScreen implements Screen {
                 MusicTrack.GAMEMENUMUSIC.stopMusic();
                 MusicTrack.BACKGROUND.play(true);
                 game.goToGame(); // Change to the game screen when button is pressed
+            }
+        });
+
+
+        TextButton Setting = new TextButton("Setting", game.getSkin());
+        table.add(Setting).width(300).padBottom(10).row();
+
+        Setting.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                MusicTrack.CLICKSOUND.play(false);
+                MusicTrack.GAMEMENUMUSIC.play(true);
             }
         });
 
@@ -89,7 +101,7 @@ public class MenuScreen implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 MusicTrack.CLICKSOUND.play(false);
-                MusicTrack.GAMEOVERMUSIC.stopMusic();
+                MusicTrack.GAMEMENUMUSIC.stopMusic();
                 Gdx.app.exit();
             }
         });
