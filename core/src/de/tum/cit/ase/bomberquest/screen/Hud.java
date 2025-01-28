@@ -35,8 +35,8 @@ public class Hud {
     private static Integer enemy;
     private static boolean timeUp;
     private static Integer blastRadius;
-
     private static int score;
+    private static Integer concurrentBombLimit;
 
 
 
@@ -49,6 +49,8 @@ public class Hud {
     private Label numberOfEnamyLabel;
     private Label blastRadiusLabel;
     private Label numBlastRadius;
+    private Label concurrentBombLabel;
+    private Label concurrentBombValueLabel;
 
     private Label ScoreLabel;
 
@@ -69,6 +71,7 @@ public class Hud {
         enemy =Enemy.countEnemies;
         blastRadius=Bomb.getExplosionRadius();
         score=Player.getTrackScore();
+        concurrentBombLimit = Player.getConcurrentBombLimit();
 
         // Set up UI Table
         Table table = new Table();
@@ -85,18 +88,23 @@ public class Hud {
         numBlastRadius = new Label(String.format("%2d", blastRadius), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         ScoreLabel = new Label("Score: ", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         Scoretr= new Label(String.format("%2d", score), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        concurrentBombLabel = new Label("Concurrent Bombs: ", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        concurrentBombValueLabel = new Label(String.format("%02d", concurrentBombLimit), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
 
-        table.add(christmasStartLabel).expandX().padBottom(0);
-        table.add(countDownLabel).expandX();
-        table.add(amountOfBomberLabel).expandX().padBottom(0);
-        table.add(bomberLabel).expandX();
-        table.add(numberOfEnamyLabel).expandX().padBottom(0);
-        table.add(enamyLabel).expandX();
-        table.add(blastRadiusLabel).expandX().padBottom(0);
-        table.add(numBlastRadius).expandX();
-        table.add(ScoreLabel).expandX().padBottom(0);
-        table.add(Scoretr).expandX();
+        table.add(christmasStartLabel).expandX().padBottom(0).left();
+        table.add(countDownLabel).expandX().left();
+        table.add(amountOfBomberLabel).expandX().padBottom(0).left();
+        table.add(bomberLabel).expandX().left();
+        table.add(numberOfEnamyLabel).expandX().padBottom(0).left();
+        table.add(enamyLabel).expandX().left();
+        table.row();
+        table.add(blastRadiusLabel).expandX().padBottom(0).left();
+        table.add(numBlastRadius).expandX().left();
+        table.add(ScoreLabel).expandX().padBottom(0).left();
+        table.add(Scoretr).expandX().left();
+        table.add(concurrentBombLabel).expandX().padBottom(0).left();
+        table.add(concurrentBombValueLabel).expandX().left();
 
 
 
@@ -125,6 +133,7 @@ public class Hud {
         setEnemyCount(GameMap.getEnemiesGenerated());
         setBlastRadius(Bomb.getExplosionRadius());
         setScore(Player.getTrackScore());
+        setConcurrentBombLimit(Player.getConcurrentBombLimit());
 
     }
 
@@ -140,6 +149,10 @@ public class Hud {
     }
     public void setScore(int score) {
         Scoretr.setText(String.format("%02d", score));
+    }
+
+    public void setConcurrentBombLimit(int limit) {
+        concurrentBombValueLabel.setText(String.format("%02d", limit));
     }
 
     public void resize(int width, int height) {
