@@ -288,9 +288,9 @@ public class Player implements Drawable {
 
     public void PlayerDied() {
 
-        if (lifeCounter > 1) {
+        if (lifeCounter > 1) { //player is saved
             lifeCounter--;
-            playerSurvived(map); // Reset player position
+            playerSurvived(map); // Reset player position to starting position
             System.out.println("Player died. Lives remaining: " + lifeCounter);
 
         } else {
@@ -305,11 +305,12 @@ public class Player implements Drawable {
 
     }
 
+    //Survival method when player has extra lives, he respawns in starting position
     public void playerSurvived(GameMap map) {
 
         map=GameMap.getMap();
         // Ensure any physics modifications are deferred to avoid conflicts
-        map.addDeferredAction(() -> { //ChatGpt help ONLY with the deferred action method
+        map.addDeferredAction(() -> { //ChatGpt help with the deferred action method
             //Same methods as reset method
             hitbox.setTransform(10, 10, 0); // Reset position to starting coordinates
             hitbox.setLinearVelocity(0, 0); // Stop movement
@@ -319,6 +320,7 @@ public class Player implements Drawable {
         System.out.println("Player position reset");
     }
 
+    //reset Speed
     public void removeSpeedRun() {
         if (lifeCounter > 0) {
             setSpeed(3f);
@@ -327,6 +329,8 @@ public class Player implements Drawable {
         }
     }
 
+
+    //Player Won the Game
     public static void PlayerWon()
     {
         playerWon=true;
@@ -339,6 +343,7 @@ public class Player implements Drawable {
     }
 
 
+    //final Score method
     public static int finalScore(){
         int score;
         score=(Player.getTrackScore()+Hud.getWorldTimer());
@@ -368,6 +373,7 @@ public class Player implements Drawable {
     }
 
 
+    //if player is out of bombs he can no longer drop bombs
     public static boolean outOfBombs(){
         if(Bomb.getMaxBombs()==0){
             setCanDropBomb(false);
@@ -400,6 +406,8 @@ public class Player implements Drawable {
         this.runPowerupActive = runPowerupActive;
     }
 
+
+    //reset of all game elements to create new game
     public void reset(World world, float startX, float startY) {
         this.isAlive = true;
         this.bombs.clear();
@@ -413,7 +421,6 @@ public class Player implements Drawable {
 
         GameStatus.reset();
         Textures.addBackRemoved();
-
 
         // Reset life counter
         this.lifeCounter = 1;
@@ -432,20 +439,10 @@ public class Player implements Drawable {
 
 
 
-    public static boolean isPlayerSurvived() {
-        return playerSurvived;
-    }
 
-    public float getSurvivalTime() {
-        return survivalTime;
-    }
 
     public void setElapsedTime(float elapsedTime) {
         this.elapsedTime = elapsedTime;
-    }
-
-    public static void setPlayerSurvived(boolean playerSurvived) {
-        Player.playerSurvived = playerSurvived;
     }
 
     public static boolean isScoreCalculated() {
