@@ -19,7 +19,7 @@ public class DesktopLauncher {
 		// Configuration for the game window
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setTitle("Santa Blast Factory"); // Set the window title
-		//config.setWindowIcon("window santa.png");
+		config.setWindowIcon("texture/window santa.png"); // Set the window icon
 
 		// Get the display mode of the current monitor
 		Graphics.DisplayMode displayMode = Lwjgl3ApplicationConfiguration.getDisplayMode();
