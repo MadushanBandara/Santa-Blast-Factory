@@ -182,7 +182,7 @@ public class Player implements Drawable {
             return Animations.CHARACTER_DEATH.getKeyFrame(elapsedTime, true);
         }
         else if(GameStatus.GameWon()){
-            MusicTrack.WIN.play(false);
+
             return Animations.CHARACTER_WIN.getKeyFrame(WinAnimationTime, true);
         }
         else {
@@ -333,6 +333,7 @@ public class Player implements Drawable {
     //Player Won the Game
     public static void PlayerWon()
     {
+        MusicTrack.WIN.play(false);
         playerWon=true;
         WinAnimationTime = 5f;
         if(!scoreCalculated){

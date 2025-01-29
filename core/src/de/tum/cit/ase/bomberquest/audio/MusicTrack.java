@@ -23,7 +23,7 @@ public enum MusicTrack {
     HOHOHO("hohoho.mp3",0.1f,false),
     BOMBDROPSOUND("appear-online.mp3", 0.3f,false),
 
-    WIN("win.mp3", 0.2f,false),
+    WIN("win.mp3", 0.1f,false),
     CLICKSOUND("click_sound_5.mp3",1.5f,false);
 
 
