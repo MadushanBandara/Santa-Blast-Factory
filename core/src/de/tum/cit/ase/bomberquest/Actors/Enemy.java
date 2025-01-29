@@ -83,16 +83,16 @@ public class Enemy implements Drawable{
         // Apply velocity change immediately
         switch (newDirection) {
             case UP:
-                hitbox.setLinearVelocity(0, 1f);
+                hitbox.setLinearVelocity(0.01f, 1f);
                 break;
             case DOWN:
-                hitbox.setLinearVelocity(0, -1f);
+                hitbox.setLinearVelocity(0.01f, -1f);
                 break;
             case LEFT:
-                hitbox.setLinearVelocity(-1f, 0);
+                hitbox.setLinearVelocity(-1f, 0.01f);
                 break;
             case RIGHT:
-                hitbox.setLinearVelocity(1f, 0);
+                hitbox.setLinearVelocity(1f, 0.01f);
                 break;
         }
     }
