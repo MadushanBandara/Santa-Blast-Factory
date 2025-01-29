@@ -186,7 +186,7 @@ public class Tile implements Drawable {
 
                 if (currentAppearance.equals(Textures.RUN)) {
                     powerspeed++;
-                    if (powerspeed == 2) {
+                    if (powerspeed == 3) {
                         Textures.removeSpeedRun(); // Ensure this power-up is executed a maximum of twice
                     }
                 }
@@ -231,7 +231,7 @@ public class Tile implements Drawable {
 
 
             } else if (currentAppearance.equals(Textures.RUN)) {
-                if (player.getSpeed() < 7) {
+                if (player.getSpeed() < 8) {
                     player.setSpeed(player.getSpeed() + 1);
                     MusicTrack.COLLECTING.play(false);
                 }
