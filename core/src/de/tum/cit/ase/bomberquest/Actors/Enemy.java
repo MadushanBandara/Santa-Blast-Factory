@@ -83,16 +83,16 @@ public class Enemy implements Drawable{
         // Apply velocity change immediately
         switch (newDirection) {
             case UP:
-                hitbox.setLinearVelocity(0.01f, 1f);
+                hitbox.setLinearVelocity(0.02f, 1f);
                 break;
             case DOWN:
-                hitbox.setLinearVelocity(0.01f, -1f);
+                hitbox.setLinearVelocity(0.02f, -1f);
                 break;
             case LEFT:
-                hitbox.setLinearVelocity(-1f, 0.01f);
+                hitbox.setLinearVelocity(-1f, 0.02f);
                 break;
             case RIGHT:
-                hitbox.setLinearVelocity(1f, 0.01f);
+                hitbox.setLinearVelocity(1f, 0.02f);
                 break;
         }
     }
@@ -152,7 +152,7 @@ public class Enemy implements Drawable{
         }
 
         // Randomly change direction with probability
-        if (Math.random() < 0.001) {
+        if (Math.random() < 0.002) {
             changeDirection();
         }
     }
