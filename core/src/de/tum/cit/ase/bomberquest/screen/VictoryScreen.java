@@ -27,7 +27,7 @@ public class VictoryScreen implements Screen {
 
 
     /**
-     * Constructor for MenuScreen. Sets up the camera, viewport, stage, and UI elements.
+     * Constructor for VictoryScreen. Sets up the camera, viewport, stage, and UI elements.
      *
      * @param game The main game class, used to access global resources and methods.
      */
