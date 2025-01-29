@@ -31,7 +31,6 @@ public class Bomb implements Drawable {
     private static int maxBombs = 50;
     private static int EXPLOSION_RADIUS = 1; // Tiles affected in each direction
     private GameMap map;
-    private Music music;
 
     public Bomb(float x, float y, GameMap map) {
         this.position = new Vector2(x, y);
@@ -179,8 +178,9 @@ public class Bomb implements Drawable {
     @Override
     public TextureRegion getCurrentAppearance () {
         if (!exploded) {
-            // Render bomb animation before explosion
+            MusicTrack.BOMBDROPSOUND.play(false);
             return Animations.BOMB.getKeyFrame(timer, false);
+
         } else if (explosionTimer > 0) {
             // Render explosion animation during its timer
             MusicTrack.EXPLOSION.play(false);

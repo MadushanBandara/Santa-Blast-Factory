@@ -139,6 +139,7 @@ public class Player implements Drawable {
         this.elapsedTime += frameTime;
 
 
+
         if (!isAlive && deathAnimationTime > 0) {
             deathAnimationTime -= frameTime;
         }
@@ -248,9 +249,13 @@ public class Player implements Drawable {
     // Method to handle key presses
     public void handleKeyPress(GameMap map) {
         if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
-            MusicTrack.BOMBDROPSOUND.play(false);
-
-            dropBomb(map);
+            if (Bomb.getMaxBombs() > 0 && bombs.size() < concurrentBombLimit) {
+                // Stop any currently playing bomb sound
+                MusicTrack.BOMBDROPSOUND.stopMusic();
+                // Immediately play new sound
+                MusicTrack.BOMBDROPSOUND.play(false);
+                dropBomb(map);
+            }
         }
     }
 
@@ -265,8 +270,8 @@ public class Player implements Drawable {
             Bomb newBomb = new Bomb(currentX, currentY, map);
             bombs.add(newBomb);
 
-            // Play the bomb drop sound
-            MusicTrack.BOMBDROPSOUND.play(false);
+
+
         } else if (bombs.size() >= concurrentBombLimit) {
             System.out.println("Maximum concurrent bombs reached! Wait for one to explode.");
         } else {
@@ -274,13 +279,6 @@ public class Player implements Drawable {
         }
     }
 
-    public void render(SpriteBatch spriteBatch) {
-        // Render the player as before
-        // Render all bombs
-        for (Bomb bomb : bombs) {
-            spriteBatch.draw(bomb.getCurrentAppearance(), bomb.getX(), bomb.getY());
-        }
-    }
 
     public ArrayList<Bomb> getBombs() {
         return bombs;
