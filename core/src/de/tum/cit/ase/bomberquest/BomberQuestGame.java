@@ -19,9 +19,9 @@ import games.spooky.gdx.nativefilechooser.NativeFileChooser;
  */
 public class BomberQuestGame extends Game {
 
-    public static final float V_WIDTH = 1920; // Example width
-    public static final float V_HEIGHT = 1080; // Example height
-    public static final float SCALE = 4f; // Example scale
+    public static final float V_WIDTH = 1920; // width
+    public static final float V_HEIGHT = 1080; // height
+    public static final float SCALE = 4f; //  scale
 
     // Global resources
     public SpriteBatch spriteBatch;
