@@ -7,6 +7,9 @@ import de.tum.cit.ase.bomberquest.Actors.Enemy;
 import de.tum.cit.ase.bomberquest.Actors.Player;
 import de.tum.cit.ase.bomberquest.Actors.Santa;
 import de.tum.cit.ase.bomberquest.BomberQuestGame;
+import de.tum.cit.ase.bomberquest.Handlers.CollisionDetector;
+import de.tum.cit.ase.bomberquest.Handlers.MapLoader;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
@@ -26,9 +29,9 @@ public class GameMap {
     private static final float TIME_STEP = 1f / Gdx.graphics.getDisplayMode().refreshRate;
     private static final int VELOCITY_ITERATIONS = 6;
     private static final int POSITION_ITERATIONS = 2;
-    private final BomberQuestGame game; // Reference to the main game class
+    private final BomberQuestGame game;
     private final World world; // Box2D world for physics simulation
-    private final Player player; // The player character
+    private final Player player;
 
     private static List<Life> lives = new ArrayList<>();
     private final Flowers[][] flowers; // Decorative flowers

@@ -9,6 +9,17 @@ import de.tum.cit.ase.bomberquest.map.Tile;
 import de.tum.cit.ase.bomberquest.texture.Animations;
 import de.tum.cit.ase.bomberquest.texture.Drawable;
 
+/**
+ * Represents Bombs in the game.
+ * references:
+ * https://www.geeksforgeeks.org/multidimensional-arrays-in-java/
+ * https://www.gamedev.net/articles/programming/general-and-gameplay-programming/object-oriented-programming-in-games-r4918/
+ * http://www.java-gaming.org/index.php?topic=25627.0
+ * https://www.baeldung.com/java-2d-collision-detection
+ * https://youtu.be/oPzPpUcDiYY?si=B2uTKlQpznkGUNeo
+ * https://youtu.be/tcH6Mp03KC0?si=2T-MdwoduYQPPzMo
+ */
+
 public class Bomb implements Drawable {
 
     private Vector2 position;
@@ -44,6 +55,15 @@ public class Bomb implements Drawable {
     }
 
 
+    /**
+     * Triggers the bomb explosion and handles its effects.
+     * Reduces the player's bomb count and marks the bomb as exploded.
+     * Damages the player if they are within the explosion radius and unprotected.
+     * Kills enemies within the explosion radius, provided there are no blocking walls.
+     * Handles the explosion effect on nearby tiles, such as breaking destructible walls.
+     */
+
+
     public void explode(GameMap map) {
         if (getMaxBombs() == 0) {
             Player.outOfBombs();
@@ -61,7 +81,7 @@ public class Bomb implements Drawable {
 
         Player player = map.getPlayer();
 
-        // Always handle tile explosions regardless of enemies
+
         tileExplosion(map, centerX, centerY);
 
         if (player != null && player.isAlive()) {
@@ -71,7 +91,7 @@ public class Bomb implements Drawable {
             // Check if player is in direct line and explosion is not blocked by unbreakable tile
             if ((playerX == centerX && Math.abs(playerY - centerY) <= EXPLOSION_RADIUS) ||
                     (playerY == centerY && Math.abs(playerX - centerX) <= EXPLOSION_RADIUS)) {
-                // Additional check to ensure no unbreakable tile between bomb and player
+                // ensure no unbreakable tile between bomb and player
                 if (!isExplosionBlockedByWall(map, centerX, centerY, playerX, playerY)) {
                     player.PlayerDied(); // Kill the player
                     System.out.println("Player killed by the bomb at (" + playerX + ", " + playerY + ")");
@@ -99,6 +119,13 @@ public class Bomb implements Drawable {
         }
     }
 
+    /**
+     * Checks if an explosion is blocked by an indestructible wall between the bomb and a target.
+     * Determines the direction of the target relative to the bomb's position.
+     * Iterates through tiles in the path between the bomb and the target to check for obstacles.
+     * Returns true if an indestructible wall is found, otherwise false.
+     */
+
     private boolean isExplosionBlockedByWall(GameMap map, int bombX, int bombY, int targetX, int targetY) {
         // Determine direction
         int dx = Integer.compare(targetX, bombX);
@@ -117,6 +144,13 @@ public class Bomb implements Drawable {
         }
         return false; // No blocking wall found
     }
+
+    /**
+     * Handles the explosion effect on tiles within the explosion radius.
+     * Explodes breakable tiles in all four cardinal directions (up, down, left, right).
+     * Stops the explosion in a direction if an indestructible wall is encountered.
+     * Skips processing if a tile is null (out of bounds).
+     */
 
     private void tileExplosion(GameMap map, int centerX, int centerY) {
         int[][] directions = {

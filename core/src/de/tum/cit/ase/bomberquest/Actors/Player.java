@@ -19,8 +19,15 @@ import java.util.ArrayList;
 /**
  * Represents the player character in the game.
  * The player has a hitbox, so it can collide with other objects in the game.
- * //https://libgdx.com/wiki/extensions/physics/box2d
+ *References :
+ *  //https://libgdx.com/wiki/extensions/physics/box2d
+ * //How to make player animation -
+ *                 https://youtu.be/wT9uNGzMEM4?si=tRsIRh2HgRJDn5TP
+ *                 https://youtu.be/knF6o8nYAMM?si=Uf9UvebvHLt6I1TQ
+ *                 https://youtu.be/55ue9eeZzg4?si=q5pZ2H-4egAdgDYU
+ *                 https://youtu.be/1fJrhgc0RRw?si=_GQxn0Wh78Xr_LWr
  */
+
 public class Player implements Drawable {
 
     /** Total time elapsed since the game started. We use this for calculating the player movement and animating it. */

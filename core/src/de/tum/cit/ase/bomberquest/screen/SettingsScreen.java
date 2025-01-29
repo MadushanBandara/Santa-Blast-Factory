@@ -15,6 +15,11 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import de.tum.cit.ase.bomberquest.BomberQuestGame;
 import de.tum.cit.ase.bomberquest.audio.MusicTrack;
 
+/**
+ * The SettingScreen class is responsible for displaying the game settings.
+ * It extends the LibGDX Screen class.
+ */
+
 public class SettingsScreen implements Screen {
 
     private final Stage stage;

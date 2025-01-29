@@ -1,10 +1,11 @@
-package de.tum.cit.ase.bomberquest.map;
+package de.tum.cit.ase.bomberquest.Handlers;
 
 import com.badlogic.gdx.physics.box2d.*;
 import de.tum.cit.ase.bomberquest.Actors.Enemy;
 import de.tum.cit.ase.bomberquest.Actors.Player;
 import de.tum.cit.ase.bomberquest.Actors.Santa;
-
+import de.tum.cit.ase.bomberquest.map.GameMap;
+import de.tum.cit.ase.bomberquest.map.Tile;
 
 
 //https://stackoverflow.com/questions/7447811/clean-way-to-detect-collision-of-object-with-box2d?rq=3

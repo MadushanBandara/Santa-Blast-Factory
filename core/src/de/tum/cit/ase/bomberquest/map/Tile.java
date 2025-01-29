@@ -19,6 +19,12 @@ import static de.tum.cit.ase.bomberquest.texture.Textures.*;
  * Represents a single tile on the game map.
  * this class was made as to represent the map in tiles
  * all the powerups and exit and other textures are randomly assigned when destructible tiles are destroyed by bombs
+ * References:
+ * //how to draw tiles render tiles -
+ *                          https://youtu.be/P8jgD-V5jG8?si=nBR4FuMQePpjYWKA
+ *                          https://youtu.be/ugzxCcpoSdE?si=tVYNvA6aynRW8OD1
+ *                          https://youtu.be/oPzPpUcDiYY?si=B2uTKlQpznkGUNeo
+ *                          https://youtu.be/tcH6Mp03KC0?si=2T-MdwoduYQPPzMo
 #*/
 
 public class Tile implements Drawable {

@@ -21,6 +21,16 @@ import de.tum.cit.ase.bomberquest.Actors.Bomb;
 import de.tum.cit.ase.bomberquest.Actors.Santa;
 import de.tum.cit.ase.bomberquest.map.GameMap;
 
+
+/**
+ * The GameScreen class is responsible for displaying the game world.
+ * It extends the LibGDX Screen class.
+ *References :
+ * //What is the viewport, OrthographicCamera and how to make them -
+ *                 // https://youtu.be/D7u5B2Oh9r0?si=H8W3HqvyOCpEvp9e
+ */
+
+
 public class GameScreen implements Screen {
 
     public static final int TILE_SIZE_PX = 16; // Size of a grid cell in pixels

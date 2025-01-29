@@ -18,8 +18,11 @@ import de.tum.cit.ase.bomberquest.audio.MusicTrack;
 
 
 /**
- * The MenuScreen class is responsible for displaying the main menu of the game.
- * It extends the LibGDX Screen class and sets up the UI components for the menu.
+ * The GameOverScreen class is responsible for displaying the Game over screen of the game.
+ * It extends the LibGDX Screen class.
+ * References:
+ *      https://youtu.be/4-gszU1UNCA?si=qhjGwFRzYT2jH_ZB
+ *      https://youtu.be/4-gszU1UNCA?si=BmVlb_4MFPo0W276
  */
 public class GameOverScreen implements Screen {
 
