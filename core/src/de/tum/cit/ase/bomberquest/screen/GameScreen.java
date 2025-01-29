@@ -49,7 +49,7 @@ public class GameScreen implements Screen {
         this.game = game;
         this.spriteBatch = game.getSpriteBatch();
 
-        // Initialize game map
+        // Initialize game map; we have 4 map files and map selection is randomized
         int mapselection = MathUtils.random(1,4);
         this.map = new GameMap(game, "maps/map-"+mapselection+".properties");
         System.out.println("the generated map is number"+mapselection);
@@ -178,8 +178,7 @@ public class GameScreen implements Screen {
 
 
     }
-
-
+    //render life counter as hearts on the map
     public static void renderLifeCounter(SpriteBatch spriteBatch){
         // Render hearts from GameMap
         for (Life life : GameMap.getLives())
@@ -187,18 +186,26 @@ public class GameScreen implements Screen {
     }
     private void renderMap() {
 
+        //initialize flowers (as background for all other tiles and decoration, no other functionality
         for (Flowers flowers : map.getFlowers()) {
             draw(spriteBatch, flowers);
         }
+        //render map tiles
         renderTiles(spriteBatch);
+        //render enemies
         for (Enemy enemy : map.getEnemies()) {
             draw(spriteBatch, enemy);
         }
+        //update on Game Status
         GameStatus.GameWon();
         GameStatus.GameOver();
+        //Player
         draw(spriteBatch, map.getPlayer());
+        //santa
         renderSanta(spriteBatch);
+        //Bombs
         renderBombs();
+        //life counter
         renderLifeCounter(spriteBatch);
 
     }
@@ -223,6 +230,7 @@ public class GameScreen implements Screen {
         }
     }
 
+    //Save Game for continue button functionality
     public void saveGame(){
         game.setSavedState(this);
         game.setPause(true);

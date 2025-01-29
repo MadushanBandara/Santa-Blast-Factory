@@ -105,10 +105,6 @@ public class Hud {
         table.add(Scoretr).expandX().left();
         table.add(concurrentBombLabel).expandX().padBottom(0).left();
         table.add(concurrentBombValueLabel).expandX().left();
-
-
-
-
         stage.addActor(table);
     }
 

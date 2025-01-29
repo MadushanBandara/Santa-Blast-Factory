@@ -16,13 +16,12 @@ import java.util.ArrayList;
 import java.util.Random;
 
 
-import static java.lang.Math.min;
-
-
 /**
  * Represents the game map.
  * Combines player, map size, enemies, flowers, and indestructible walls functionality.
+ * https://libgdx.com/wiki/
  */
+
 public class GameMap {
 
     // Box2D physics simulation parameters
@@ -309,6 +308,8 @@ public class GameMap {
     }
 
     private final List<Runnable> deferredActions = new ArrayList<>();
+
+
 
     public void addDeferredAction(Runnable action) {
         deferredActions.add(action);
