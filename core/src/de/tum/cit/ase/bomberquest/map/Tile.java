@@ -55,7 +55,44 @@ public class Tile implements Drawable {
     private static int powerblast=0;
     private static int powerconcurrent=0;
 
+    private Body createHitbox(World world) {
+        // BodyDef is like a blueprint for the movement properties of the body.
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.StaticBody; // Static bodies for tiles
+        bodyDef.position.set(this.x, this.y); // Set the initial position of the body
 
+        // Create the body in the world using the body definition
+        Body body = world.createBody(bodyDef);
+
+        // Create a polygon shape for the tile
+        PolygonShape box = new PolygonShape();
+        box.setAsBox(0.5f, 0.5f); // Half the width/height of a tile
+
+        // Create the fixture definition
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = box;
+        fixtureDef.density = 1.0f; // Adjust as needed
+
+        // sensor based on tile type
+        if (tileType == 1 || tileType == 0) {
+            // Non-traversable
+            fixtureDef.isSensor = false;
+        } else
+        {
+            // Traversable
+            fixtureDef.isSensor = true;
+        }
+
+        // Attach the fixture to the body
+        body.createFixture(fixtureDef);
+
+        // Clean up the shape object
+        box.dispose();
+
+        // Set the body’s UserData to the tile for collision handling
+        body.setUserData(this);
+        return body;
+    }
     public Tile(World world,float x, float y, int tileType) {
         this.x = x;
         this.y = y;
@@ -176,9 +213,10 @@ public class Tile implements Drawable {
                 if (player.getLifeCounter() < 3) { // Only increase if below the max
                     player.setLifeCounter(player.getLifeCounter() + 1);
                     GameMap.updateLifeCounter();
+                    MusicTrack.COLLECTING.play(false);
                 }
 
-                MusicTrack.COLLECTING.play(false);
+
                 System.out.println("Player gained an extra life!");
             } else if (currentAppearance.equals(Textures.EXIT)) {
                 setTileType(EXIT);// Remove EXIT from surprise list so it is not selected again
@@ -187,18 +225,18 @@ public class Tile implements Drawable {
             } else if (currentAppearance.equals(Textures.BLASTRADIUSPLUS)) {
                 if (Bomb.getExplosionRadius() < 8) { // Only increase if below the max
                     Bomb.setExplosionRadius(Bomb.getExplosionRadius() + 1);
+                    MusicTrack.COLLECTING.play(false);
                     System.out.println("Explosion radius increased!");
                 }
 
-                MusicTrack.COLLECTING.play(false);
-                System.out.println("Explosion radius increased!");
 
             } else if (currentAppearance.equals(Textures.RUN)) {
                 if (player.getSpeed() < 7) {
-                    player.setSpeed(player.getSpeed() + 2);
+                    player.setSpeed(player.getSpeed() + 1);
+                    MusicTrack.COLLECTING.play(false);
                 }
 
-                MusicTrack.COLLECTING.play(false);
+
                 System.out.println("Player speed increased!");
 
 
@@ -220,44 +258,7 @@ public class Tile implements Drawable {
         }
     }
 
-    private Body createHitbox(World world) {
-        // BodyDef is like a blueprint for the movement properties of the body.
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.StaticBody; // Static bodies for tiles
-        bodyDef.position.set(this.x, this.y); // Set the initial position of the body
 
-        // Create the body in the world using the body definition
-        Body body = world.createBody(bodyDef);
-
-        // Create a polygon shape for the tile
-        PolygonShape box = new PolygonShape();
-        box.setAsBox(0.5f, 0.5f); // Half the width/height of a tile
-
-        // Create the fixture definition
-        FixtureDef fixtureDef = new FixtureDef();
-        fixtureDef.shape = box;
-        fixtureDef.density = 1.0f; // Adjust as needed
-
-        // sensor based on tile type
-        if (tileType == 1 || tileType == 0) {
-            // Non-traversable
-            fixtureDef.isSensor = false;
-        } else
-        {
-            // Traversable
-            fixtureDef.isSensor = true;
-        }
-
-        // Attach the fixture to the body
-        body.createFixture(fixtureDef);
-
-        // Clean up the shape object
-        box.dispose();
-
-        // Set the body’s UserData to the tile for collision handling
-        body.setUserData(this);
-        return body;
-    }
 
 
     public boolean isBreakable() {
