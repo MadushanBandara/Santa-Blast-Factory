@@ -20,8 +20,10 @@ import de.tum.cit.ase.bomberquest.BomberQuestGame;
 import de.tum.cit.ase.bomberquest.audio.MusicTrack;
 
 /**
+ *
  * The MenuScreen class is responsible for displaying the main menu of the game.
  * It extends the LibGDX Screen class and sets up the UI components for the menu.
+   https://www.udemy.com/course/game-dev-kickstart/?couponCode=ST16MT28125CROW
  */
 public class MenuScreen implements Screen {
 

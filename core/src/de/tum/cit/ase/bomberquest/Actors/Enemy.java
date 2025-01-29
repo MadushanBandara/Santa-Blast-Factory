@@ -78,8 +78,22 @@ public class Enemy implements Drawable{
         do {
             newDirection = randomDirection(); // Generate a random direction
         } while (newDirection == getCurrentDirection()); // ensure it is different from current enemy direction
-
         setCurrentDirection(newDirection); // Set the new direction
+        // Apply velocity change immediately
+        switch (newDirection) {
+            case UP:
+                hitbox.setLinearVelocity(0, 1f);
+                break;
+            case DOWN:
+                hitbox.setLinearVelocity(0, -1f);
+                break;
+            case LEFT:
+                hitbox.setLinearVelocity(-1f, 0);
+                break;
+            case RIGHT:
+                hitbox.setLinearVelocity(1f, 0);
+                break;
+        }
     }
 
 
@@ -123,16 +137,16 @@ public class Enemy implements Drawable{
         // Set velocity based on current direction
         switch (currentDirection) {
             case UP:
-                hitbox.setLinearVelocity(0, 1); // Move up
+                hitbox.setLinearVelocity(0, 1f); // Move up
                 break;
             case DOWN:
-                hitbox.setLinearVelocity(0, -1); // Move down
+                hitbox.setLinearVelocity(0, -1f); // Move down
                 break;
             case LEFT:
-                hitbox.setLinearVelocity(-1, 0); // Move left
+                hitbox.setLinearVelocity(-1f, 0); // Move left
                 break;
             case RIGHT:
-                hitbox.setLinearVelocity(1, 0); // Move right
+                hitbox.setLinearVelocity(1f, 0); // Move right
                 break;
         }
 
@@ -152,7 +166,6 @@ public class Enemy implements Drawable{
         else
             MusicTrack.COLLECTING.play(false);
             return Animations.ENEMY_DEATH.getKeyFrame(this.elapsedTime, true);
-
         }
 
     public void killEnemy(){
@@ -160,7 +173,6 @@ public class Enemy implements Drawable{
         this.elapsedTime = 0;
         countEnemies--;
         Player.setTrackScore(Player.getTrackScore()+5);
-
         GameMap.setEnemiesGenerated(GameMap.getEnemiesGenerated() - 1);
     }
 
@@ -168,11 +180,6 @@ public class Enemy implements Drawable{
         return isDead && Animations.ENEMY_DEATH.isAnimationFinished(elapsedTime);
     }
 
-
-
-    public void stopMovement() {
-        hitbox.setLinearVelocity(0, 0);// Stop any movement when no keys are pressed
-    }
     @Override
     public float getX() {
         // The x-coordinate of the player is the x-coordinate of the hitbox (this can change every frame).

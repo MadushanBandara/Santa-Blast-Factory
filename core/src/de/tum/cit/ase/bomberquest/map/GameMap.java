@@ -1,5 +1,4 @@
 package de.tum.cit.ase.bomberquest.map;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
@@ -8,11 +7,8 @@ import de.tum.cit.ase.bomberquest.Actors.Enemy;
 import de.tum.cit.ase.bomberquest.Actors.Player;
 import de.tum.cit.ase.bomberquest.Actors.Santa;
 import de.tum.cit.ase.bomberquest.BomberQuestGame;
-import de.tum.cit.ase.bomberquest.screen.Hud;
-
 import java.util.Arrays;
 import java.util.List;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -88,13 +84,12 @@ public class GameMap {
         }
     }
 
+    //update lives counter
     public static void updateLifeCounter() {
         int plives = Player.getLifeCounter();
-
         // Only update if life counter is more than 1
         if (plives < 1) {
-            System.out.println("Life counter is 1 or less; no update needed.");
-            return; // Exit the method early
+            return;
         }
 
         // Add lives if the player's life counter increases
@@ -112,8 +107,10 @@ public class GameMap {
 
     /**
      * Dynamically generates enemies with random positions.
+     * checks the available free tiles, and avoids spawn positions of Santa and Player,
+     * to spawn enemies only on free tiles
+     * number of generated enemies is randomly selected
      *
-     * @return
      */
    public int generateEnemies(List<Tile> tiles) {
         int countenemies=0;
@@ -142,6 +139,11 @@ public class GameMap {
         return countenemies;
     }
 
+    /**
+     * Removes dead enemies from the map after they are dead, it awaits end of death animation
+     * to destroy body from game world.
+     **/
+
     public void removeDeadEnemy(){
 
 
@@ -155,6 +157,10 @@ public class GameMap {
             }
         }
     }
+
+    /**
+     * add enemy relative to powerdown, that adds 3 more enemies on the map
+     **/
     public static void addEnemy() {
         map=GameMap.getMap();
         map.addDeferredAction(() -> { //3 selected positions that are always empty

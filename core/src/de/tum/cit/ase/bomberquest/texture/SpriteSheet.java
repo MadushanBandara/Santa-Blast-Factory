@@ -46,14 +46,6 @@ public enum SpriteSheet {
     HEART("objects.png",16,16),
     BOMBER("objects2.png",16,16),
 
-
-
-
-
-
-
-
-
     ;
 
     private final Texture spritesheet;
