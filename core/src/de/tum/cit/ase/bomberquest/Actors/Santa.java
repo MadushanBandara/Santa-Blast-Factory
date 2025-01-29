@@ -12,8 +12,11 @@ import de.tum.cit.ase.bomberquest.texture.Textures;
 
 import de.tum.cit.ase.bomberquest.screen.Hud;
 
+/**
+ * Represents Santa character in the game, who is entrapped and must be saved by player
+ * only because the game project began in christmas time, a theme was added
+ * /https://libgdx.com/wiki/extensions/physics/box2d*/
 
-//https://libgdx.com/wiki/extensions/physics/box2d
 
 
 
@@ -21,13 +24,12 @@ public class Santa implements Drawable {
 
     private final Body hitbox;
     private static boolean isSaved;
-    private boolean isAlive;
+
     private float elapsedTime;
     private float timer;
 
     public Santa(World world, float x, float y){
         this.hitbox = createHitbox(world, x, y);
-        this.isAlive = true;
         isSaved = false;
 
     }
@@ -58,10 +60,6 @@ public class Santa implements Drawable {
 
     @Override
     public TextureRegion getCurrentAppearance() {
-        if(!isAlive()){
-            MusicTrack.GAMEOVER.play(false);
-            return Textures.SANTA;
-        }
         if(isSaved()){
 
             return Animations.SANTAEXIT.getKeyFrame(getElapsedTime(), true);
@@ -86,9 +84,7 @@ public class Santa implements Drawable {
             return hitbox;
         }
 
-        public boolean isAlive() {
-            return isAlive;
-        }
+
 
         public static boolean isSaved() {
         return isSaved;}
@@ -97,9 +93,7 @@ public class Santa implements Drawable {
         isSaved = saved;
     }
 
-    public void setAlive(boolean alive) {
-        isAlive = alive;
-    }
+
 
     public void tick(float deltaTime) {
         elapsedTime += deltaTime; //
@@ -118,12 +112,13 @@ public class Santa implements Drawable {
         }
     }
 
+    //Method to save Santa
     public void SantaSaved(){
         isSaved=true;
         Hud.setWorldTimer(Hud.getWorldTimer()+50);//get Some Extra time when you save Santa
-        hitbox.setLinearVelocity(2f, 1f);
+        hitbox.setLinearVelocity(2f, 1f);//Santa will slowly slide out of the map
         MusicTrack.HOHOHO.play(false);
-        Player.setTrackScore(Player.getTrackScore()+10);
+        Player.setTrackScore(Player.getTrackScore()+10);//rewarded score
         System.out.println("Woohoo, you Saved Santa");
     }
 

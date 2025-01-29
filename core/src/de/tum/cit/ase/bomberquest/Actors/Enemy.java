@@ -16,7 +16,9 @@ import de.tum.cit.ase.bomberquest.texture.SpriteSheet;
 
 /**
  * Represents an enemy character in the game.
- */
+ * code Inspired from Source code* https://github.com/Gaspared/Bomberman/blob/main/src/game/Enemy.java
+ * /https://libgdx.com/wiki/extensions/physics/box2d*/
+
 public class Enemy implements Drawable{
 
     private float x, y; // Position in grid coordinates
@@ -81,16 +83,16 @@ public class Enemy implements Drawable{
         // Apply velocity change immediately
         switch (newDirection) {
             case UP:
-                hitbox.setLinearVelocity(0, 1f);
+                hitbox.setLinearVelocity(0.02f, 1f);
                 break;
             case DOWN:
-                hitbox.setLinearVelocity(0, -1f);
+                hitbox.setLinearVelocity(0.02f, -1f);
                 break;
             case LEFT:
-                hitbox.setLinearVelocity(-1f, 0);
+                hitbox.setLinearVelocity(-1f, 0.02f);
                 break;
             case RIGHT:
-                hitbox.setLinearVelocity(1f, 0);
+                hitbox.setLinearVelocity(1f, 0.02f);
                 break;
         }
     }
@@ -150,7 +152,7 @@ public class Enemy implements Drawable{
         }
 
         // Randomly change direction with probability
-        if (Math.random() < 0.001) {
+        if (Math.random() < 0.002) {
             changeDirection();
         }
     }
@@ -167,6 +169,7 @@ public class Enemy implements Drawable{
             return Animations.ENEMY_DEATH.getKeyFrame(this.elapsedTime, true);
         }
 
+        //enemy death logic
     public void killEnemy(){
         this.isDead=true;
         this.elapsedTime = 0;
@@ -175,6 +178,7 @@ public class Enemy implements Drawable{
         GameMap.setEnemiesGenerated(GameMap.getEnemiesGenerated() - 1);
     }
 
+    //check before enemy removal from the map
     public boolean isDeathAnimationFinished() {
         return isDead && Animations.ENEMY_DEATH.isAnimationFinished(elapsedTime);
     }
@@ -206,7 +210,6 @@ public class Enemy implements Drawable{
     }
 
 
-    /*code Inspired from Source code* https://github.com/Gaspared/Bomberman/blob/main/src/game/Enemy.java */
 
 }
 

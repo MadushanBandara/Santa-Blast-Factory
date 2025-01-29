@@ -65,34 +65,38 @@ public class Textures {
             case Tile.ENTRANCE:
                 return ENTRANCE;
             case Tile.SPECIAL:
-                return SPECIAL; // Replaced with tree as not needed
+                return SPECIAL; // Replaced with tree merely decorative
             case Tile.SPECIAL2:
-                return SNOWMAN; // Replaced with SNOWMAN as no longer needed
+                return SNOWMAN; // Replaced with SNOWMAN merely decorative
             default:
                 return DEFAULT; // Default texture for unknown tile types
         }
     }
 
+    //powerups and randoms that appear after the destructible tile is destroyed
     public static List<TextureRegion> randomSurprise = new ArrayList<>(List.of(
             LIFE, BLASTRADIUSPLUS, CONCURRENTBOMB, MOREENEMIES,EXIT, SPECIAL,BAK_TILE,DEFAULT,EXTRABOMBS,SNOWMAN, LESSBOMBS,
             BENCH,REINDEER,GIFT,LAMP,HOUSE,RUN
     ));
 
+    //random non-Powerups that will replace powerup tile after it is redeemed
     public static List<TextureRegion> randomNonPU = new ArrayList<>(List.of(
             SPECIAL,BAK_TILE,DEFAULT,SNOWMAN,
             BENCH,REINDEER,GIFT,LAMP,HOUSE
     ));
 
-    public static TextureRegion randomNonPU() {
-        return randomNonPU.get(random.nextInt(randomNonPU.size()));
-//
-    }
-
+    //returns random texture from list that will be assigned to the tile after it is destroyed
     public static TextureRegion RandomSurprise() {
         return randomSurprise.get(random.nextInt(randomSurprise.size()));
-//
     }
 
+    //returns random non powerup texture that will be assigned to the tile after powerup is redeemed
+    public static TextureRegion randomNonPU() {
+        return randomNonPU.get(random.nextInt(randomNonPU.size()));
+
+    }
+
+ //Powerups, exit and powerdowns that are removed from list of surprises after they are no longer needed
    public static void removeExit(){
         randomSurprise.remove(EXIT);
         System.out.println("Exit removed");
@@ -122,6 +126,8 @@ public class Textures {
         randomSurprise.remove(CONCURRENTBOMB);
     }
 
+
+    //for game reset purposes, add back if removed
     public static void addBackRemoved() {
 
         List<TextureRegion> requiredTextures = List.of(
