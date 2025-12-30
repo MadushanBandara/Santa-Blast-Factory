@@ -114,16 +114,32 @@ public class GameScreen implements Screen {
     }
 
     private void updateCamera(Player player) {
-        // Get the player's position in pixels
+
         float playerX = player.getX() * TILE_SIZE_PX * SCALE;
         float playerY = player.getY() * TILE_SIZE_PX * SCALE;
 
-        // Set the camera's position to center on the player
-        mapCamera.position.set(playerX, playerY, 0);
+        float halfViewportWidth = viewport.getWorldWidth() / 2f;
+        float halfViewportHeight = viewport.getWorldHeight() / 2f;
 
-        // Update the camera
+        float worldWidth = map.getWidth() * TILE_SIZE_PX * SCALE;
+        float worldHeight = map.getHeight() * TILE_SIZE_PX * SCALE;
+
+        float cameraX = MathUtils.clamp(
+                playerX,
+                halfViewportWidth,
+                worldWidth - halfViewportWidth
+        );
+
+        float cameraY = MathUtils.clamp(
+                playerY,
+                halfViewportHeight,
+                worldHeight - halfViewportHeight
+        );
+
+        mapCamera.position.set(cameraX, cameraY, 0);
         mapCamera.update();
     }
+
 
 
 
